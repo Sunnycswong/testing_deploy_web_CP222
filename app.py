@@ -99,9 +99,8 @@ def export_document():
     except Exception as e:
         logging.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": "Unexpected error occurred"}), 500
-    }
-    
-    return jsonify(response), 200
 
+if __name__ == '__main__':
+   app.run()
 if __name__ == '__main__':
    app.run()
