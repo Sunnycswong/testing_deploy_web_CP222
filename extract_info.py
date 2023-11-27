@@ -97,7 +97,7 @@ from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 import re
 
-
+# Setting credit
 index_name = "credit-proposal"
 search_service = "gptdemosearch"
 search_api_key = "PcAZcXbX2hJsxMYExc2SnkMFO0D94p7Zw3Qzeu5WjYAzSeDMuR5O"
@@ -108,11 +108,12 @@ connect_str = f"DefaultEndpointsProtocol=https;AccountName={storage_service};Acc
 doc_intell_endpoint = "https://doc-intelligence-test.cognitiveservices.azure.com/"
 doc_intell_key = "9fac3bb92b3c4ef292c20df9641c7374"
 
+
 # set up openai environment - Jay
-os.environ["OPENAI_API_TYPE"] = "azure"
-os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
-os.environ["OPENAI_API_VERSION"] = "2023-05-15"
-os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
+#os.environ["OPENAI_API_TYPE"] = "azure"
+#os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
+#os.environ["OPENAI_API_VERSION"] = "2023-05-15"
+#os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
 
 
 # set up openai environment - Ethan
@@ -120,6 +121,7 @@ os.environ["OPENAI_API_TYPE"] = "azure"
 os.environ["OPENAI_API_BASE"] = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
 os.environ["OPENAI_API_VERSION"] = "2023-05-15"
 os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
+
 
 # Setting up ACS -Jay
 #os.environ["AZURE_COGNITIVE_SEARCH_SERVICE_NAME"] = search_service
