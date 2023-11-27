@@ -97,6 +97,8 @@ from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 import re
 from io import BytesIO
+import datetime
+
 
 index_name = "credit-proposal"
 search_service = "gptdemosearch"
@@ -186,8 +188,11 @@ def create_docx(client_name, json_data):
             else:
                 # Normal text
                 run = paragraph.add_run(line)
-
-    blob_name = client_name + '_Word_proposal.docx'
+                
+    current_time = datetime.datetime.now()
+    time_string = current_time.strftime("%Y_%m_%d_%H_%M_%S_")
+    
+    blob_name = time_string + client_name + '_Word_proposal.docx'
     
     # Save the Word document to a BytesIO object
     document_bytes = BytesIO()
