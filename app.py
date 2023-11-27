@@ -76,16 +76,29 @@ def regen():
 
 @app.route('/export', methods=['POST'])
 def export_document():
-    data = request.get_json()
-    logging.info("API request param:", data)
-    client_name = data["client_name"]
-    consolidated_text = data["consolidated_text"]
-    blob_name, container_name, storage_service = export_doc.create_docx(client_name, consolidated_text)
+    try:
+        data = request.get_json()
+        if not data or "client_name" not in data or "consolidated_text" not in data:
+            return jsonify({"error": "Invalid request data"}), 400
+
+        logging.info("API request param:", data)
+        client_name = data["client_name"]
+        consolidated_text = data["consolidated_text"]
+        blob_name, container_name, storage_service = export_doc.create_docx(client_name, consolidated_text)
   
-    blob_url = f"https://{storage_service}.blob.core.windows.net/{container_name}/{blob_name}"
+        if not blob_name or not container_name or not storage_service:
+            return jsonify({"error": "Failed to create document"}), 500
+
+        blob_url = f"https://{storage_service}.blob.core.windows.net/{container_name}/{blob_name}"
         response = {
-        "message": "Document created successfully",
-        "redirect_url": blob_url
+            "message": "Document created successfully",
+            "redirect_url": blob_url
+        }
+    
+        return jsonify(response), 200
+    except Exception as e:
+        logging.error(f"Unexpected error: {str(e)}")
+        return jsonify({"error": "Unexpected error occurred"}), 500
     }
     
     return jsonify(response), 200
