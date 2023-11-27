@@ -108,15 +108,24 @@ connect_str = f"DefaultEndpointsProtocol=https;AccountName={storage_service};Acc
 doc_intell_endpoint = "https://doc-intelligence-test.cognitiveservices.azure.com/"
 doc_intell_key = "9fac3bb92b3c4ef292c20df9641c7374"
 
-# set up openai environment
+# set up openai environment - Jay
 os.environ["OPENAI_API_TYPE"] = "azure"
 os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
 os.environ["OPENAI_API_VERSION"] = "2023-05-15"
 os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
 
-os.environ["AZURE_COGNITIVE_SEARCH_SERVICE_NAME"] = search_service
-os.environ["AZURE_COGNITIVE_SEARCH_API_KEY"] = search_api_key
-os.environ["AZURE_INDEX_NAME"] = index_name
+
+# set up openai environment - Ethan
+os.environ["OPENAI_API_TYPE"] = "azure"
+os.environ["OPENAI_API_BASE"] = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
+os.environ["OPENAI_API_VERSION"] = "2023-05-15"
+os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
+
+# Setting up ACS -Jay
+#os.environ["AZURE_COGNITIVE_SEARCH_SERVICE_NAME"] = search_service
+#os.environ["AZURE_COGNITIVE_SEARCH_API_KEY"] = search_api_key
+#os.environ["AZURE_INDEX_NAME"] = index_name
+
 
 # Core LLM call funcition
 
