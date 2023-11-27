@@ -205,4 +205,4 @@ def create_docx(client_name, json_data):
     blob_client = container_client.get_blob_client(blob_name)
     blob_client.upload_blob(document_bytes)
     
-    return 
+    return blob_name, container_name, storage_service
