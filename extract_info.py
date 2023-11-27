@@ -110,17 +110,17 @@ doc_intell_key = "9fac3bb92b3c4ef292c20df9641c7374"
 
 
 # set up openai environment - Jay
-#os.environ["OPENAI_API_TYPE"] = "azure"
-#os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
-#os.environ["OPENAI_API_VERSION"] = "2023-05-15"
-#os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
+os.environ["OPENAI_API_TYPE"] = "azure"
+os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
+os.environ["OPENAI_API_VERSION"] = "2023-05-15"
+os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
 
 
 # set up openai environment - Ethan
-os.environ["OPENAI_API_TYPE"] = "azure"
-os.environ["OPENAI_API_BASE"] = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
-os.environ["OPENAI_API_VERSION"] = "2023-05-15"
-os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
+#os.environ["OPENAI_API_TYPE"] = "azure"
+#os.environ["OPENAI_API_BASE"] = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
+#os.environ["OPENAI_API_VERSION"] = "2023-05-15"
+#os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
 
 
 # Setting up ACS -Jay
@@ -180,13 +180,13 @@ def web_extract_RM(section, rm_note_txt):
 
     
     # set up openai environment - Jay
-    """llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")"""
+    llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
 
 
     # set up openai environment - Ethan
-    llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")
+    """llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
     
     #"example": dictionary["Example"],
 
@@ -323,12 +323,12 @@ def first_generate(section_name, input_json):
     prompt_template_proposal = first_gen_template()
 
     # set up openai environment - Jay
-    """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")"""
+    llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
 
     # set up openai environment - Ethan
-    llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")
+    """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
     
     chain = LLMChain(
         llm=llm_proposal,
@@ -388,13 +388,13 @@ def regen(section_name, previous_paragraph, rm_instruction):
     prompt_template_proposal = regen_template()
 
     # set up openai environment - Jay
-    """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")"""
+    llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
 
 
     # set up openai environment - Ethan
-    llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")
+    """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
     
     chain = LLMChain(
         llm=llm_proposal,
