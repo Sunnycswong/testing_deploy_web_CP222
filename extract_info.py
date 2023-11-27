@@ -178,9 +178,16 @@ def web_extract_RM(section, rm_note_txt):
     """
     rm_prompt_template = PromptTemplate(template=prompt_template_for_extracting_rm_note, input_variables=["rm_note", "question",])# "example",])
 
-    llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0.1,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
+    
+    # set up openai environment - Jay
+    """llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")"""
 
+
+    # set up openai environment - Ethan
+    llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")
+    
     #"example": dictionary["Example"],
 
     output_dict_list = []
