@@ -82,7 +82,8 @@ def export_document():
     consolidated_text = data["consolidated_text"]
     export_doc.create_docx(client_name, consolidated_text)
 
-    return 
+    return {"message": "Document created successfully"}, 200  # Return a JSON response
+
 
 
 if __name__ == '__main__':
