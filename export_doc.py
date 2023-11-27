@@ -190,9 +190,9 @@ def create_docx(client_name, json_data):
                 run = paragraph.add_run(line)
                 
     current_time = datetime.datetime.now()
-    time_string = current_time.strftime("%Y_%m_%d_%H_%M_%S_")
+    time_string = current_time.strftime("_%Y_%m_%d_%H_%M_%S")
     
-    blob_name = time_string + client_name + '_Word_proposal.docx'
+    blob_name = client_name + time_string + '_Word_proposal.docx'
     
     # Save the Word document to a BytesIO object
     document_bytes = BytesIO()
