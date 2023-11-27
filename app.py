@@ -75,7 +75,7 @@ def regen():
 # return the docx document 
 
 @app.route('/export', methods=['POST'])
-def export_doc():
+def export_document():
     data = request.get_json()
     logging.info("API request param:", data)
     client_name = data["client_name"]
