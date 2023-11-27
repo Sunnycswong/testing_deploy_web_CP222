@@ -1,7 +1,7 @@
 import os
 import json
 import flask
-
+from flask import redirect, send_file
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, jsonify)
 from flask_cors import CORS
@@ -80,11 +80,15 @@ def export_document():
     logging.info("API request param:", data)
     client_name = data["client_name"]
     consolidated_text = data["consolidated_text"]
-    export_doc.create_docx(client_name, consolidated_text)
-
-    return {"message": "Document created successfully"}, 200  # Return a JSON response
-
-
+    blob_name, container_name, storage_service = export_doc.create_docx(client_name, consolidated_text)
+  
+    blob_url = f"https://{storage_service}.blob.core.windows.net/{container_name}/{blob_name}"
+        response = {
+        "message": "Document created successfully",
+        "redirect_url": blob_url
+    }
+    
+    return jsonify(response), 200
 
 if __name__ == '__main__':
    app.run()
