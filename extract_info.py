@@ -315,8 +315,14 @@ def first_generate(section_name, input_json):
     
     prompt_template_proposal = first_gen_template()
 
+    # set up openai environment - Jay
+    """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")"""
+
+
+    # set up openai environment - Ethan
     llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")
     
     chain = LLMChain(
         llm=llm_proposal,
@@ -375,8 +381,14 @@ def run_first_gen(section, rm_note_txt):
 def regen(section_name, previous_paragraph, rm_instruction):
     prompt_template_proposal = regen_template()
 
+    # set up openai environment - Jay
+    """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")"""
+
+
+    # set up openai environment - Ethan
     llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")
     
     chain = LLMChain(
         llm=llm_proposal,
