@@ -204,5 +204,8 @@ def create_docx(client_name, json_data):
     container_client = blob_service_client.get_container_client(container_name)
     blob_client = container_client.get_blob_client(blob_name)
     blob_client.upload_blob(document_bytes)
+
+    # Make sure to reset the stream position again before returning
+    document_bytes.seek(0) 
     
-    return blob_name, container_name, storage_service
+    return blob_name, container_name, storage_service, document_bytes
