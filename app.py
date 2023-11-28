@@ -9,6 +9,7 @@ import logging
 from werkzeug.wsgi import wrap_file
 import export_doc
 import extract_info
+from werkzeug.datastructures import Headers
 
 
 app = Flask(__name__)
@@ -72,6 +73,7 @@ def regen():
     # Return the JSON response
     return jsonify(output_json)
 
+
 @app.route('/export', methods=['POST'])
 def export_document():
     try:
@@ -111,6 +113,7 @@ def export_document():
     except Exception as e:
         logging.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": "Unexpected error occurred"}), 500
+
 
 if __name__ == '__main__':
    app.run()
