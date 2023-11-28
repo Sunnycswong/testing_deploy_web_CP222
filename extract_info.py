@@ -451,7 +451,7 @@ def regen(section_name, previous_paragraph, rm_instruction):
     output_json = {
         "section": section_name,
         "output": drafted_text2,
-        "RM fill" : combined_text,
+        "RM_fill" : combined_text,
     }
     #output the result
     return output_json
