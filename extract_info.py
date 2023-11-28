@@ -217,11 +217,14 @@ def web_extract_RM(section, rm_note_txt):
 
 def first_gen_template():
     proposal_proposal_template_text = """
+        Take a deep breath and work on this step by step, read the below Rules carefully.
         Read the input json for this section carefully and aggregate the content of "Value" key:
 
         Please follow the format in content of "example" key to output the answer
         But please do not include any content in "example" key to output the answer, as it just use as reference
 
+        Please read the client name and based on it to generate the content.
+        {client_name}
 
         Read the input json for this section carefully and aggregate the content of "Value" key
         please based on the content in "Value" key to output the answer
@@ -253,7 +256,7 @@ def first_gen_template():
 
         Take a deep breath and work on this step by step.
         """
-    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_json"])
+    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_json", "client_name"])
 
 
     return prompt_template_proposal
@@ -306,7 +309,7 @@ def regen_template():
 
 
 # to first generate 
-def first_generate(section_name, input_json):
+def first_generate(section_name, input_json, client):
 
 
     """
@@ -342,7 +345,7 @@ def first_generate(section_name, input_json):
     )
 
     drafted_text = chain({"input_json": input_json
-                    ,})['text']
+                    ,"client_name": client, })['text']
     drafted_text2 = drafted_text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
     
     #All capital letters for first letter in sentences
@@ -385,10 +388,10 @@ def first_generate(section_name, input_json):
     #output the result
     return output_json
 
-def run_first_gen(section, rm_note_txt):
+def run_first_gen(section, rm_note_txt, client):
 
     extract_json = web_extract_RM(section ,rm_note_txt)
-    output_json = first_generate(section, extract_json)
+    output_json = first_generate(section, extract_json, client)
 
     return output_json
 
