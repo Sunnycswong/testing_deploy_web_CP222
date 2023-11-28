@@ -228,8 +228,10 @@ def first_gen_template():
         Input JSON:
         {input_json}
         
-        Then write paragraph(s) based on the above aggregrated context 
-
+        Then write paragraph(s) based on the above aggregrated context:
+        
+        Take a deep breath and work on this step by step, read the below Rules carefully.
+        
         Rules you need to follow:
         1. Don't mention the word "RM Note" and "Component", and don't mention you held a meeting with the client! Instead, you shall say "It is mentioned that"
         2. Don't mention the source of your input (i.e. RM Note (Keyword: rm_note), example, document)
@@ -242,13 +244,14 @@ def first_gen_template():
         9. The example (Keyword: proposal_example) above is just for your reference only to improve your theme, you must not directly copy the content in the examples
         10. If possible, you can use point-form, tables to provide your answer
         11. Don't introduce what this section includes
+        12. Please don't include sentence like "Please note that the above paragraphs are based on the aggregated content", no need to inform this note in the answer
 
         Guidance when you do not have the information:
         1. When you don't have the specific information or you need further information (Keyword: further_info), you have to write it in the following format: [RM please helps provide the further information of (Keyword: further_info)], where please supplement the information you need here.
         2. You must not create the information by yourself if you don't have relevant information
         3. You cannot say "It's unclear that", please refer to point 1 for the formatting for requesting further information
 
-        Take a deep breath and work on this step by step
+        Take a deep breath and work on this step by step.
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_json"])
 
@@ -271,8 +274,10 @@ def regen_template():
         {rm_instruction}
         ======================================
 
-        Then write paragraph(s) based on the above aggregrated context
+        Then write paragraph(s) based on the above aggregrated context:
 
+        Take a deep breath and work on this step by step, read the below Rules carefully.
+        
         Rules you need to follow:
         1. Don't mention the word "RM Note" and "Component", and don't mention you held a meeting with the client! Instead, you shall say "It is mentioned that"
         2. Don't mention the source of your input (i.e. RM Note (Keyword: rm_note), example, document)
@@ -285,6 +290,7 @@ def regen_template():
         9. The example (Keyword: proposal_example) above is just for your reference only to improve your theme, you must not directly copy the content in the examples
         10. If possible, you can use point-form, tables to provide your answer
         11. Don't introduce what this section includes
+        12. Please don't include notes like "Please note that the above paragraphs are based on the aggregated content", no need to inform notes in the answer
 
         Guidance when you do not have the information:
         1. When you don't have the specific information or you need further information (Keyword: further_info), you have to write it in the following format: [RM please helps provide the further information of (Keyword: further_info)], where please supplement the information you need here.
@@ -342,7 +348,9 @@ def first_generate(section_name, input_json):
     #All capital letters for first letter in sentences
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
     drafted_text2 = formatter.sub(cap, drafted_text2)
-
+    
+    # Capitalize the first character of the text
+    drafted_text2 = drafted_text2[0].capitalize() + drafted_text2[1:]
     
     rm_fill_values = []
     additional_info_values = []
@@ -408,6 +416,9 @@ def regen(section_name, previous_paragraph, rm_instruction):
     #All capital letters for first letter in sentences
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
     drafted_text2 = formatter.sub(cap, drafted_text2)
+
+    # Capitalize the first character of the text
+    drafted_text2 = drafted_text2[0].capitalize() + drafted_text2[1:]
 
     rm_fill_values = []
     additional_info_values = []
