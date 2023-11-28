@@ -49,11 +49,11 @@ def extract_rm_notes():
 
     data = request.get_json()
     logging.info("API request param:", data)
-    #client_name = data["client_name"]
+    # client meaning client name here
+    client = data["client"]
     section_name = data["section_name"]
-    # Client_name = Client_name + "_rm_note.json"
     rm_note_txt = data["rm_note_txt"]
-    output_json = extract_info.run_first_gen(section_name, rm_note_txt) 
+    output_json = extract_info.run_first_gen(section_name, rm_note_txt, client) 
 
     # Convert the JSON response to a JSON-serializable format    
     # Return the JSON response
@@ -114,5 +114,4 @@ def export_document():
 
 if __name__ == '__main__':
    app.run()
-if __name__ == '__main__':
-   app.run()
+
