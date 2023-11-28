@@ -10,7 +10,7 @@ from werkzeug.wsgi import wrap_file
 import export_doc
 import extract_info
 from werkzeug.datastructures import Headers
-
+from flask import Flask, Response, redirect, render_template, request, send_from_directory, url_for, jsonify
 
 app = Flask(__name__)
 cors = CORS(app)
