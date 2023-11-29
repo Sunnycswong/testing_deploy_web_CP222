@@ -243,7 +243,7 @@ def first_gen_template():
         **Input Information**
         {input_info}
 
-        If specific information is missing, follow this format: "[RM please help provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please help provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
 
         Take this task one step at a time and remember to breathe.
         """
@@ -274,7 +274,7 @@ def regen_template():
         5. Point-form or table format can be used to present your answer, but avoid introducing what the section includes.
         6. Do not include notes that the paragraphs are based on aggregated content.
 
-        If specific information is missing, use the following format: "[RM please provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
+        If specific information is missing, use the following format: "[RM Please provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
 
         Take this task one step at a time and remember to breathe.
         """
