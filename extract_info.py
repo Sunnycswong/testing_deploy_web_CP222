@@ -150,33 +150,37 @@ def load_json(json_path):
 '''
 
 #This funcition is to prepare the rm note in desired format for web, call by app.py
-def web_extract_RM(section, rm_note_txt):
-    hierarchy_file_name = "config/hierarchy_v2.json"
+def web_extract_RM(section, rm_note_txt, client):
+    hierarchy_file_name = "hierarchy_v2.json"
 
     hierarchy_dict_list = load_json(hierarchy_file_name)
 
     hierarchy_dict_list = hierarchy_dict_list["content"]
 
     prompt_template_for_extracting_rm_note = """
-    Read the following context, aggregate the context and answer the input question based on the aggregate context (Keyword: Question):
-    
-    Please Just based on the 
-    context: {rm_note}
+        For this task, you'll be generating a response based on given information. Please read the client name and the RM's notes, then answer the question provided.
 
-    ======
-    Question: {question}
-    ======
+        **Client Name**
+        {client_name}
 
-    Follow the instruction below:
-    1. Please provide your answer in English
-    2. Do not start your answer with "Based on the given information"
-    3. If possible, try to expand the information provided from the RM
-    4. Do not create any figures by make-up 
-    5. Please provide [N/A] as answer if you cannot find any relevant information from the given context. Example Format: [N/A]
+        **RM Notes**
+        {rm_note}
+
+        **Question**
+        {question}
+
+        While crafting your response, please observe these guidelines:
+
+        1. Provide your answer in English.
+        2. Expand on the information provided by the RM where possible.
+        3. Do not invent or exaggerate information. Stick to what's provided.
+        4. If no relevant information is available, respond with "[N/A]".
+        5. Do not include notes about the source of your information in your answer.
+
+        Remember, approach this task calmly and methodically.
+        """
     
-    Take a deep breath and work on this step by step
-    """
-    rm_prompt_template = PromptTemplate(template=prompt_template_for_extracting_rm_note, input_variables=["rm_note", "question",])# "example",])
+    rm_prompt_template = PromptTemplate(template=prompt_template_for_extracting_rm_note, input_variables=["rm_note", "question", "client_name"])# "example",])
 
     
     # set up openai environment - Jay
@@ -194,7 +198,7 @@ def web_extract_RM(section, rm_note_txt):
     for dictionary in hierarchy_dict_list:
         if dictionary["Section"] == section:
             chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template)
-            dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"]})['text']
+            dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client })['text']
             dictionary["Value"] = dictionary["Value"].replace("Based on the given information, ", "")
             if "[N/A]" in dictionary["Value"]:
                 dictionary["Value"] = ""
@@ -217,46 +221,33 @@ def web_extract_RM(section, rm_note_txt):
 
 def first_gen_template():
     proposal_proposal_template_text = """
-        Take a deep breath and work on this step by step, read the below Rules carefully.
-        Read the input json for this section carefully and aggregate the content of "Value" key:
+        Carefully consider the following guidelines while working on this task:
 
-        Please follow the format in content of "example" key to output the answer
-        But please do not include any content in "example" key to output the answer, as it just use as reference
+        **Note: Write as comprehensively as necessary to fully address the task. There is no maximum length.**
 
-        Please read the client name and based on it to generate the content.
+        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
+        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
+        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
+        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
+        5. Don't include line breaks within sentences in the same paragraph.
+        6. Start your paragraph directly without a heading.
+        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
+        8. Avoid phrases like "Based on the input json" or "it is mentioned".
+
+        **Client Name**
         {client_name}
 
-        Read the input json for this section carefully and aggregate the content of "Value" key
-        please based on the content in "Value" key to output the answer
-        Input JSON:
-        {input_json}
-        
-        Then write paragraph(s) based on the above aggregrated context:
-        
-        Take a deep breath and work on this step by step, read the below Rules carefully.
-        
-        Rules you need to follow:
-        1. Don't mention the word "RM Note" and "Component", and don't mention you held a meeting with the client! Instead, you shall say "It is mentioned that"
-        2. Don't mention the source of your input (i.e. RM Note (Keyword: rm_note), example, document)
-        3. Don't justify your answers
-        4. Don't provide suggestion or recommendation by yourself
-        5. Provide your answer in English
-        6. Breake it to multi-paragraphs if one single paragraph consists of more than 100 words
-        7. In the same paragraph, don't input line breaks among the sentences
-        8. Don't start with your answer by a title. You must start your paragraph immediately
-        9. The example (Keyword: proposal_example) above is just for your reference only to improve your theme, you must not directly copy the content in the examples
-        10. If possible, you can use point-form, tables to provide your answer
-        11. Don't introduce what this section includes
-        12. Please don't include sentence like "Please note that the above paragraphs are based on the aggregated content", no need to inform this note in the answer
+        **Example for Reference**
+        {example}
 
-        Guidance when you do not have the information:
-        1. When you don't have the specific information or you need further information (Keyword: further_info), you have to write it in the following format: [RM please helps provide the further information of (Keyword: further_info)], where please supplement the information you need here.
-        2. You must not create the information by yourself if you don't have relevant information
-        3. You cannot say "It's unclear that", please refer to point 1 for the formatting for requesting further information
+        **Input Information**
+        {input_info}
 
-        Take a deep breath and work on this step by step.
+        If specific information is missing, follow this format: "[RM please help provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
+
+        Take this task one step at a time and remember to breathe.
         """
-    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_json", "client_name"])
+    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
 
 
     return prompt_template_proposal
@@ -264,43 +255,28 @@ def first_gen_template():
 
 def regen_template():
     proposal_proposal_template_text = """
-        Read the previous_paragraph, RM instruction for this section carefully:
-        
-        Please follow the previous paragraph and RM instruction and return a summarize paragraph in human readable form:
+        To complete this task, carefully consider the previous paragraph and the RM's instructions. Your task is to edit and summarize the previous paragraph according to the instructions provided.
+
+        **Note: Write as comprehensively as necessary to fully address the task. There is no maximum length.**
+
+        **Previous Paragraph**
         {previous_paragraph}
 
-        ======================================
-
-        Please follow the RM instruction to edit the previous_paragraph and return a summarize paragraph in human readable form:
-        You could treat the RM instruction as prompt.
-        RM instruction:
+        **RM Instructions**
         {rm_instruction}
-        ======================================
 
-        Then write paragraph(s) based on the above aggregrated context:
+        When crafting your response, adhere to the following guidelines:
 
-        Take a deep breath and work on this step by step, read the below Rules carefully.
-        
-        Rules you need to follow:
-        1. Don't mention the word "RM Note" and "Component", and don't mention you held a meeting with the client! Instead, you shall say "It is mentioned that"
-        2. Don't mention the source of your input (i.e. RM Note (Keyword: rm_note), example, document)
-        3. Don't justify your answers
-        4. Don't provide suggestion or recommendation by yourself
-        5. Provide your answer in English
-        6. Breake it to multi-paragraphs if one single paragraph consists of more than 100 words
-        7. In the same paragraph, don't input line breaks among the sentences
-        8. Don't start with your answer by a title. You must start your paragraph immediately
-        9. The example (Keyword: proposal_example) above is just for your reference only to improve your theme, you must not directly copy the content in the examples
-        10. If possible, you can use point-form, tables to provide your answer
-        11. Don't introduce what this section includes
-        12. Please don't include notes like "Please note that the above paragraphs are based on the aggregated content", no need to inform notes in the answer
+        1. Frame your information as "It is mentioned that", avoiding words like "RM Note", "Component", or any references to meetings with the client.
+        2. Do not reference the source of your input or justify your answers.
+        3. Provide your answer in English, breaking it into multiple paragraphs if it exceeds 100 words.
+        4. Avoid line breaks within sentences in the same paragraph and starting your paragraph with a title.
+        5. Point-form or table format can be used to present your answer, but avoid introducing what the section includes.
+        6. Do not include notes that the paragraphs are based on aggregated content.
 
-        Guidance when you do not have the information:
-        1. When you don't have the specific information or you need further information (Keyword: further_info), you have to write it in the following format: [RM please helps provide the further information of (Keyword: further_info)], where please supplement the information you need here.
-        2. You must not create the information by yourself if you don't have relevant information
-        3. You cannot say "It's unclear that", please refer to point 1 for the formatting for requesting further information
+        If specific information is missing, use the following format: "[RM please provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
 
-        Take a deep breath and work on this step by step
+        Take this task one step at a time and remember to breathe.
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["previous_paragraph", "rm_instruction"])
 
@@ -344,34 +320,48 @@ def first_generate(section_name, input_json, client):
         prompt=prompt_template_proposal
     )
 
-    drafted_text = chain({"input_json": input_json
-                    ,"client_name": client, })['text']
+    # Break the input_json by parts
+    input_info_str = []
+    example_str = []
+
+    for item in input_json:
+        sub_section = item['Sub-section']
+        value = item['Value']
+        example = item['Example']
+        input_info_str.append(f"{sub_section} : {value}")
+        example_str.append(f"{sub_section} : {example}")
+
+    final_dict = {"input_info": ", ".join(input_info_str), "Example": ", ".join(example_str)}
+
+    drafted_text = chain({"input_info": final_dict["input_info"], "client_name": client, "example": final_dict["Example"]})['text']
     drafted_text2 = drafted_text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
-    
-    #All capital letters for first letter in sentences
+
+    # All capital letters for first letter in sentences
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
-    drafted_text2 = formatter.sub(cap, drafted_text2)
-    
+    drafted_text2 = formatter.sub(lambda m: m.group().capitalize(), drafted_text2)
+
     # Capitalize the first character of the text
     drafted_text2 = drafted_text2[0].capitalize() + drafted_text2[1:]
-    
+
     rm_fill_values = []
     additional_info_values = []
     lines = drafted_text2.split("\n")
-    for line in lines:
+    for i, line in enumerate(lines):
         match = re.search(r"\[RM .+?\]", line)
         if match:
             rm_fill = match.group(0)
             # Remove the '[RM ' at the start and ']' at the end, then append
-            rm_fill = rm_fill.replace('[RM ', '', 1)
-            rm_fill = rm_fill[:-1] # remove the closing bracket
+            rm_fill = rm_fill[4:-1]
             rm_fill_values.append(rm_fill)
-            line = line.replace(rm_fill, "")
-                
+            lines[i] = line.replace(match.group(0), "")  # remove the RM request from the line
+
         # Check for "Please provide further information" in the line
         if "Please provide further information" in line:
             # Append the whole line
             additional_info_values.append(line)
+
+    # Rejoin the lines into a single string without RM requests
+    drafted_text2 = "\n".join(lines)
 
     # Join all the strings in the list with a space in between each string
     rm_fill_text = ' '.join(rm_fill_values)
@@ -385,14 +375,8 @@ def first_generate(section_name, input_json, client):
         "output": drafted_text2,
         "RM_fill" : combined_text,
     }
+
     #output the result
-    return output_json
-
-def run_first_gen(section, rm_note_txt, client):
-
-    extract_json = web_extract_RM(section ,rm_note_txt)
-    output_json = first_generate(section, extract_json, client)
-
     return output_json
 
 def regen(section_name, previous_paragraph, rm_instruction):
@@ -412,34 +396,36 @@ def regen(section_name, previous_paragraph, rm_instruction):
         prompt=prompt_template_proposal
     )
 
-    drafted_text = chain({"previous_paragraph": previous_paragraph
-                    ,"rm_instruction":rm_instruction})['text']
+    drafted_text = chain({"previous_paragraph": previous_paragraph, "rm_instruction":rm_instruction})['text']
     drafted_text2 = drafted_text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
-    
+
     #All capital letters for first letter in sentences
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
-    drafted_text2 = formatter.sub(cap, drafted_text2)
+    drafted_text2 = formatter.sub(lambda m: m.group().capitalize(), drafted_text2)
 
     # Capitalize the first character of the text
     drafted_text2 = drafted_text2[0].capitalize() + drafted_text2[1:]
 
     rm_fill_values = []
     additional_info_values = []
+
     lines = drafted_text2.split("\n")
-    for line in lines:
+    for i, line in enumerate(lines):
         match = re.search(r"\[RM .+?\]", line)
         if match:
             rm_fill = match.group(0)
             # Remove the '[RM ' at the start and ']' at the end, then append
-            rm_fill = rm_fill.replace('[RM ', '', 1)
-            rm_fill = rm_fill[:-1] # remove the closing bracket
+            rm_fill = rm_fill[4:-1]
             rm_fill_values.append(rm_fill)
-            line = line.replace(rm_fill, "")
-                
+            lines[i] = line.replace(match.group(0), "")  # remove the RM request from the line
+                    
         # Check for "Please provide further information" in the line
         if "Please provide further information" in line:
             # Append the whole line
             additional_info_values.append(line)
+
+    # Rejoin the lines into a single string without RM requests
+    drafted_text2 = "\n".join(lines)
 
     # Join all the strings in the list with a space in between each string
     rm_fill_text = ' '.join(rm_fill_values)
@@ -453,5 +439,16 @@ def regen(section_name, previous_paragraph, rm_instruction):
         "output": drafted_text2,
         "RM_fill" : combined_text,
     }
+
     #output the result
     return output_json
+
+
+# Wrapper function
+def run_first_gen(section, rm_note_txt, client):
+
+    extract_json = web_extract_RM(section ,rm_note_txt, client)
+    output_json = first_generate(section, extract_json, client)
+
+    return output_json
+
