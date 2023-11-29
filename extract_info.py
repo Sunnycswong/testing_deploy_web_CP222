@@ -134,7 +134,7 @@ os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
 def cap(match):
     return(match.group().capitalize())
 
-
+# load json data function
 def load_json(json_path):
     with open(json_path, "r" ,encoding="utf-8") as f:
         data = json.load(f)
@@ -451,4 +451,6 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client)
 
     return output_json
+
+
 
