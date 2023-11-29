@@ -89,27 +89,16 @@ def export_document():
         if not blob_name or not container_name or not storage_service or not document_bytes:
             return jsonify({"error": "Failed to create document"}), 500
 
-        blob_url = f"https://{storage_service}.blob.core.windows.net/{container_name}/{blob_name}"
-        response_json = {
-            "message": "Document created successfully",
-            "redirect_url": blob_url
-        }
+        # Convert BytesIO to a file-like object
+        document_bytes.seek(0)
+        file_like_object = io.BytesIO(document_bytes.read())
 
-        # Prepare the document part of the response
-        document_part = wrap_file(request.environ, document_bytes)
-        document_headers = Headers()
-        document_headers.add('Content-Disposition', 'attachment', filename=blob_name)
-        document_headers.add('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-
-        # Prepare the JSON part of the response
-        json_part = Response(json.dumps(response_json), mimetype='application/json')
-
-        # Create a multipart response
-        response = Response(mimetype='multipart/mixed')
-        response.response = [document_part, json_part]
-        response.headers = document_headers
-
-        return response
+        return send_file(
+            file_like_object,
+            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            as_attachment=True,
+            attachment_filename=blob_name
+        )
     except Exception as e:
         logging.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": "Unexpected error occurred"}), 500
