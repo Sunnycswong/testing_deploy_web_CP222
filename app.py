@@ -103,7 +103,6 @@ def export_document():
         logging.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": "Unexpected error occurred"}), 500
 
-
 if __name__ == '__main__':
    app.run()
 
