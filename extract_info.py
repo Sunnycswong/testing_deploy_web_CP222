@@ -236,6 +236,40 @@ def first_gen_template():
 
         **Client Name**
         {client_name}
+    
+        **Example for Reference**
+        {example}
+    
+        **Input Information**
+        {input_info}
+
+
+        If specific information is missing, follow this format: "[RM Please help provide further information on Keyword: further_info]". Do not invent information or state that something is unclear. 
+        Make assumptions where necessary, but do not mention any lack of specific information in the output.
+        Take this task one step at a time and remember to breathe.
+        """
+    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
+
+
+    return prompt_template_proposal
+
+def final_section_template():
+    proposal_proposal_template_text = """
+        Carefully consider the following guidelines while working on this task:
+
+        **Note: Write as comprehensively as necessary to fully address the task. There is no maximum length.**
+
+        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
+        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
+        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
+        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
+        5. Don't include line breaks within sentences in the same paragraph.
+        6. Start your paragraph directly without a heading.
+        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
+        8. Avoid phrases like "Based on the input json" or "it is mentioned".
+
+        **Client Name**
+        {client_name}
 
         **Example for Reference**
         {example}
@@ -243,8 +277,14 @@ def first_gen_template():
         **Input Information**
         {input_info}
 
-        If specific information is missing, follow this format: "[RM Please help provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
-
+        **Summary of Recommendation**
+        Start your recommendation with this line: 'In the view of the above, we recommend the proposed loan facility for management approval.' 
+        Please provide a concise, pointed summary of the recommendation based on the above information. 
+        This should be a brief, 200-word summary in point form. Skip any initial discussions, and start with the final recommendations immediately.         
+        Conclude the recommendation with a statement about the proposed loan facility.
+        
+        If specific information is missing, follow this format: "[RM Please help provide further information on Keyword: further_info]". Do not invent information or state that something is unclear. 
+        Make assumptions where necessary, but do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -274,7 +314,7 @@ def regen_template():
         5. Point-form or table format can be used to present your answer, but avoid introducing what the section includes.
         6. Do not include notes that the paragraphs are based on aggregated content.
 
-        If specific information is missing, use the following format: "[RM Please provide further information on (Keyword: further_info)]". Do not invent information or state that something is unclear. 
+        If specific information is missing, use the following format: "[RM Please provide further information on Keyword: further_info]". Do not invent information or state that something is unclear. 
 
         Take this task one step at a time and remember to breathe.
         """
@@ -304,8 +344,10 @@ def first_generate(section_name, input_json, client):
 
     """
     #.format(content=content, section=section, context=context)
-    
-    prompt_template_proposal = first_gen_template()
+    if section_name == "Summary of Recommendation":
+        prompt_template_proposal = final_section_template()
+    else:
+        prompt_template_proposal = first_gen_template()
 
     # set up openai environment - Jay
     llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
