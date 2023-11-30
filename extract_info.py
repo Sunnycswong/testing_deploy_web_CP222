@@ -244,7 +244,7 @@ def first_gen_template():
         {input_info}
 
 
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keyword: further_info]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please help provide further information on Keyword - further_info]". Do not invent information or state that something is unclear. 
         Make assumptions where necessary, but do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -283,7 +283,7 @@ def final_section_template():
         This should be a brief, 200-word summary in point form. Skip any initial discussions, and start with the final recommendations immediately.         
         Conclude the recommendation with a statement about the proposed loan facility.
         
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keyword: further_info]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please help provide further information on Keyword - further_info]". Do not invent information or state that something is unclear. 
         Make assumptions where necessary, but do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -314,7 +314,8 @@ def regen_template():
         5. Point-form or table format can be used to present your answer, but avoid introducing what the section includes.
         6. Do not include notes that the paragraphs are based on aggregated content.
 
-        If specific information is missing, use the following format: "[RM Please provide further information on Keyword: further_info]". Do not invent information or state that something is unclear. 
+        If specific information is missing, use the following format: "[RM Please provide further information on Keyword - further_info]". Do not invent information or state that something is unclear. 
+        Make assumptions where necessary, but do not mention any lack of specific information in the output.
 
         Take this task one step at a time and remember to breathe.
         """
