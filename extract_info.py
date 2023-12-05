@@ -153,7 +153,7 @@ def load_json(json_path):
 
 #This funcition is to prepare the rm note in desired format for web, call by app.py
 def web_extract_RM(section, rm_note_txt, client):
-    hierarchy_file_name = "config/hierarchy_v2.json"
+    hierarchy_file_name = "hierarchy_v2.json"
 
     hierarchy_dict_list = load_json(hierarchy_file_name)
 
@@ -347,6 +347,9 @@ def section_3_template():
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
 
+        Be aware if The input information does not provide specific details about the company's shareholders, ownership structure, and group companies.
+        Then generate as short as you can. 
+
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
 
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
@@ -370,11 +373,6 @@ def section_3_template():
 
         **Example for Reference**
         {example}
-
-
-        **Project Details**
-        Please provide a concise summary of the Project Details based on the above information. 
-        Conclude the Project Details with a statement about the proposed loan facility.
         
         If specific information is missing, follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
@@ -477,44 +475,41 @@ def section_5_template():
 # Management
 def section_6_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+    Read this task step by step at a time and take a long breathe. Stick strictly to factual and verifiable information.:
 
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+    **Note: Write concise in bullet point form, no more than two rows in each bullet point.**
 
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph directly without a heading.
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
-        
-        **Input Information**
-        {input_info}
-        
-        **Client Name**
-        {client_name}
+    1. Base your content solely on the 'Input Information' and the 'Client Name'. Do not include any content from 'Example' in your output - it's for reference only.
+    2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
+    3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
+    4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
+    5. Don't include line breaks within sentences in the same paragraph.
+    6. Start your paragraph directly without a heading.
+    7. You can use point form or tables to present your answer, but avoid any introduction of what the section includes.
+    8. Avoid phrases like "Based on the input json" or "it is mentioned".
+    9. Generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
+    10. Do not invent any numbers or statistics. Use figures only if they are explicitly mentioned in the provided content.
+    11. Do not add disclaimers or state the source of your information in your response.
+    12. If specific information is missing or not provided in the input information, return text at the end in this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
 
-        **Example for Reference**
-        {example}
+    **Input Information**
+    {input_info}
 
-        **Management**
-        Please provide a concise summary of the Management based on the above information. 
-        Conclude the Management with a statement about the proposed loan facility.
-        
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
-        Do not mention any lack of specific information in the output.
-        Take this task one step at a time and remember to breathe.
-        """
+    **Client Name**
+    {client_name}
+
+    **Example for Reference**
+    {example}
+
+    **Management**
+    Please provide a concise summary of the Management based on the 'Input Information'. Conclude with a statement about the proposed loan facility.
+
+    If specific information is missing, follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
+    Do not mention any lack of specific information in the output.
+    Take this task one step at a time and remember to breathe.
+    """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
-
 
     return prompt_template_proposal
 
@@ -660,23 +655,13 @@ def section_9_template():
 # Summary of Recommendation
 def section_10_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+        Take this task step by step, and remember to breathe.
+        Please follow these guidelines strictly, focusing on factual and verifiable information:
 
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
-
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph directly without a heading.
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
+        **Summary of Recommendation**
+        Read the 'Input Information' and use the 'Example for Reference' to guide your thinking. Then, based on your understanding, your recommendation should be one of the following lines: 
+        output 'In view of the above, we recommend the proposed loan facility for management approval.' 
+        - 'In view of the above, we do not recommend the proposed loan facility for management approval.' 
 
         **Input Information**
         {input_info}
@@ -687,14 +672,7 @@ def section_10_template():
         **Example for Reference**
         {example}
 
-        **Summary of Recommendation**
-        Start your recommendation with this line: 'In the view of the above, we recommend the proposed loan facility for management approval.' 
-        Please provide a concise, pointed summary of the recommendation based on the above information. 
-        This should be a brief, 200-word summary in point form. Skip any initial discussions, and start with the final recommendations immediately.         
-        Conclude the recommendation with a statement about the proposed loan facility.
-        
         If specific information is missing, follow this format: "[RM Please help provide further information on Keyword]". Do not invent information or state that something is unclear. 
-        Make assumptions where necessary, but do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -705,9 +683,7 @@ def section_10_template():
 # template for regeneration
 def regen_template():
     proposal_proposal_template_text = """
-        To complete this task, carefully consider the previous paragraph and the RM's instructions. Your task is to edit and summarize the previous paragraph according to the instructions provided.
-
-        **Note: Write as comprehensively as necessary to fully address the task. There is no maximum length.**
+        To complete this task, carefully consider the previous paragraph and the RM's instructions. Your task is to edit and summarize the previous paragraph according to the RM instructions provided.
 
         **Previous Paragraph**
         {previous_paragraph}
@@ -742,8 +718,7 @@ def regen_template():
 def review_prompt_template():
     proposal_proposal_template_text = """
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
-        As a Relationship Manager at a bank, draft a concise paragraph for a credit proposal for a client. 
-        Use factual and professional language, including key details about the client's financial status and the proposed credit terms.
+        Please do not add additional content to the Paragraph.
 
         **Input Paragraph**
         {first_gen_paragraph}
