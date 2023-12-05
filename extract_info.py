@@ -275,14 +275,14 @@ def section_1_template():
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
 
+        **Input Information**
+        {input_info}
+        
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
-
-        **Input Information**
-        {input_info}
 
         **Executive Summary**
         Please provide a concise, pointed summary of the recommendation based on the above information. 
@@ -317,15 +317,16 @@ def section_2_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-
+        
+        **Input Information**
+        {input_info}
+        
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
 
-        **Input Information**
-        {input_info}
 
         **Client Request**
         Please provide a concise summary of the Client Request based on the above information. 
@@ -361,14 +362,15 @@ def section_3_template():
         11. Do not add disclaimers or state the source of your information in your response.
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
 
+        **Input Information**
+        {input_info}
+        
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
 
-        **Input Information**
-        {input_info}
 
         **Project Details**
         Please provide a concise summary of the Project Details based on the above information. 
@@ -404,15 +406,15 @@ def section_4_template():
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
-
+        
+        **Input Information**
+        {input_info}
+        
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
-
-        **Input Information**
-        {input_info}
 
         **Project Details**
         Please provide a concise summary of the Project Details based on the above information. 
@@ -447,15 +449,16 @@ def section_5_template():
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
-
+        
+        **Input Information**
+        {input_info}
+        
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
 
-        **Input Information**
-        {input_info}
 
         **Industry / Section Analysis**
         Please provide a concise summary of the Industry / Section Analysis based on the above information. 
@@ -491,15 +494,15 @@ def section_6_template():
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
-
+        
+        **Input Information**
+        {input_info}
+        
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
-
-        **Input Information**
-        {input_info}
 
         **Management**
         Please provide a concise summary of the Management based on the above information. 
@@ -538,14 +541,15 @@ def section_7_template():
         
         **Reminder:** Your response must include information about the equity to debt ratio, Net income, and Return on Equity (ROE) of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please help provide further information on Keyword ]". 
 
+        **Input Information**
+        {input_info}
+
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
 
-        **Input Information**
-        {input_info}
 
         **Financial Information of the Borrower**
         Please provide a concise summary of the Financial Information of the Borrower based on the above information. 
@@ -584,14 +588,16 @@ def section_8_template():
 
         **Reminder:** Your response must include Other Banking Facilities of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please help provide further information on Keyword ]". 
 
+
+        **Input Information**
+        {input_info}
+
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
 
-        **Input Information**
-        {input_info}
 
         **Other Banking Facilities**
         Please provide a concise summary of the Other Banking Facilities based on the above information. 
@@ -628,15 +634,14 @@ def section_9_template():
         11. Do not add disclaimers or state the source of your information in your response.
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
 
+        **Input Information**
+        {input_info}
 
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
-
-        **Input Information**
-        {input_info}
 
         **Opinion of the Relationship Manager**
         Please provide a concise summary of the Opinion of the Relationship Manager based on the above information. 
@@ -673,15 +678,14 @@ def section_10_template():
         11. Do not add disclaimers or state the source of your information in your response.
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keyword ]". Do not invent information or state that something is unclear. 
 
+        **Input Information**
+        {input_info}
 
         **Client Name**
         {client_name}
 
         **Example for Reference**
         {example}
-
-        **Input Information**
-        {input_info}
 
         **Summary of Recommendation**
         Start your recommendation with this line: 'In the view of the above, we recommend the proposed loan facility for management approval.' 
@@ -744,7 +748,7 @@ def review_prompt_template():
         **Input Paragraph**
         {first_gen_paragraph}
 
-        Double check the Input Paragraph does not contains any content from 'example'.
+        Double check the Input Paragraph does not contains any content from 'example', if the Input Paragraph contains any content from 'example', remove them.
         **Example**
         {example}
 
@@ -768,6 +772,7 @@ def review_prompt_template():
 def regenerate_review_prompt_template():
     proposal_proposal_template_text = """
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
+        Please do not add additional content to the Paragraph.
 
         **Input Paragraph**
         {re_gen_paragraph}
@@ -791,6 +796,26 @@ def regenerate_review_prompt_template():
         Take this task one step at a time and remember to breathe.
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["re_gen_paragraph"])
+
+    return prompt_template_proposal
+
+# One more template for extracting the useless sentence
+def review_prompt_template_2():
+    proposal_proposal_template_text = """
+        To complete this task, you need to review and edit the Input paragraph according to the instructions provided.
+        Please do not add additional content to the Paragraph.
+
+        **Input Paragraph**
+        {reviewed}
+
+        Instructions:
+        1. Use only the information provided. Do not make assumptions or use general language to fill in the gaps. If a sentence states or implies that information is missing or not provided, do not include it in your output. 
+        2. If the input contains sentences stating or implying that information is missing or not provided, such as 'However, further information is needed to provide a more comprehensive summary of the project details.' or 'Additionally, No specific information is provided about the proposed loan facility.' or "Additionally, no information is provided regarding the proposed loan facility.", these must be removed entirely from your output.
+        3. Instead of these sentences, request the specific missing information using this format: '[RM Please provide further information on Keyword]', you can return many times if there are information missing. 
+        4. Take this task one step at a time and remember to breathe.
+        """
+    
+    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["reviewed"])
 
     return prompt_template_proposal
 
@@ -854,10 +879,12 @@ def first_generate(section_name, input_json, client):
 
     review_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template(), output_key="reviewed")
 
-    overall_chain = SequentialChain(chains=[chain, review_chain], 
+    additional_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template_2(), output_key="reviewed_2")
+
+    overall_chain = SequentialChain(chains=[chain, review_chain, additional_chain], 
                                     input_variables=["input_info", "client_name", "example"],
                                     # Here we return multiple variables
-                                    output_variables=["reviewed"],
+                                    output_variables=["reviewed_2"],
                                     verbose=True)
 
     # Break the input_json by parts
@@ -874,7 +901,7 @@ def first_generate(section_name, input_json, client):
     final_dict = {"input_info": ", ".join(input_info_str), "Example": ", ".join(example_str)}
 
     drafted_text = overall_chain({"input_info": final_dict["input_info"], "client_name": client, "example": final_dict["Example"]})
-    drafted_text = drafted_text["reviewed"]
+    drafted_text = drafted_text["reviewed_2"]
     drafted_text2 = drafted_text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
 
     # All capital letters for first letter in sentences
@@ -933,15 +960,17 @@ def regen(section_name, previous_paragraph, rm_instruction):
 
     review_chain = LLMChain(llm=llm_proposal, prompt=regenerate_review_prompt_template(), output_key="reviewed")
 
-    overall_chain = SequentialChain(chains=[chain, review_chain], 
+    additional_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template_2(), output_key="reviewed_2")
+
+    overall_chain = SequentialChain(chains=[chain, review_chain, additional_chain], 
                                     input_variables=["previous_paragraph", "rm_instruction"],
                                     # Here we return multiple variables
-                                    output_variables=["reviewed"],
+                                    output_variables=["reviewed_2"],
                                     verbose=True)
 
 
     drafted_text = overall_chain({"previous_paragraph": previous_paragraph, "rm_instruction":rm_instruction})
-    drafted_text = drafted_text["reviewed"]
+    drafted_text = drafted_text["reviewed_2"]
     drafted_text2 = drafted_text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
 
     #All capital letters for first letter in sentences
