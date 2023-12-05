@@ -657,12 +657,10 @@ def section_10_template():
     proposal_proposal_template_text = """
         Take this task step by step, and remember to breathe.
         Please follow these guidelines strictly, focusing on factual and verifiable information:
-
-
         
         **Summary of Recommendation**
         Read the 'Input Information' and use the 'Example for Reference' to guide your thinking. Then, based on your understanding, your recommendation output should be only one of the following lines.
-        Only output one of the following lines: 
+        Only output one of the following lines, no need to elaborate more information: 
         1. 'In view of the above, we recommend the proposed loan facility for management approval.' 
         2. 'In view of the above, we do not recommend the proposed loan facility for management approval.' 
 
