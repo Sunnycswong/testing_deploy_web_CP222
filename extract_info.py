@@ -658,10 +658,13 @@ def section_10_template():
         Take this task step by step, and remember to breathe.
         Please follow these guidelines strictly, focusing on factual and verifiable information:
 
+
+        
         **Summary of Recommendation**
-        Read the 'Input Information' and use the 'Example for Reference' to guide your thinking. Then, based on your understanding, your recommendation should be one of the following lines: 
-        output 'In view of the above, we recommend the proposed loan facility for management approval.' 
-        - 'In view of the above, we do not recommend the proposed loan facility for management approval.' 
+        Read the 'Input Information' and use the 'Example for Reference' to guide your thinking. Then, based on your understanding, your recommendation output should be only one of the following lines.
+        Only output one of the following lines: 
+        1. 'In view of the above, we recommend the proposed loan facility for management approval.' 
+        2. 'In view of the above, we do not recommend the proposed loan facility for management approval.' 
 
         **Input Information**
         {input_info}
