@@ -153,7 +153,7 @@ def load_json(json_path):
 
 #This funcition is to prepare the rm note in desired format for web, call by app.py
 def web_extract_RM(section, rm_note_txt, client):
-    hierarchy_file_name = "config/hierarchy_v3.json"
+    hierarchy_file_name = "hierarchy_v3.json"
 
     hierarchy_dict_list = load_json(hierarchy_file_name)
 
@@ -260,8 +260,8 @@ def section_1_template():
     proposal_proposal_template_text = """
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
-        
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+
+        Do not incude 'In view of the above' in the output.
 
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
         2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
@@ -285,13 +285,13 @@ def section_1_template():
         {example}
 
         **Executive Summary**
-        Please provide a concise, pointed summary of the recommendation based on the above information. 
+        Using the given borrower's name, requested credit amount, purpose of the credit, and the proposed credit structure, draft a concise executive summary paragraph for a credit proposal. The summary should reflect the relationship history, the strategic rationale behind the credit request, and the key terms of the proposed credit structure. 
 
         Ensure the following infomation is included in the input_info:
         1. Proposed credit structure
         2. A concise overview of the credit proposal, highlighting key information such as the borrowers name, request credit amount, purpose of the credit and the proposed credit structure.
         
-        If above information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -751,7 +751,7 @@ def review_prompt_template():
         - Use English and divide your content into short paragraphs. Do not exceed 100 words per paragraph.
         - Do not introduce your sections, start directly.
         - Avoid subjective language or personal judgments. 
-        - if the first_gen_paragraph contains "In view of the above, ", do not edit that.
+        - if the first_gen_paragraph contains "In view of the above", do not edit and remove that sentence.
 
         Your response should not highlight missing or unspecified information. Instead, request additional information using the provided format when necessary. Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
@@ -804,7 +804,8 @@ def review_prompt_template_2():
         2. If the input contains sentences stating or implying that information is missing or not provided, such as 'However, further information is needed to provide a more comprehensive summary of the project details.' or 'Additionally, No specific information is provided about the proposed loan facility.' or "Additionally, no information is provided regarding the proposed loan facility.", these must be removed entirely from your output.
         3. Instead of these sentences, request the specific missing information using this format: '[RM Please provide further information on Keywords...]', you can return many times if there are information missing. 
         4. Take this task one step at a time and remember to breathe
-        5. if the Input Paragraph contains "In view of the above, ", do not edit that. 
+        5. if the first_gen_paragraph contains "In view of the above", do not edit and remove that sentence.
+
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["reviewed"])
@@ -1008,3 +1009,4 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client)
 
     return output_json
+
