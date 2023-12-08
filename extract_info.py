@@ -246,7 +246,7 @@ def first_gen_template():
         {input_info}
 
 
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Make assumptions where necessary, but do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -291,7 +291,7 @@ def section_1_template():
         1. Proposed credit structure
         2. A concise overview of the credit proposal, highlighting key information such as the borrowers name, request credit amount, purpose of the credit and the proposed credit structure.
         
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -345,7 +345,7 @@ def section_2_template():
 
         ii.	If the credit facility required collateral or security, detail the assets or guarantees the client is willing to pledge to secure the loan.)
 
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -360,8 +360,8 @@ def section_3_template():
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
 
-        Be aware if The input information does not provide specific details about the company's shareholders, ownership structure, and group companies.
-        Then generate as short as you can, output 'No information on shareholders, ownership structure, and group companies'
+        Be aware if The input information does not provide specific details about the company's shareholders, ownership structure, and group companies, then generate as short as you can, output 'No information on shareholders, ownership structure, and group companies', also return text at the end by this exact format: "[RM Please provide further information on Keywords...]".
+
         Do not incude 'In view of the above, ' in the output.
 
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
@@ -377,7 +377,7 @@ def section_3_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
 
         **Input Information**
         {input_info}
@@ -390,7 +390,7 @@ def section_3_template():
         
         **Shareholders and Group Structure**
 
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Take this task one step at a time and remember to breathe.
         Do not incude 'In view of the above, ' in the output.
         """
@@ -421,7 +421,7 @@ def section_4_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         
         **Input Information**
         {input_info}
@@ -436,7 +436,7 @@ def section_4_template():
         Please provide a concise summary of the Project Details based on the above information. 
         Conclude the Project Details with a statement about the proposed loan facility.
         
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -450,7 +450,7 @@ def section_5_template():
     proposal_proposal_template_text = """
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
 
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
 
@@ -465,7 +465,7 @@ def section_5_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         
         **Input Information**
         {input_info}
@@ -480,7 +480,7 @@ def section_5_template():
         **Industry / Section Analysis**
         Please provide a concise summary of the Industry / Section Analysis based on the above information. 
         
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         You must not incude heading **Input Paragraph**.
@@ -509,7 +509,7 @@ def section_6_template():
     9. Generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
     10. Do not invent any numbers or statistics. Use figures only if they are explicitly mentioned in the provided content.
     11. Do not add disclaimers or state the source of your information in your response.
-    12. If specific information is missing or not provided in the input information, return text at the end in this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+    12. If specific information is missing or not provided in the input information, return text at the end in this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
 
     **Input Information**
     {input_info}
@@ -523,7 +523,7 @@ def section_6_template():
     **Management**
     Please provide a concise summary of the Management based on the 'Input Information'. Conclude with a statement about the proposed loan facility.
 
-    If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+    If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
     Do not mention any lack of specific information in the output.
     Take this task one step at a time and remember to breathe.
     """
@@ -551,9 +551,9 @@ def section_7_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         
-        **Reminder:** Your response must include information about the equity to debt ratio, Net income, and Return on Equity (ROE) of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please help provide further information on Keywords... ]". 
+        **Reminder:** Your response must include information about the equity to debt ratio, Net income, and Return on Equity (ROE) of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please provide further information on Keywords... ]". 
 
         **Input Information**
         {input_info}
@@ -572,7 +572,7 @@ def section_7_template():
         b.	Please provide the breakdown of the borrower’s revenue sources and its cost structure.
         c.	Please provide insights into borrower’s financial performance, trends and future prospects. If there is any significant events or facts that have influenced the borrower’s financial results, please explain it.
         
-        If specific information is missing, use this format: "[RM Please help provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        If specific information is missing, use this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Avoid mentioning any lack of specific information in the output.
         Remember to approach this task one step at a time and to breathe.
         """
@@ -590,7 +590,7 @@ def section_8_template():
 
         Be aware if The input information does not provide specific details about the company's Other Banking Facilities.
         Then generate as short as you can, output 'No information on Other Banking Facilities'.
-        If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keywords... ]".
+        If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]".
         
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
 
@@ -605,7 +605,7 @@ def section_8_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
 
 
         **Input Information**
@@ -624,7 +624,7 @@ def section_8_template():
         Ensure the following infomation is included in the input_info:
         a.	Please provide a list of the borrower’s existing credit facilities from other banks or financial institutions, including details such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date and any collateral or guarantees associated with each facility.
         
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
         Take this task one step at a time and remember to breathe.
         """
     
@@ -636,7 +636,7 @@ def section_8_template():
 # Opinion of the Relationship Manager
 def section_9_template():
     proposal_proposal_template_text = """
-        Based on the provided relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the banking relationship with {client_name}, create a balanced credit assessment paragraph. The assessment should outline strengths and weaknesses, adhering to the details included in the input information. If certain aspects are not detailed in the input, consolidate the missing elements and prompt for further information using the format "[RM Please help provide further information on Keywords...]" at the end of the output.
+        Based on the provided relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the banking relationship with {client_name}, create a balanced credit assessment paragraph. The assessment should outline strengths and weaknesses, adhering to the details included in the input information. If certain aspects are not detailed in the input, consolidate the missing elements and prompt for further information using the format "[RM Please provide further information on Keywords...]" at the end of the output.
 
         **Instructions:**
         1. Use the input information provided under **Input Information**.
@@ -682,7 +682,7 @@ def section_10_template():
         **Example for Reference** 
         {example}
 
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Take this task one step at a time and remember to breathe.
 
         Your output must be one of the exact following lines, with "In view of the above, ": 
@@ -779,10 +779,10 @@ def regenerate_review_prompt_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please help provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
 
         
-        If specific information is missing, follow this format: "[RM Please help provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Make assumptions where necessary, but do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -920,13 +920,36 @@ def first_generate(section_name, input_json, client):
     # Rejoin the lines into a single string without RM requests
     drafted_text2 = "\n".join(lines)
 
-    # Join all the strings in the list with a space in between each string
-    rm_fill_text = ' '.join(rm_fill_values)
+    # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
+    # Then strip any leading/trailing whitespace and remove trailing periods
+    rm_fill_values = [value.replace("Please provide further information on", "").strip().rstrip('.') for value in rm_fill_values]
+
+    # Combine the RM_fill values into a single string separated by commas and "and" before the last value
+    # Ensure that it doesn't end with a period or a comma
+    if rm_fill_values:
+        # Create a combined text of RM_fill values
+        combined_rm_fill_text = ", ".join(rm_fill_values[:-1])
+        if len(rm_fill_values) > 1:
+            combined_rm_fill_text += ", and " + rm_fill_values[-1]
+        else:
+            combined_rm_fill_text = rm_fill_values[0]
+
+        # Add the prefix "Please provide further information on" if it's not already present and appropriate
+        if not combined_rm_fill_text.lower().startswith("please provide further information on"):
+            combined_rm_fill_text = "Please provide further information on " + combined_rm_fill_text
+
+        final_rm_fill_text = combined_rm_fill_text
+    else:
+        final_rm_fill_text = ""
+
+    # Capitalize the first letter of the final_rm_fill_text only if it is not empty
+    if final_rm_fill_text:
+        final_rm_fill_text = final_rm_fill_text[0].upper() + final_rm_fill_text[1:]
 
     output_json = {
         "section": section_name,
         "output": drafted_text2,
-        "RM_fill" : rm_fill_text,
+        "RM_fill" : final_rm_fill_text,
     }
 
     #output the result
@@ -989,13 +1012,36 @@ def regen(section_name, previous_paragraph, rm_instruction):
     # Rejoin the lines into a single string without RM requests
     drafted_text2 = "\n".join(lines)
 
-    # Join all the strings in the list with a space in between each string
-    rm_fill_text = ' '.join(rm_fill_values)
+    # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
+    # Then strip any leading/trailing whitespace and remove trailing periods
+    rm_fill_values = [value.replace("Please provide further information on", "").strip().rstrip('.') for value in rm_fill_values]
+
+    # Combine the RM_fill values into a single string separated by commas and "and" before the last value
+    # Ensure that it doesn't end with a period or a comma
+    if rm_fill_values:
+        # Create a combined text of RM_fill values
+        combined_rm_fill_text = ", ".join(rm_fill_values[:-1])
+        if len(rm_fill_values) > 1:
+            combined_rm_fill_text += ", and " + rm_fill_values[-1]
+        else:
+            combined_rm_fill_text = rm_fill_values[0]
+
+        # Add the prefix "Please provide further information on" if it's not already present and appropriate
+        if not combined_rm_fill_text.lower().startswith("please provide further information on"):
+            combined_rm_fill_text = "Please provide further information on " + combined_rm_fill_text
+
+        final_rm_fill_text = combined_rm_fill_text
+    else:
+        final_rm_fill_text = ""
+
+    # Capitalize the first letter of the final_rm_fill_text only if it is not empty
+    if final_rm_fill_text:
+        final_rm_fill_text = final_rm_fill_text[0].upper() + final_rm_fill_text[1:]
 
     output_json = {
         "section": section_name,
         "output": drafted_text2,
-        "RM_fill" : rm_fill_text,
+        "RM_fill" : final_rm_fill_text,
     }
 
     #output the result
@@ -1009,4 +1055,3 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client)
 
     return output_json
-
