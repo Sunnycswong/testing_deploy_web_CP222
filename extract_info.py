@@ -164,8 +164,9 @@ def web_extract_RM(section, rm_note_txt, client):
 
     prompt_template_for_extracting_rm_note = """
         For this task, you'll be generating a response based on given information. Please read the client name and the RM Notes, then answer the question provided.
-
-
+        
+        Do not search any information from internet or based on your understanding. Only based on RM Notes information to perform this task.
+ 
         **Client Name**
         {client_name}
 
