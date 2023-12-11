@@ -164,7 +164,7 @@ def web_extract_RM(section, rm_note_txt, client):
 
     prompt_template_for_extracting_rm_note = """
         For this task, you'll be generating a response based on given information. Please read the client name and the RM Notes, then answer the question provided.
-        
+
         Do not search any information from internet or based on your understanding. Only based on RM Notes information to perform this task.
  
         **Client Name**
@@ -241,6 +241,8 @@ def first_gen_template():
         7. You can use point form or tables to present your answer, but do not introduce what the section includes.
         8. Avoid phrases like "Based on the input json" or "it is mentioned".
 
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence.
+        
         **Client Name**
         {client_name}
     
@@ -251,7 +253,7 @@ def first_gen_template():
         {input_info}
 
 
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Make assumptions where necessary, but do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -279,6 +281,8 @@ def section_1_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
+        
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
         **Input Information**
         {input_info}
@@ -296,7 +300,7 @@ def section_1_template():
         1. Proposed credit structure
         2. A concise overview of the credit proposal, highlighting key information such as the borrowers name, request credit amount, purpose of the credit and the proposed credit structure.
         
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -314,6 +318,8 @@ def section_2_template():
         As a Relationship Manager at a bank, draft a concise paragraph for a credit proposal for a client. Use factual and professional language, including key details about the client's financial status and the proposed credit terms.
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
 
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
         2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
         3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
@@ -325,7 +331,10 @@ def section_2_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+
         **Input Information**
         {input_info}
         
@@ -350,7 +359,7 @@ def section_2_template():
 
         ii.	If the credit facility required collateral or security, detail the assets or guarantees the client is willing to pledge to secure the loan.)
 
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -382,7 +391,9 @@ def section_3_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
         **Input Information**
         {input_info}
@@ -395,7 +406,7 @@ def section_3_template():
         
         **Shareholders and Group Structure**
 
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Take this task one step at a time and remember to breathe.
         Do not incude 'In view of the above, ' in the output.
         """
@@ -426,8 +437,10 @@ def section_4_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+
         **Input Information**
         {input_info}
         
@@ -441,7 +454,7 @@ def section_4_template():
         Please provide a concise summary of the Project Details based on the above information. 
         Conclude the Project Details with a statement about the proposed loan facility.
         
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
@@ -455,7 +468,7 @@ def section_5_template():
     proposal_proposal_template_text = """
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
 
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
 
@@ -470,8 +483,10 @@ def section_5_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+
         **Input Information**
         {input_info}
         
@@ -485,7 +500,7 @@ def section_5_template():
         **Industry / Section Analysis**
         Please provide a concise summary of the Industry / Section Analysis based on the above information. 
         
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         You must not incude heading **Input Paragraph**.
@@ -499,38 +514,40 @@ def section_5_template():
 # Management
 def section_6_template():
     proposal_proposal_template_text = """
-    Read this task step by step at a time and take a long breathe. Stick strictly to factual and verifiable information.:
+        Read this task step by step at a time and take a long breathe. Stick strictly to factual and verifiable information.:
 
-    **Note: Write concise in bullet point form, no more than two rows in each bullet point.**
+        **Note: Write concise in bullet point form, no more than two rows in each bullet point.**
 
-    1. Base your content solely on the 'Input Information' and the 'Client Name'. Do not include any content from 'Example' in your output - it's for reference only.
-    2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-    3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-    4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-    5. Don't include line breaks within sentences in the same paragraph.
-    6. Start your paragraph directly without a heading.
-    7. You can use point form or tables to present your answer, but avoid any introduction of what the section includes.
-    8. Avoid phrases like "Based on the input json" or "it is mentioned".
-    9. Generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-    10. Do not invent any numbers or statistics. Use figures only if they are explicitly mentioned in the provided content.
-    11. Do not add disclaimers or state the source of your information in your response.
-    12. If specific information is missing or not provided in the input information, return text at the end in this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        1. Base your content solely on the 'Input Information' and the 'Client Name'. Do not include any content from 'Example' in your output - it's for reference only.
+        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
+        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
+        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
+        5. Don't include line breaks within sentences in the same paragraph.
+        6. Start your paragraph directly without a heading.
+        7. You can use point form or tables to present your answer, but avoid any introduction of what the section includes.
+        8. Avoid phrases like "Based on the input json" or "it is mentioned".
+        9. Generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
+        10. Do not invent any numbers or statistics. Use figures only if they are explicitly mentioned in the provided content.
+        11. Do not add disclaimers or state the source of your information in your response.
+        12. If specific information is missing or not provided in the input information, return text at the end in this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
 
-    **Input Information**
-    {input_info}
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
-    **Client Name**
-    {client_name}
+        **Input Information**
+        {input_info}
 
-    **Example for Reference**
-    {example}
+        **Client Name**
+        {client_name}
 
-    **Management**
-    Please provide a concise summary of the Management based on the 'Input Information'. Conclude with a statement about the proposed loan facility.
+        **Example for Reference**
+        {example}
 
-    If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
-    Do not mention any lack of specific information in the output.
-    Take this task one step at a time and remember to breathe.
+        **Management**
+        Please provide a concise summary of the Management based on the 'Input Information'. Conclude with a statement about the proposed loan facility.
+
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        Do not mention any lack of specific information in the output.
+        Take this task one step at a time and remember to breathe.
     """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -556,9 +573,11 @@ def section_7_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         
-        **Reminder:** Your response must include information about the equity to debt ratio, Net income, and Return on Equity (ROE) of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please provide further information on Keywords... ]". 
+        **Reminder:** Your response must include information about the equity to debt ratio, Net income, and Return on Equity (ROE) of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please provide further information on Keywords...]". 
+
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
         **Input Information**
         {input_info}
@@ -610,7 +629,9 @@ def section_8_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
 
         **Input Information**
@@ -629,7 +650,7 @@ def section_8_template():
         Ensure the following infomation is included in the input_info:
         a.	Please provide a list of the borrower’s existing credit facilities from other banks or financial institutions, including details such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date and any collateral or guarantees associated with each facility.
         
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Take this task one step at a time and remember to breathe.
         """
     
@@ -651,6 +672,8 @@ def section_9_template():
         5. Present information clearly in English, with sub-headers for strengths and weaknesses where applicable.
         6. Ensure responses are factual, free of invented numbers or statistics unless specified in the content.
         7. Refrain from mentioning the source of the information, justification, or personal recommendations.
+
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence.
 
         **Input Information**
         {input_info}
@@ -725,7 +748,9 @@ def regen_template():
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
 
-        If specific information is missing, use the following format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+
+        If specific information is missing, use the following format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
 
         Take this task one step at a time and remember to breathe.
@@ -757,6 +782,7 @@ def review_prompt_template():
         - Do not introduce your sections, start directly.
         - Avoid subjective language or personal judgments. 
         - if the first_gen_paragraph contains "In view of the above", do not edit and remove that sentence.
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
         Your response should not highlight missing or unspecified information. Instead, request additional information using the provided format when necessary. Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
@@ -784,8 +810,9 @@ def regenerate_review_prompt_template():
         9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
         10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
         11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]". Do not invent information or state that something is unclear. 
-
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
         
         If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Make assumptions where necessary, but do not mention any lack of specific information in the output.
