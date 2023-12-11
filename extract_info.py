@@ -99,6 +99,9 @@ import re
 from langchain.chains import SimpleSequentialChain
 from langchain.chains import SequentialChain
 
+
+
+
 # Setting credit
 index_name = "credit-proposal"
 search_service = "gptdemosearch"
@@ -160,7 +163,9 @@ def web_extract_RM(section, rm_note_txt, client):
     hierarchy_dict_list = hierarchy_dict_list["content"]
 
     prompt_template_for_extracting_rm_note = """
-        For this task, you'll be generating a response based on given information. Please read the client name and the RM's notes, then answer the question provided.
+        For this task, you'll be generating a response based on given information. Please read the client name and the RM Notes, then answer the question provided.
+
+        Do not search any information from internet or based on your understanding. Only based on RM Notes information to perform this task.
 
         **Client Name**
         {client_name}
@@ -187,7 +192,7 @@ def web_extract_RM(section, rm_note_txt, client):
     
     # set up openai environment - Jay
     llm_rm_note = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/",verbose=True)
 
 
     # set up openai environment - Ethan
@@ -199,8 +204,8 @@ def web_extract_RM(section, rm_note_txt, client):
     output_dict_list = []
     for dictionary in hierarchy_dict_list:
         if dictionary["Section"] == section:
-            chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template)
-            dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client })['text']
+            chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template,verbose=True)
+            dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client})['text']
             dictionary["Value"] = dictionary["Value"].replace("Based on the given information, ", "")
             if "[N/A]" in dictionary["Value"]:
                 dictionary["Value"] = ""
@@ -858,7 +863,7 @@ def first_generate(section_name, input_json, client):
 
     # set up openai environment - Jay
     llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/",verbose=True)
 
     # set up openai environment - Ethan
     """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
@@ -870,9 +875,9 @@ def first_generate(section_name, input_json, client):
         output_key="first_gen_paragraph"
     )
 
-    review_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template(), output_key="reviewed")
+    review_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template(), output_key="reviewed",verbose=True)
 
-    additional_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template_2(), output_key="reviewed_2")
+    additional_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template_2(), output_key="reviewed_2",verbose=True)
 
     overall_chain = SequentialChain(chains=[chain, review_chain, additional_chain], 
                                     input_variables=["input_info", "client_name", "example"],
@@ -974,9 +979,9 @@ def regen(section_name, previous_paragraph, rm_instruction):
         output_key="re_gen_paragraph"
     )
 
-    review_chain = LLMChain(llm=llm_proposal, prompt=regenerate_review_prompt_template(), output_key="reviewed")
+    review_chain = LLMChain(llm=llm_proposal, prompt=regenerate_review_prompt_template(), output_key="reviewed",verbose=True)
 
-    additional_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template_2(), output_key="reviewed_2")
+    additional_chain = LLMChain(llm=llm_proposal, prompt=review_prompt_template_2(), output_key="reviewed_2",verbose=True)
 
     overall_chain = SequentialChain(chains=[chain, review_chain, additional_chain], 
                                     input_variables=["previous_paragraph", "rm_instruction"],
