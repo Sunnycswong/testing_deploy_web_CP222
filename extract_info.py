@@ -165,7 +165,6 @@ def web_extract_RM(section, rm_note_txt, client):
     prompt_template_for_extracting_rm_note = """
         For this task, you'll be generating a response based on given information. Please read the client name and the RM Notes, then answer the question provided.
 
-        Do not search any information from internet or based on your understanding. Only based on RM Notes information to perform this task.
 
         **Client Name**
         {client_name}
@@ -594,8 +593,8 @@ def section_8_template():
         Read and Carefully consider all the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
 
         Be aware if The input information does not provide specific details about the company's Other Banking Facilities.
-        Then generate as short as you can, output 'No information on Other Banking Facilities'.
-        If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords... ]".
+        Then generate as short as you can, output 'No information on Other Banking Facilities' and return text at the end by follow this format: "[RM Please provide further information on Keywords...]".
+        If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]".
         
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
 
@@ -1060,3 +1059,4 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client)
 
     return output_json
+
