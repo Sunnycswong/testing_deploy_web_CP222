@@ -664,7 +664,7 @@ def section_9_template():
         1. Derive content exclusively from the ----Input Information---- provided.
         2. Refer to the client using their name: {client_name}.
         3. Focus on objective analysis, steering clear of subjective sentiments.
-        4. Format your response in English, using sub-headers to differentiate between strengths and weaknesses.
+        4. Format your response in English, using sub-headers to differentiate between strengths and weaknesses to generate two sections.
         5. Include only factual data and numbers that are explicitly stated in the input information.
         6. Present the assessment without citing the source or offering personal recommendations.
 
