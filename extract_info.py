@@ -337,8 +337,7 @@ def section_2_template():
 
         - A detailed description of the desired credit amount and the type of facility, such as a term loan, revolving credit line, or a mix of credit instruments.
         - An explanation of the purpose of the credit facility, detailing the allocation of funds and highlighting specific areas or projects for credit utilization, such as working capital, capital expenditure, market expansion, research and development, or debt refinancing.
-        - A description of the proposed repayment plan, including the repayment term, interest rate, and any particular repayment structures or conditions.
-        - A concise Loan structure includes: loan-to-value (LTV), interest rate, amortization period, and collateral security requirements.
+        - A description of the proposed repayment plan, including the loan-to-value (LTV), amortization period, repayment term, interest rate, and any particular repayment structures or conditions.
         - Include any client milestones or project timelines to illustrate expected fund usage over time.
         - Detail collateral or security for the credit facility, specifying assets or guarantees the client is prepared to offer.
 
@@ -613,7 +612,7 @@ def section_8_template():
     proposal_proposal_template_text = """
         Embark on this task by reading through each step methodically, and maintain a steady breath. Ensure that you adhere to the following guidelines meticulously, focusing solely on factual and verifiable information:
 
-        - Should the input information lack details about the company's Other Banking Facilities, clearly state: 'No information on Other Banking Facilities' and request more details at the end using the format: "[RM Please provide further information on Keywords...]."
+        - Should the input information lack details about the company's Other Banking Facilities, clearly state: 'No information on Other Banking Facilities' and request more details at the end using this exact format: "[RM Please provide further information on Keywords...]."
 
         - Compose your response using concise bullet points, with each bullet point occupying no more than two lines.
 
@@ -635,7 +634,7 @@ def section_8_template():
 
         - Do not append disclaimers or cite the source of your information in your response.
 
-        - If essential information is not provided, indicate the need for more details at the end of your response in the specified format: "[RM Please provide further information on Keywords...]," ensuring this request stands alone and is not part of bullet points.
+        - If essential information is not provided, indicate the need for more details at the end of your response in the specified format: "[RM Please provide further information on Keywords...]", ensuring this request stands alone and is not part of bullet points.
 
         ----Input Information----
         {input_info}
@@ -653,7 +652,7 @@ def section_8_template():
         - A list of the borrower's existing credit facilities from other banks or financial institutions.
         - Details for each facility, such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date, and any collateral or guarantees.
 
-        If there is a lack of specific details, use the format "[RM Please provide further information on Keywords...]" to request the necessary information, and avoid making assumptions or indicating uncertainties.
+        If there is a lack of specific details, use the format : "[RM Please provide further information on Keywords...]" , to request the necessary information, and avoid making assumptions or indicating uncertainties.
 
         Proceed with each step of this task with focus, and remember to breathe evenly throughout.
         """
