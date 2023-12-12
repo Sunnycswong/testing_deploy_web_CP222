@@ -293,7 +293,7 @@ def section_1_template():
         Create a succinct executive summary paragraph for a credit proposal, focusing on the borrower's name, the requested credit amount, the purpose of the credit, and the proposed credit structure. Include the relationship history and the strategic rationale for the credit request, alongside the terms of the proposed credit structure.
 
         The executive summary should contain:
-        1. A clear depiction of the proposed credit structure.
+        1. A clear depiction of the proposed credit structure. Example: XYZ Corporation has successfully negotiated a structured credit facility of $10 million with a 5-year term and a fixed interest rate of 4.5% annually. The repayment schedule is based on a quarterly amortization plan ensuring manageable cash outflows while gradually reducing the principal balance. The loan is secured by the company's commercial real estate assets, providing the lender with a tangible guarantee. Adherence to financial covenants, including a minimum debt-service coverage ratio of 1.25x and a maximum leverage ratio of 3.5x, is required to maintain loan terms and prevent default. In the event of early repayment, XYZ Corporation will incur a prepayment penalty of 2% of the outstanding balance to compensate for the lender's interest income loss. The loan carries a subordinated clause, placing it after other senior debts in case of liquidation. Loan administration fees total $50,000, covering the due diligence and ongoing monitoring costs. Funds from the loan are earmarked strictly for the expansion of the company's manufacturing capacity, as per the agreed end-use terms. The loan agreement is governed by the laws of the State of New York, ensuring a clear legal framework for both parties.
         2. A summary of the credit proposal, emphasizing the borrower's name, requested credit amount, credit purpose, and credit structure details.
 
         If details are missing, close your response with a request for additional information using the specified format: "[RM Please provide further information on Keywords...]". Avoid any indication of missing information within the output itself.
@@ -333,15 +333,16 @@ def section_2_template():
         {example}
 
         ----Client Request----
-        Deliver a precise summary of the Client Request with the information provided. Conclude with a note about the proposed loan facility, ensuring the summary includes:
+        Deliver a precise summary of the Client Request with the information provided. Ensuring the summary includes:
 
         - A detailed description of the desired credit amount and the type of facility, such as a term loan, revolving credit line, or a mix of credit instruments.
         - An explanation of the purpose of the credit facility, detailing the allocation of funds and highlighting specific areas or projects for credit utilization, such as working capital, capital expenditure, market expansion, research and development, or debt refinancing.
         - A description of the proposed repayment plan, including the repayment term, interest rate, and any particular repayment structures or conditions.
+        - A concise Loan structure includes: loan-to-value (LTV), interest rate, amortization period, and collateral security requirements.
         - Include any client milestones or project timelines to illustrate expected fund usage over time.
         - Detail collateral or security for the credit facility, specifying assets or guarantees the client is prepared to offer.
 
-        Remember to incorporate a request for additional information using the specified format if any is missing, without suggesting uncertainties within the main content of the output.
+        Remember to incorporate a request for additional information using the specified format if any is missing, without suggesting uncertainties within the main content of the output. With: "[RM Please provide further information on Keywords...]" as a separate sentence.
 
         Proceed with each task step by step, and remember to breathe deeply as you work.
         """
