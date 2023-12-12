@@ -290,7 +290,7 @@ def section_1_template():
         {example}
 
         ----Executive Summary----
-        Create a succinct executive summary paragraph for a credit proposal, focusing on the borrower's name, the requested credit amount, the purpose of the credit, and the proposed credit structure. Include the relationship history and the strategic rationale for the credit request, alongside the terms of the proposed credit structure.
+        Create a succinct executive summary paragraph for a credit proposal, focusing on the borrower's name, the requested credit amount, the purpose of the credit, and the proposed credit structure. Include the relationship history and the strategic rationale for the credit request, alongside the details of the proposed credit structure.
 
         The executive summary should contain:
         1. A clear depiction of the proposed credit structure. Example: XYZ Corporation has successfully negotiated a structured credit facility of $10 million with a 5-year term and a fixed interest rate of 4.5% annually. The repayment schedule is based on a quarterly amortization plan ensuring manageable cash outflows while gradually reducing the principal balance. The loan is secured by the company's commercial real estate assets, providing the lender with a tangible guarantee. Adherence to financial covenants, including a minimum debt-service coverage ratio of 1.25x and a maximum leverage ratio of 3.5x, is required to maintain loan terms and prevent default. In the event of early repayment, XYZ Corporation will incur a prepayment penalty of 2% of the outstanding balance to compensate for the lender's interest income loss. The loan carries a subordinated clause, placing it after other senior debts in case of liquidation. Loan administration fees total $50,000, covering the due diligence and ongoing monitoring costs. Funds from the loan are earmarked strictly for the expansion of the company's manufacturing capacity, as per the agreed end-use terms. The loan agreement is governed by the laws of the State of New York, ensuring a clear legal framework for both parties.
@@ -458,33 +458,24 @@ def section_4_template():
 #  Industry / Section Analysis
 def section_5_template():
     proposal_proposal_template_text = """
-        As you approach this task, read through each step at your own pace, and remember to take deep breaths to maintain focus. Adhere to the guidelines below to ensure your information is factual and verifiable:
-
-        - Convey information in a concise manner using bullet points, limiting each to no more than two rows.
-
-        - Draw your content from the provided ----Client Name---- and ----Input Information----, treating the ----Example for Reference---- solely as background context.
-
-        - Phrase information as "It is mentioned that," rather than referring to "RM Note," "Component," or client meetings.
-
-        - Write your response in English, structured in well-organized paragraphs. Should a paragraph extend beyond 100 words, split it into more manageable sections.
-
-        - Ensure paragraphs flow without interruption; do not place line breaks mid-sentence.
-
-        - Begin your response with a clear statement, and use headings to guide the reader through your paragraphs.
-
-        - Utilize bullet points or tables for clear presentation, focusing on the content without prefacing sections.
-
-        - Maintain objectivity in your responses, steering clear of subjective language or expressions of personal judgment.
-
-        - Include figures and statistics only when they are explicitly stated in the provided content.
-
-        - Keep your response free from disclaimers or citations of information sources.
-
-        - If the input information lacks specific details, request additional information at the end of your response with the format: "[RM Please provide further information on Keywords...]," without speculating or indicating any uncertainties.
-
-        - Request for additional information should be formatted as a separate sentence at the end, not within bullet points.
-
-        - Avoid using the heading ----Input Paragraph---- in your response.
+        Read this task step by step at a time and take a long breathe.
+        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
+        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
+        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
+        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
+        5. Don't include line breaks within sentences in the same paragraph.
+        6. Start your paragraph with a heading. 
+        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
+        8. Avoid phrases like "Based on the input json" or "it is mentioned".
+        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
+        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
+        11. Do not add disclaimers or state the source of your information in your response.
+        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
         ----Input Information----
         {input_info}
@@ -496,6 +487,7 @@ def section_5_template():
         {example}
 
         ----Industry / Section Analysis----
+        Please provide a concise summary of the Industry / Section Analysis based on the above information.
         Your summary should encompass the following:
 
         - A detailed overview of the client's industry or sector, including the industry's size, growth rate, and major trends.
@@ -612,7 +604,7 @@ def section_8_template():
     proposal_proposal_template_text = """
         Embark on this task by reading through each step methodically, and maintain a steady breath. Ensure that you adhere to the following guidelines meticulously, focusing solely on factual and verifiable information:
 
-        - Should the input information lack details about the company's Other Banking Facilities, clearly state: 'No information on Other Banking Facilities' and request more details at the end using this exact format: "[RM Please provide further information on Keywords...]."
+        - Should the input information lack details about the company's Other Banking Facilities, clearly state by one sentence only: 'No information on Other Banking Facilities' and request more details at the end using this exact format: "[RM Please provide further information on Keywords...]"
 
         - Compose your response using concise bullet points, with each bullet point occupying no more than two lines.
 
@@ -649,10 +641,11 @@ def section_8_template():
         ----Other Banking Facilities----
         Aim to provide a concise summary of the Other Banking Facilities, including:
 
+        Other Banking Facilities example: HSBC provides a revolving credit facility to the company with an outstanding balance of $1 million, an interest rate of 3.5% p.a., a maturity date of 2025-01-01, and no collateral requirement.
         - A list of the borrower's existing credit facilities from other banks or financial institutions.
         - Details for each facility, such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date, and any collateral or guarantees.
 
-        If there is a lack of specific details, use the format : "[RM Please provide further information on Keywords...]" , to request the necessary information, and avoid making assumptions or indicating uncertainties.
+        If there is a lack of specific details, use the format : "[RM Please provide further information on Keywords...]", to request the necessary information, and avoid making assumptions or indicating uncertainties.
 
         Proceed with each step of this task with focus, and remember to breathe evenly throughout.
         """
@@ -1096,4 +1089,3 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client)
 
     return output_json
-
