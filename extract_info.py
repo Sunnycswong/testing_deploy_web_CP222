@@ -163,17 +163,17 @@ def web_extract_RM(section, rm_note_txt, client):
     hierarchy_dict_list = hierarchy_dict_list["content"]
 
     prompt_template_for_extracting_rm_note = """
-        For this task, you'll be generating a response based on given information. Please read the client name and the RM Notes, then answer the question provided.
+        For this task, you'll be generating a response based on given information. Please read the ----Client Name----  and the RM Notes, then answer the ----Question---- provided.
 
-        Do not search any information from internet or based on your understanding. Only based on RM Notes information to perform this task.
+        Do not search any information from internet or based on your understanding. Only based on ----RM Notes---- information to perform this task.
  
-        **Client Name**
+        ----Client Name----
         {client_name}
 
-        **RM Notes**
+        ----RM Notes----
         {rm_note}
 
-        **Question**
+        ----Question----
         {question}
 
         While crafting your response, please observe these guidelines:
@@ -230,7 +230,7 @@ def first_gen_template():
     proposal_proposal_template_text = """
         Carefully consider the following guidelines while working on this task:
 
-        **Note: Write as comprehensively as necessary to fully address the task. There is no maximum length.**
+        ----Note: Write as comprehensively as necessary to fully address the task. There is no maximum length.----
 
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
         2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
@@ -243,13 +243,13 @@ def first_gen_template():
 
         - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence.
         
-        **Client Name**
+        ----Client Name----
         {client_name}
     
-        **Example for Reference**
+        ----Example for Reference----
         {example}
     
-        **Input Information**
+        ----Input Information----
         {input_info}
 
 
@@ -265,44 +265,38 @@ def first_gen_template():
 # Executive Summary
 def section_1_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+        Read through this task carefully and take your time. Ensure all information is factual and verifiable:
 
-        Do not incude 'In view of the above' in the output.
+        1. Craft your content based on the provided ----Client Name---- and ----Input Information----. Exclude any details from the ----Example for Reference----.
+        2. Replace any mention of "RM Note", "Component", or client meetings with "It is mentioned that".
+        3. Present your answers clearly without justifications or recommendations, and refrain from revealing the source of your input.
+        4. Compose your response in English, using concise paragraphs. Split any section over 100 words into smaller paragraphs.
+        5. Maintain continuous sentences within the same paragraph without line breaks.
+        6. Begin paragraphs directly without using headings.
+        7. Present answers in bullet points or tables as needed, without prefacing what each section includes.
+        8. Remain neutral and avoid subjective language or phrases indicating personal judgment.
+        9. Use only the figures provided in the content and refrain from introducing new numbers or statistics.
+        10. Leave out disclaimers and references to information sources in your response.
 
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph directly without a heading.
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+        For any missing information, append the following sentence at the end of your response: "[RM Please provide further information on Keywords...]", keeping it separate from bullet points or tables.
 
-        **Input Information**
+        ----Input Information----
         {input_info}
-        
-        **Client Name**
+
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        ----Example for Reference----
         {example}
 
-        **Executive Summary**
-        Using the given borrower's name, requested credit amount, purpose of the credit, and the proposed credit structure, draft a concise executive summary paragraph for a credit proposal. The summary should reflect the relationship history, the strategic rationale behind the credit request, and the key terms of the proposed credit structure. 
+        ----Executive Summary----
+        Create a succinct executive summary paragraph for a credit proposal, focusing on the borrower's name, the requested credit amount, the purpose of the credit, and the proposed credit structure. Include the relationship history and the strategic rationale for the credit request, alongside the terms of the proposed credit structure.
 
-        Ensure the following infomation is included in the input_info:
-        1. Proposed credit structure
-        2. A concise overview of the credit proposal, highlighting key information such as the borrowers name, request credit amount, purpose of the credit and the proposed credit structure.
-        
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        Do not mention any lack of specific information in the output.
-        Take this task one step at a time and remember to breathe.
+        The executive summary should contain:
+        1. A clear depiction of the proposed credit structure.
+        2. A summary of the credit proposal, emphasizing the borrower's name, requested credit amount, credit purpose, and credit structure details.
+
+        If details are missing, close your response with a request for additional information using the specified format: "[RM Please provide further information on Keywords...]". Avoid any indication of missing information within the output itself.
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -312,56 +306,44 @@ def section_1_template():
 # Client Request
 def section_2_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+        Approach this task methodically, maintaining a calm pace. Ensure all information provided is factual and substantiated:
 
-        As a Relationship Manager at a bank, draft a concise paragraph for a credit proposal for a client. Use factual and professional language, including key details about the client's financial status and the proposed credit terms.
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal for a client. Your writing should be factual, professional, and incorporate essential details about the client's financial situation and the proposed credit terms.
 
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+        - Summarize any missing information at the end of your response with: "[RM Please provide further information on Keywords...]" as a separate sentence, not in bullet point form.
 
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph directly without a heading.
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        - Use the given ----Client Name---- and ----Input Information---- as the basis for your content. Treat the ----Example for Reference---- solely as background context.
+        - Refer to any internal notes, components, or client meetings indirectly using the phrase "It is mentioned that".
+        - Present your responses in clear English, structured into concise paragraphs. Split paragraphs into smaller sections if they exceed 100 words.
+        - Ensure sentences flow continuously within each paragraph.
+        - Begin directly with the content of the paragraph, omitting headings.
+        - Employ bullet points or tables for clarity, without prefacing the content of each section.
+        - Keep your language neutral, avoiding subjective phrases or expressions of personal opinions.
+        - Use only figures directly mentioned in the provided content, refraining from introducing new data or statistics.
+        - Exclude disclaimers or mentions of information sources within your responses.
+        - If details are not available in the input information, request additional data using the specified format: "[RM Please provide further information on Keywords...]", avoiding any indication of missing information within the main output.
 
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
-
-        **Input Information**
+        ----Input Information----
         {input_info}
-        
-        **Client Name**
+
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        ----Example for Reference----
         {example}
 
+        ----Client Request----
+        Deliver a precise summary of the Client Request with the information provided. Conclude with a note about the proposed loan facility, ensuring the summary includes:
 
-        **Client Request**
-        Please provide a concise summary of the Client Request based on the above information. 
-        Conclude the Client Request with a statement about the proposed loan facility.
-        Ensure the following infomation is included in the input_info:
-        (a.	Please describe in detail the desired amount of the credit and type of facility such as a term loan, revolving credit line, or a combination of various credit instruments. 
+        - A detailed description of the desired credit amount and the type of facility, such as a term loan, revolving credit line, or a mix of credit instruments.
+        - An explanation of the purpose of the credit facility, detailing the allocation of funds and highlighting specific areas or projects for credit utilization, such as working capital, capital expenditure, market expansion, research and development, or debt refinancing.
+        - A description of the proposed repayment plan, including the repayment term, interest rate, and any particular repayment structures or conditions.
+        - Include any client milestones or project timelines to illustrate expected fund usage over time.
+        - Detail collateral or security for the credit facility, specifying assets or guarantees the client is prepared to offer.
 
-        b.	Please explain the purpose of the credit facility with the breakdown of the funds allocation and highlights of the specific areas or projects where the credit will be utilized. For example, it could be for working capital , capital expenditure, expansion into new markets, research and development, or debt refinancing.
+        Remember to incorporate a request for additional information using the specified format if any is missing, without suggesting uncertainties within the main content of the output.
 
-        c.	Please describe the proposed repayment plan for the credit facility, outlining the repayment term, interest rate and any specific repayment structures or conditions.
-
-        i.	If the client has specific milestones or project timelines, include them to demonstrate the expected usage of funds over time.
-
-        ii.	If the credit facility required collateral or security, detail the assets or guarantees the client is willing to pledge to secure the loan.)
-
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        Do not mention any lack of specific information in the output.
-        Take this task one step at a time and remember to breathe.
+        Proceed with each task step by step, and remember to breathe deeply as you work.
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -371,44 +353,44 @@ def section_2_template():
 # Shareholders and Group Structure
 def section_3_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+        Approach this task with attention to detail and maintain a steady breathing rhythm. Here are the guidelines to follow, ensuring that all information is factual and verifiable:
 
-        Be aware if The input information does not provide specific details about the company's shareholders, ownership structure, and group companies, then generate as short as you can, output 'No information on shareholders, ownership structure, and group companies', also return text at the end by this exact format: "[RM Please provide further information on Keywords...]".
+        If the input information lacks specific details about the company's shareholders, ownership structure, and group companies, succinctly state 'No information on shareholders, ownership structure, and group companies' and request more information using the format: "[RM Please provide further information on Keywords...]" at the end of your response.
 
-        Do not incude 'In view of the above, ' in the output.
+        - If the input information does not include specific details about the company's shareholders, ownership structure, and group companies, clearly state: "No information provided about Shareholders and Group Structure."
+        - Present your response in bullet points, limiting each to a maximum of three rows.
 
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+        - Derive your content solely from the ----Client Name---- and ----Input Information---- provided. The ----Example for Reference---- should only be used to understand the context and not mentioned in your output.
+        - Use indirect phrasing such as "It is mentioned that" to reference any internal notes or discussions.
+        - Write your response in English, organizing it into paragraphs. Break down any paragraph that exceeds 100 words into shorter sections.
+        - Ensure sentences within the same paragraph are continuous without line breaks.
+        - Begin writing your paragraph without any headings.
+        - Utilize bullet points or tables to present your answers clearly, avoiding introductory statements for sections.
+        - Refrain from using phrases like "Based on the input json" or "it is mentioned" to maintain neutrality.
+        - Create responses devoid of subjective language or expressions that convey personal opinions.
+        - Include figures and statistics only if they are explicitly provided in the content given.
+        - Do not include disclaimers or mention the source of your information within your response.
+        - Should any specific information be absent in the input information, request it using the prescribed format: "[RM Please provide further information on Keywords...]". Refrain from creating information or indicating ambiguities within the main content.
 
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph directly without a heading.
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
-
-        **Input Information**
+        ----Input Information----
         {input_info}
-        
-        **Client Name**
+
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        ----Example for Reference----
         {example}
-        
-        **Shareholders and Group Structure**
 
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        Take this task one step at a time and remember to breathe.
-        Do not incude 'In view of the above, ' in the output.
+        ----Shareholders and Group Structure----
+        Your summary should include:
+
+        - A listing of the major shareholders with their names, ownership percentages, and relevant background information.
+        - If the clients company is part of a group structure, detail the key entities and their interrelations, including parent companies, subsidiaries, and affiliates.
+        - Disclose and explicate any significant transactions or relationships between the clients company and related parties.
+
+        Request additional information if necessary using the format: "[RM Please provide further information on Keywords...]" without indicating any lack of clarity in the main output.
+
+        Proceed through each part of the task methodically, and ensure to maintain deep, regular breaths as you progress.
         """
     
     
@@ -419,44 +401,54 @@ def section_3_template():
 # Project Details
 def section_4_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+        Read through this task one step at a time and remember to take deep breaths. Ensure your work adheres to the following guidelines, which emphasize factual and verifiable information:
 
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+        - Present your output concisely in bullet point form, with each bullet not exceeding two rows.
 
-        You must not contain (In view of the above) in the output
+        - Derive your content directly from the provided ----Client Name---- and ----Input Information----. Use the ----Example for Reference---- solely for context.
 
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph directly without a heading.
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+        - Reference information by stating "It is mentioned that," avoiding direct mentions of "RM Note," "Component," or client meetings.
 
-        **Input Information**
+        - Craft your response in English, structured into clear, concise paragraphs. For longer paragraphs over 100 words, break them into smaller, digestible sections.
+
+        - Maintain a continuous flow within the same paragraph, avoiding line breaks mid-sentence.
+
+        - Initiate your paragraphs directly, without the use of headings.
+
+        - Use bullet points or tables for clarity in presenting your answers, without prefacing what the section will include.
+
+        - Exclude subjective language and phrases that express sentiment or personal judgment, such as 'unfortunately,' from your responses.
+
+        - Incorporate figures and statistics only if they are explicitly included in the provided content. Do not invent data.
+
+        - Leave out disclaimers or mentions of information sources within your response.
+
+        - If certain information is missing from the input, request it clearly at the end of your response using the format: "[RM Please provide further information on Keywords...]." Avoid creating information or suggesting ambiguities.
+
+        - Format requests for additional information as a standalone sentence at the end of your response, not as a bullet point.
+
+        ----Input Information----
         {input_info}
-        
-        **Client Name**
+
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        ----Example for Reference----
         {example}
 
-        **Project Details**
-        Please provide a concise summary of the Project Details based on the above information. 
-        Conclude the Project Details with a statement about the proposed loan facility.
-        
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        Do not mention any lack of specific information in the output.
-        Take this task one step at a time and remember to breathe.
+        ----Project Details----
+        Your summary should include:
+
+        a. A detailed, yet succinct, description of the project's nature, purpose, and objectives.
+        b. An outline of the project's scope and scale, including aspects such as physical size, production capacity, target market size, or geographical reach.
+        c. A presentation of the project's timeline or schedule, highlighting major phases, activities, and estimated timeframes.
+        d. An explanation of the necessary resources for the project's success, such as financial resources, equipment or technology.
+
+        Conclude the Project Details with key information about the proposed loan facility.
+
+        If any specific details are absent, end your response with a request for more information using the prescribed format: "[RM Please provide further information on Keywords...]." Ensure all provided information is clear and do not mention any deficiencies in the output.
+
+        Tackle this task methodically, and keep your breathing steady and calm.
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -466,44 +458,53 @@ def section_4_template():
 #  Industry / Section Analysis
 def section_5_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        As you approach this task, read through each step at your own pace, and remember to take deep breaths to maintain focus. Adhere to the guidelines below to ensure your information is factual and verifiable:
 
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+        - Convey information in a concise manner using bullet points, limiting each to no more than two rows.
 
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph with a heading. 
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+        - Draw your content from the provided ----Client Name---- and ----Input Information----, treating the ----Example for Reference---- solely as background context.
 
-        **Input Information**
+        - Phrase information as "It is mentioned that," rather than referring to "RM Note," "Component," or client meetings.
+
+        - Write your response in English, structured in well-organized paragraphs. Should a paragraph extend beyond 100 words, split it into more manageable sections.
+
+        - Ensure paragraphs flow without interruption; do not place line breaks mid-sentence.
+
+        - Begin your response with a clear statement, and use headings to guide the reader through your paragraphs.
+
+        - Utilize bullet points or tables for clear presentation, focusing on the content without prefacing sections.
+
+        - Maintain objectivity in your responses, steering clear of subjective language or expressions of personal judgment.
+
+        - Include figures and statistics only when they are explicitly stated in the provided content.
+
+        - Keep your response free from disclaimers or citations of information sources.
+
+        - If the input information lacks specific details, request additional information at the end of your response with the format: "[RM Please provide further information on Keywords...]," without speculating or indicating any uncertainties.
+
+        - Request for additional information should be formatted as a separate sentence at the end, not within bullet points.
+
+        - Avoid using the heading ----Input Paragraph---- in your response.
+
+        ----Input Information----
         {input_info}
-        
-        **Client Name**
+
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        ----Example for Reference----
         {example}
 
+        ----Industry / Section Analysis----
+        Your summary should encompass the following:
 
-        **Industry / Section Analysis**
-        Please provide a concise summary of the Industry / Section Analysis based on the above information. 
-        
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        Do not mention any lack of specific information in the output.
-        Take this task one step at a time and remember to breathe.
-        You must not incude heading **Input Paragraph**.
+        - A detailed overview of the client's industry or sector, including the industry's size, growth rate, and major trends.
+        - An analysis of the competitive landscape, identifying major competitors, their market shares, and key strengths and weaknesses, along with the client's unique selling propositions or competitive advantages.
+        - An outlook on the industrys future prospects.
+
+        Should there be gaps in the provided information, signal the need for additional details using the designated format: "[RM Please provide further information on Keywords...]." Refrain from hypothesizing or noting any ambiguities in the output.
+
+        Approach each segment of the task methodically, and ensure you keep a steady breathing rhythm.
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -516,7 +517,7 @@ def section_6_template():
     proposal_proposal_template_text = """
         Read this task step by step at a time and take a long breathe. Stick strictly to factual and verifiable information.:
 
-        **Note: Write concise in bullet point form, no more than two rows in each bullet point.**
+        ----Note: Write concise in bullet point form, no more than two rows in each bullet point.----
 
         1. Base your content solely on the 'Input Information' and the 'Client Name'. Do not include any content from 'Example' in your output - it's for reference only.
         2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
@@ -533,16 +534,16 @@ def section_6_template():
 
         - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
-        **Input Information**
+        ----Input Information----
         {input_info}
 
-        **Client Name**
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        ----Example for Reference----
         {example}
 
-        **Management**
+        ----Management----
         Please provide a concise summary of the Management based on the 'Input Information'. Conclude with a statement about the proposed loan facility.
 
         If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
@@ -560,7 +561,7 @@ def section_7_template():
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
 
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+        ----Note: Write concise in bullet point form, no more than two rows in each bullet points.----
 
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
         2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
@@ -575,26 +576,26 @@ def section_7_template():
         11. Do not add disclaimers or state the source of your information in your response.
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         
-        **Reminder:** Your response must include information about the equity to debt ratio, Net income, and Return on Equity (ROE) of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please provide further information on Keywords...]". 
+        ----Reminder:---- Your response must include information about the equity to debt ratio, Net income, and Return on Equity (ROE) of the borrower. If this information is not provided, make sure to ask the RM for it using the format: "[RM Please provide further information on Keywords...]". 
 
         - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
 
-        **Input Information**
+        ----Input Information----
         {input_info}
 
-        **Client Name**
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        ----Example for Reference----
         {example}
 
 
-        **Financial Information of the Borrower**
+        ----Financial Information of the Borrower----
         Please provide a concise summary of the Financial Information of the Borrower based on the above information. 
         Ensure the following infomation is included in the input_info:
-        a.	Please provide the borrower’s audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.
-        b.	Please provide the breakdown of the borrower’s revenue sources and its cost structure.
-        c.	Please provide insights into borrower’s financial performance, trends and future prospects. If there is any significant events or facts that have influenced the borrower’s financial results, please explain it.
+        a.	Please provide the borrowers audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.
+        b.	Please provide the breakdown of the borrowers revenue sources and its cost structure.
+        c.	Please provide insights into borrowers financial performance, trends and future prospects. If there is any significant events or facts that have influenced the borrowers financial results, please explain it.
         
         If specific information is missing, use this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Avoid mentioning any lack of specific information in the output.
@@ -609,49 +610,51 @@ def section_7_template():
 # Other Banking Facilities
 def section_8_template():
     proposal_proposal_template_text = """
-        Read this task step by step at a time and take a long breathe.
-        Read and Carefully consider all the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+        Embark on this task by reading through each step methodically, and maintain a steady breath. Ensure that you adhere to the following guidelines meticulously, focusing solely on factual and verifiable information:
 
-        Be aware if The input information does not provide specific details about the company's Other Banking Facilities.
-        Then generate as short as you can, output 'No information on Other Banking Facilities' and return text at the end by follow this format: "[RM Please provide further information on Keywords...]".
-        If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]".
-        
-        **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+        - Should the input information lack details about the company's Other Banking Facilities, clearly state: 'No information on Other Banking Facilities' and request more details at the end using the format: "[RM Please provide further information on Keywords...]."
 
-        1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
-        2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
-        4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
-        5. Don't include line breaks within sentences in the same paragraph.
-        6. Start your paragraph directly without a heading.
-        7. You can use point form or tables to present your answer, but do not introduce what the section includes.
-        8. Avoid phrases like "Based on the input json" or "it is mentioned".
-        9. Please generate responses without using any subjective language or phrases that might express sentiments or personal judgments such as 'unfortunately'.
-        10. Please generate responses that do not invent any numbers or statistics. You may only use figures if they are explicitly mentioned in the provided content.
-        11. Do not add disclaimers or state the source of your information in your response.
-        12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        - Compose your response using concise bullet points, with each bullet point occupying no more than two lines.
 
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+        - Draw content from the 'Input Information' and the 'Client Name'. The 'Example' is to be used exclusively for context and not to be included in your output.
 
+        - Frame your response by stating "It is mentioned that," instead of referencing "RM Note," "Component," or any client meetings.
 
-        **Input Information**
+        - Craft your response in English, structured into clear paragraphs. Break down any paragraph over 100 words to maintain readability.
+
+        - Ensure that each paragraph is continuous with no line breaks mid-sentence.
+
+        - Begin each paragraph directly, using bullet points or tables for clear presentation without preamble about what the section includes.
+
+        - Refrain from using phrases such as "Based on the input json" or "it is mentioned."
+
+        - Keep your language neutral, avoiding subjective phrases that convey personal sentiment or judgment.
+
+        - Include figures and statistics in your response only if they are clearly stated in the input information.
+
+        - Do not append disclaimers or cite the source of your information in your response.
+
+        - If essential information is not provided, indicate the need for more details at the end of your response in the specified format: "[RM Please provide further information on Keywords...]," ensuring this request stands alone and is not part of bullet points.
+
+        ----Input Information----
         {input_info}
 
-        **Client Name**
+        ----Client Name----
         {client_name}
 
-        Do not include any information from Example for Reference in your output - it's for reference only.
-        **Example for Reference**
+        Remember, the 'Example for Reference' is solely for background context and should not be included in your output.
+        ----Example for Reference----
         {example}
 
+        ----Other Banking Facilities----
+        Aim to provide a concise summary of the Other Banking Facilities, including:
 
-        **Other Banking Facilities**
-        Please provide a concise summary of the Other Banking Facilities based on the above information. 
-        Ensure the following infomation is included in the input_info:
-        a.	Please provide a list of the borrower’s existing credit facilities from other banks or financial institutions, including details such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date and any collateral or guarantees associated with each facility.
-        
-        If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
-        Take this task one step at a time and remember to breathe.
+        - A list of the borrower's existing credit facilities from other banks or financial institutions.
+        - Details for each facility, such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date, and any collateral or guarantees.
+
+        If there is a lack of specific details, use the format "[RM Please provide further information on Keywords...]" to request the necessary information, and avoid making assumptions or indicating uncertainties.
+
+        Proceed with each step of this task with focus, and remember to breathe evenly throughout.
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -662,27 +665,33 @@ def section_8_template():
 # Opinion of the Relationship Manager
 def section_9_template():
     proposal_proposal_template_text = """
-        Based on the provided relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the banking relationship with {client_name}, create a balanced credit assessment paragraph. The assessment should outline strengths and weaknesses, adhering to the details included in the input information. If certain aspects are not detailed in the input, consolidate the missing elements and prompt for further information using the format "[RM Please provide further information on Keywords...]" at the end of the output.
+        Compose a comprehensive credit assessment paragraph for {client_name} by considering the relationship history, creditworthiness, repayment capacity, risk assessment, and the overall banking relationship strength as detailed in the input information. Ensure your assessment highlights both strengths and weaknesses, and is well-balanced and factual. For any areas not covered in the input, kindly request additional details at the end of your assessment using the format "[RM Please provide further information on Keywords...]."
 
-        **Instructions:**
-        1. Use the input information provided under **Input Information**.
-        2. Reference the client as {client_name}.
-        3. Do not extract information from the **Example for Reference** section.
-        4. Avoid phrases like "Based on the input json" and subjective language or sentiments.
-        5. Present information clearly in English, with sub-headers for strengths and weaknesses where applicable.
-        6. Ensure responses are factual, free of invented numbers or statistics unless specified in the content.
-        7. Refrain from mentioning the source of the information, justification, or personal recommendations.
+        ----Instructions:----
+        1. Derive content exclusively from the ----Input Information---- provided.
+        2. Refer to the client using their name: {client_name}.
+        3. Focus on objective analysis, steering clear of subjective sentiments.
+        4. Format your response in English, using sub-headers to differentiate between strengths and weaknesses.
+        5. Include only factual data and numbers that are explicitly stated in the input information.
+        6. Present the assessment without citing the source or offering personal recommendations.
 
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence.
+        ----Opinion of the Relationship Manager----
+        Your summary should encapsulate:
+        a. The strengths and weaknesses of the deal, drawing on the relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the relationship.
 
-        **Input Information**
+        - For any information that is absent, please request it clearly at the end of your summary in the following format: "[RM Please provide further information on Keywords...]" as a separate sentence.
+
+        ----Input Information----
         {input_info}
 
-        **Client Name**
+        ----Client Name----
         {client_name}
 
-        **Example for Reference**
+        Remember, the 'Example for Reference' is solely for background context and should not be included in your output.
+        ----Example for Reference----
         {example}
+
+        Note: The ----Example for Reference---- is intended solely for context and should not be incorporated into your assessment.
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -696,18 +705,18 @@ def section_10_template():
         Take this task step by step, and remember to breathe.
         Please follow these guidelines strictly, focusing on factual and verifiable information:
 
-        **Summary of Recommendation**
+        ----Summary of Recommendation----
         Read the 'Input Information' and use the 'Example for Reference' to guide your thinking. Then, based on your understanding, output one of the exact following lines: 
         1. 'In view of the above, we recommend the proposed loan facility for management approval.' 
         2. 'In view of the above, we do not recommend the proposed loan facility for management approval.' 
 
-        **Input Information**
+        ----Input Information----
         {input_info}
 
-        **Client Name**
+        ----Client Name----
         {client_name}
 
-        **Example for Reference** 
+        ----Example for Reference---- 
         {example}
 
         If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
@@ -728,10 +737,10 @@ def regen_template():
     proposal_proposal_template_text = """
         To complete this task, carefully consider the previous paragraph and the RM's instructions. Your task is to edit and summarize the previous paragraph according to the RM instructions provided.
 
-        **Previous Paragraph**
+        ----Previous Paragraph----
         {previous_paragraph}
 
-        **RM Instructions**
+        ----RM Instructions----
         {rm_instruction}
 
         When crafting your response, adhere to the following guidelines:
@@ -765,11 +774,11 @@ def review_prompt_template():
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
         Please do not add additional content to the Paragraph.
 
-        **Input Paragraph**
+        ----Input Paragraph----
         {first_gen_paragraph}
 
         Double check the Input Paragraph does not contains any content from 'example', if the Input Paragraph contains any content from 'example', remove them.
-        **Example**
+        ----Example----
         {example}
 
         - Do not state that information is missing, not mentioned, or not provided. If specific information such as the proposed loan facility isn't available in the input, do not mention its absence or request it.
@@ -796,7 +805,7 @@ def regenerate_review_prompt_template():
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
         Please do not add additional content to the Paragraph.
 
-        **Input Paragraph**
+        ----Input Paragraph----
         {re_gen_paragraph}
 
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
@@ -828,7 +837,7 @@ def review_prompt_template_2():
         To complete this task, you need to review and edit the Input paragraph according to the instructions provided.
         Please do not add additional content to the Paragraph.
 
-        **Input Paragraph**
+        ----Input Paragraph----
         {reviewed}
 
         Instructions:
