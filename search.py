@@ -1,53 +1,73 @@
-import json
+from langchain.utilities import BingSearchAPIWrapper
+from langchain.tools import BaseTool
 import os
-from pprint import pprint
 import requests
-from dotenv import load_dotenv, find_dotenv
-_ = load_dotenv(find_dotenv())  # read local .env file
+from src.get_keys import GetAzureKeys
+# from dotenv import load_dotenv, find_dotenv
+# _ = load_dotenv(find_dotenv())  # read local .env file
 
-def bing_web_search(query):
-    '''
-    This sample makes a call to the Bing Web Search API with a query and returns relevant web search.
-    Documentation: https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
-    '''
 
-    # Add your Bing Search V7 subscription key and endpoint to your environment variables.
-    subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
-    endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/v7.0/search"
+keys = GetAzureKeys()
 
-    # Construct a request
-    mkt = 'en-US'
-    params = { 'q': query, 'mkt': mkt }
-    headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
-
-    # Call the API
-    try:
-        response = requests.get(endpoint, headers=headers, params=params)
-        response.raise_for_status()
-
-        # print("\nHeaders:\n")
-        # print(response.headers)
-        result_list= []
-
-        # print("\nJSON Response:\n")
-        # print(response.json())
-
-        result = response.json()['webPages']['value']
-
-        for r in result:
-            title = r['name']
-            snippet = r['snippet']
-            link = r['url']
-            result_list.append({"title":title,
-                                "snippet":snippet,
-                                "link":link})
-
-        return result_list
-    except Exception as ex:
-        raise ex
+class CustomBingSearch(BaseTool):
+    """Tool for a Bing Search Wrapper"""
     
+    name = "@bing"
+    description = "useful when the questions includes the term: @bing.\n"
+
+    k: int = 5
+    
+    def _run(self, query: str) -> str:
+        bing = BingSearchAPIWrapper(k=self.k)
+        return bing.results(query,num_results=self.k)
+            
+    async def _arun(self, query: str) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("This Tool does not support async")
+
+# def bing_web_search(self, query, k):
+#     '''
+#     This sample makes a call to the Bing Web Search API with a query and returns relevant web search.
+#     Documentation: https://docs.microsoft.com/en-us/bing/search-apis/bing-web-search/overview
+#     '''
+
+#     # Add your Bing Search V7 subscription key and endpoint to your environment variables.
+#     subscription_key = os.environ['BING_SEARCH_V7_SUBSCRIPTION_KEY']
+#     endpoint = os.environ['BING_SEARCH_V7_ENDPOINT'] + "/v7.0/search"
+
+#     # Construct a request
+#     mkt = 'en-US'
+#     params = { 'q': query, 'mkt': mkt }
+#     headers = { 'Ocp-Apim-Subscription-Key': subscription_key }
+
+#     # Call the API
+#     try:
+#         response = requests.get(endpoint, headers=headers, params=params)
+#         response.raise_for_status()
+
+#         # print("\nHeaders:\n")
+#         # print(response.headers)
+#         result_list= []
+
+#         # print("\nJSON Response:\n")
+#         # print(response.json())
+
+#         result = response.json()['webPages']['value']
+
+#         for r in result:
+#             title = r['name']
+#             snippet = r['snippet']
+#             link = r['url']
+#             result_list.append({"title":title,
+#                                 "snippet":snippet,
+#                                 "link":link})
+
+#         return result_list
+#     except Exception as ex:
+#         raise ex
+
 # test
-bing_web_search("GOGOX CEO Hong Kong")
+# bing_web_search("GOGOX CEO Hong Kong")
 
 """
 [{'title': 'Co-founder & Cheap Everything Officer (CEO) - GOGOX - LinkedIn', 'snippet': 'Steven Lam Co-Founder & Cheap Everything Officer at GoGoX (We are actively hiring! PM me if you like adventure and challenges!) Hong Kong SAR 2K followers 500+ connections Join now New to...', 'link': 'https://hk.linkedin.com/in/stevenhylam'}, 
