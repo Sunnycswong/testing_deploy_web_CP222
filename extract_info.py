@@ -163,10 +163,13 @@ def web_extract_RM(section, rm_note_txt, client):
     hierarchy_dict_list = hierarchy_dict_list["content"]
 
     prompt_template_for_extracting_rm_note = """
-        For this task, you'll be generating a response based on given information. Please read the ----Client Name----  and the RM Notes, then answer the ----Question---- provided.
+        For this task, you are tasked with crafting a response based on the information provided. Meticulously examine the details specified under ----Client Name---- and the RM Notes before attempting to answer the ----Question---- presented.
 
-        Do not search any information from internet or based on your understanding. Only based on ----RM Notes---- information to perform this task.
- 
+        You must depend exclusively on the details outlined in the ----RM Notes---- to accomplish this task. Do not consult external sources or rely on personal knowledge.
+
+        **Important**
+        In the event that the ----RM Notes---- do not offer sufficient details to resolve the ----Question----, request for additional information at the end using this format: '[RM Please provide further information on Keywords]'.
+
         ----Client Name----
         {client_name}
 
@@ -176,18 +179,24 @@ def web_extract_RM(section, rm_note_txt, client):
         ----Question----
         {question}
 
-        While crafting your response, please observe these guidelines:
+        ----Example----
+        {example}
 
-        1. Provide your answer in English.
-        2. Expand on the information provided by the RM where possible.
-        3. Do not invent or exaggerate information. Stick to what's provided.
-        4. If no relevant information is available, respond with "[N/A]".
-        5. Do not include notes about the source of your information in your answer.
+        As you prepare your response, adhere strictly to the instructions below:
 
-        Remember, approach this task calmly and methodically.
+        1. Formulate your answer in clear, concise English.
+        2. Enhance your response with any insights that can be derived from the RM Notes, where possible.
+        3. Ensure that your response is based strictly on the provided information; refrain from creating or assuming details that are not explicitly mentioned.
+        4. Do not include any references to the source of your information in your response.
+        5. In the event that the ----RM Notes---- do not offer sufficient details to resolve the ----Question----, prompt a request for additional information using the format: '[RM Please provide further information on Keywords]'.
+        6. If No information are provided in the RM Notes, request for additional information at the end using this format: '[RM Please provide further information on Keywords]'.
+        
+        Take a systematic and composed approach to this task.
+
+        Note: The ----Example---- provided is for illustrative purposes only. Do not incorporate its content into your response; instead, use it as a guide for style or format when extracting and presenting information from the RM Notes.
         """
     
-    rm_prompt_template = PromptTemplate(template=prompt_template_for_extracting_rm_note, input_variables=["rm_note", "question", "client_name"])# "example",])
+    rm_prompt_template = PromptTemplate(template=prompt_template_for_extracting_rm_note, input_variables=["rm_note", "question", "client_name", "example",])
 
     
     # set up openai environment - Jay
@@ -202,20 +211,32 @@ def web_extract_RM(section, rm_note_txt, client):
     #"example": dictionary["Example"],
 
     output_dict_list = []
+    rm_text_list = []  # Variable to store the "[RM ...]" text
+
     for dictionary in hierarchy_dict_list:
         if dictionary["Section"] == section:
-            chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template,verbose=True)
-            dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client})['text']
+            chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template, verbose=True)
+            dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client, "example": dictionary["Example"]})['text']
             dictionary["Value"] = dictionary["Value"].replace("Based on the given information, ", "")
+            
+            # Use regular expressions to find the pattern "[RM ...]"
+            match = re.search(r"\[RM [^\]]+\]", dictionary["Value"])
+            if match:
+                rm_text_variable = match.group(0)  # Store the "[RM ...]" text in the variable
+                rm_text_list.append(rm_text_variable)
+                #dictionary["Value"] = dictionary["Value"].replace(rm_text_variable, "")  # Remove the "[RM ...]" text from the "Value"
+                dictionary["Value"] = ""
+            
             if "[N/A]" in dictionary["Value"]:
                 dictionary["Value"] = ""
+            
             output_dict_list.append(dictionary)
 
     # Create Json file 
     # output_json_name = "GOGOVAN_hierarchy_rm_note.json"
     # json.dump(output_dict_list, open(output_json_name, "w"), indent=4)
 
-    return output_dict_list
+    return output_dict_list, rm_text_list
 
 '''
         ======
@@ -322,7 +343,8 @@ def section_2_template():
         - Use only figures directly mentioned in the provided content, refraining from introducing new data or statistics.
         - Exclude disclaimers or mentions of information sources within your responses.
         - If details are not available in the input information, request additional data using the specified format: "[RM Please provide further information on Keywords...]", avoiding any indication of missing information within the main output.
-
+        - Remove the sentences that telling the "information is missing" or "information have not been provided" or "information have not been not been mentioned"
+        
         ----Input Information----
         {input_info}
 
@@ -333,13 +355,7 @@ def section_2_template():
         {example}
 
         ----Client Request----
-        Deliver a precise summary of the Client Request with the information provided. Ensuring the summary includes:
-
-        - A detailed description of the desired credit amount and the type of facility, such as a term loan, revolving credit line, or a mix of credit instruments.
-        - An explanation of the purpose of the credit facility, detailing the allocation of funds and highlighting specific areas or projects for credit utilization, such as working capital, capital expenditure, market expansion, research and development, or debt refinancing.
-        - A description of the proposed repayment plan, including the loan-to-value (LTV), amortization period, repayment term, interest rate, and any particular repayment structures or conditions.
-        - Include any client milestones or project timelines to illustrate expected fund usage over time.
-        - Detail collateral or security for the credit facility, specifying assets or guarantees the client is prepared to offer.
+        Deliver a precise summary of the Client Request with the information provided. 
 
         Remember to incorporate a request for additional information using the specified format if any is missing, without suggesting uncertainties within the main content of the output. With: "[RM Please provide further information on Keywords...]" as a separate sentence.
 
@@ -350,9 +366,55 @@ def section_2_template():
 
     return prompt_template_proposal
 
+
+"""
+        - A detailed description of the desired credit amount and the type of facility, such as a term loan, revolving credit line, or a mix of credit instruments.
+        - An explanation of the purpose of the credit facility, detailing the allocation of funds and highlighting specific areas or projects for credit utilization, such as working capital, capital expenditure, market expansion, research and development, or debt refinancing.
+        - A description of the proposed repayment plan, including the loan-to-value (LTV), amortization period, repayment term, interest rate, and any particular repayment structures or conditions.
+        - Include any client milestones or project timelines to illustrate expected fund usage over time.
+        - Detail collateral or security for the credit facility, specifying assets or guarantees the client is prepared to offer."""
+
 # Shareholders and Group Structure
 def section_3_template():
     proposal_proposal_template_text = """
+        Approach this task with attention to detail and maintain a steady breathing rhythm. Here are the guidelines to follow, ensuring that all information is factual and verifiable:
+
+        - Present your response in bullet points, limiting each to a maximum of three rows.
+
+        - Derive your content solely from the ----Client Name---- and ----Input Information---- provided. The ----Example for Reference---- should only be used to understand the context and not mentioned in your output.
+        - Use indirect phrasing such as "It is mentioned that" to reference any internal notes or discussions.
+        - Write your response in English, organizing it into paragraphs. Break down any paragraph that exceeds 100 words into shorter sections.
+        - Ensure sentences within the same paragraph are continuous without line breaks.
+        - Begin writing your paragraph without any headings.
+        - Utilize bullet points or tables to present your answers clearly, avoiding introductory statements for sections.
+        - Refrain from using phrases like "Based on the input json" or "it is mentioned" to maintain neutrality.
+        - Create responses devoid of subjective language or expressions that convey personal opinions.
+        - Include figures and statistics only if they are explicitly provided in the content given.
+        - Do not include disclaimers or mention the source of your information within your response.
+        - Do not mention 'RM notes' in the content
+
+        ----Input Information----
+        {input_info}
+
+        ----Client Name----
+        {client_name}
+
+        ----Example for Reference----
+        {example}
+
+        ----Shareholders and Group Structure----
+        Your summary should based on the information to draft a paragraph.
+
+        Proceed through each part of the task methodically, and ensure to maintain deep, regular breaths as you progress.
+        """
+    
+    
+    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
+
+    return prompt_template_proposal
+
+# Back up prompt
+"""
         Approach this task with attention to detail and maintain a steady breathing rhythm. Here are the guidelines to follow, ensuring that all information is factual and verifiable:
 
         If the input information lacks specific details about the company's shareholders, ownership structure, and group companies, succinctly state 'No information on shareholders, ownership structure, and group companies' and request more information using the format: "[RM Please provide further information on Keywords...]" at the end of your response.
@@ -392,11 +454,9 @@ def section_3_template():
 
         Proceed through each part of the task methodically, and ensure to maintain deep, regular breaths as you progress.
         """
-    
-    
-    prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
 
-    return prompt_template_proposal
+
+
 
 # Project Details
 def section_4_template():
@@ -509,9 +569,9 @@ def section_6_template():
     proposal_proposal_template_text = """
         Read this task step by step at a time and take a long breathe. Stick strictly to factual and verifiable information.:
 
-        ----Note: Write concise in bullet point form, no more than two rows in each bullet point.----
+        ----Do not include any content from ----Example for Reference---- in your output - it's for reference only----
 
-        1. Base your content solely on the 'Input Information' and the 'Client Name'. Do not include any content from 'Example' in your output - it's for reference only.
+        1. Base your content solely on the 'Input Information' and the 'Client Name'. Do not include any content from ----Example for Reference---- in your output - it's for reference only.
         2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
         3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
         4. Your response should be in English and divided into paragraphs. If a paragraph exceeds 100 words, break it down into smaller sections.
@@ -541,6 +601,8 @@ def section_6_template():
         If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
+
+        Note: The ----Example for Reference---- is intended solely for context and should not be incorporated into your assessment.
     """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -722,7 +784,6 @@ def section_10_template():
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
 
-
     return prompt_template_proposal
 
 # template for regeneration
@@ -770,21 +831,24 @@ def review_prompt_template():
         ----Input Paragraph----
         {first_gen_paragraph}
 
-        Double check the Input Paragraph does not contains any content from 'example', if the Input Paragraph contains any content from 'example', remove them.
+        Double check the ----Input Paragraph---- does not contains any content from ----Example----.
+        If the Input Paragraph contains any content from ----Example----, remove them.
         ----Example----
         {example}
 
+        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
         - Do not state that information is missing, not mentioned, or not provided. If specific information such as the proposed loan facility isn't available in the input, do not mention its absence or request it.
         - If specific information isn't provided, request it in this format: '[RM Please provide further information on Keywords...]'. Do not state that information is missing or not mentioned.
         - Avoid subjective language or personal judgments. 
         - Do not invent numbers or statistics unless explicitly provided.
-        - Do not mention 'RM Note', 'Component', or any meetings with the client. Use 'It is mentioned that...' instead.
+        - Do not mention 'RM Notes', 'RM Note', 'Component', or any meetings with the client. Use 'It is mentioned that...' instead.
         - Do not justify your answers or provide your own suggestions. Stick to the information provided.
         - Use English and divide your content into short paragraphs. Do not exceed 100 words per paragraph.
         - Do not introduce your sections, start directly.
         - Avoid subjective language or personal judgments. 
         - if the first_gen_paragraph contains "In view of the above", do not edit and remove that sentence.
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+        - Do not mention any example provided in the content
+        - Remove the sentence that telling the "information is missing" or "information have not been provided" or "information have not been not been mentioned"
 
         Your response should not highlight missing or unspecified information. Instead, request additional information using the provided format when necessary. Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
@@ -839,6 +903,9 @@ def review_prompt_template_2():
         3. Instead of these sentences, request the specific missing information using this format: '[RM Please provide further information on Keywords...]', you can return many times if there are information missing. 
         4. Take this task one step at a time and remember to breathe
         5. if the first_gen_paragraph contains "In view of the above", do not edit and remove that sentence.
+        6. Remove any sentence that solely consists of a format for requesting information, such as "Point: [RM Please provide further information on ???]". These do not add substantive content and should be excluded from the edited paragraph.
+        7. Replace 'RM Notes' to 'provided content' in such sentence like: 'The RM Notes do not provide specific names or background information for these shareholders.'
+        8. Remove the sentence that telling the "information is missing" or "information have not been provided" or "information have not been not been mentioned"
 
         """
     
@@ -848,8 +915,7 @@ def review_prompt_template_2():
 
 
 # function to perform first generation of the paragraph
-def first_generate(section_name, input_json, client):
-
+def first_generate(section_name, input_json, client, rm_text_variable):
 
     """
     A core function to generate the proposal per section
@@ -922,7 +988,11 @@ def first_generate(section_name, input_json, client):
         sub_section = item['Sub-section']
         value = item['Value']
         example = item['Example']
-        input_info_str.append(f"{sub_section} : {value}")
+        print(value)
+        # Append sub_section and value only if value is not empty
+        if value != "":  # This checks if value is not just whitespace
+            input_info_str.append(f"{sub_section} : {value}")
+            
         example_str.append(f"{sub_section} : {example}")
 
     final_dict = {"input_info": ", ".join(input_info_str), "Example": ", ".join(example_str)}
@@ -938,7 +1008,19 @@ def first_generate(section_name, input_json, client):
     # Capitalize the first character of the text
     drafted_text2 = drafted_text2[0].capitalize() + drafted_text2[1:]
 
+    # Create blank list to store the "[RM Please provide ...]"
     rm_fill_values = []
+
+    # Loop the RM notes missing information into the generate part
+    for item in rm_text_variable:
+        # Remove the 'RM ' prefix and the brackets
+        clean_text = item.replace("RM ", "").strip("[]")
+        # Add the cleaned text to the rm_fill_values list
+        rm_fill_values.append(clean_text)
+
+
+    print(rm_fill_values)
+
     lines = drafted_text2.split("\n")
 
     for i, line in enumerate(lines):
@@ -953,6 +1035,9 @@ def first_generate(section_name, input_json, client):
 
     # Rejoin the lines into a single string without RM requests
     drafted_text2 = "\n".join(lines)
+
+
+    print(rm_fill_values)
 
     # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
     # Then strip any leading/trailing whitespace and remove trailing periods
@@ -1031,6 +1116,11 @@ def regen(section_name, previous_paragraph, rm_instruction):
     drafted_text2 = drafted_text2[0].capitalize() + drafted_text2[1:]
 
     rm_fill_values = []
+
+    # Loop the RM notes missing information into the generate part
+    #for i in rm_text_variable:
+    #    rm_fill_values.append(i)
+
     lines = drafted_text2.split("\n")
 
     for i, line in enumerate(lines):
@@ -1085,7 +1175,8 @@ def regen(section_name, previous_paragraph, rm_instruction):
 # Wrapper function
 def run_first_gen(section, rm_note_txt, client):
 
-    extract_json = web_extract_RM(section ,rm_note_txt, client)
-    output_json = first_generate(section, extract_json, client)
+    extract_json, rm_text_variable = web_extract_RM(section ,rm_note_txt, client)
+    output_json = first_generate(section, extract_json, client, rm_text_variable)
 
     return output_json
+
