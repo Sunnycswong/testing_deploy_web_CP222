@@ -4,8 +4,8 @@
         "Sub-section": "EXECUTIVE SUMMARY",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the overview of the credit proposal, highlighting key information such as the borrower’s name, request credit amount, purpose of the credit and the proposed credit structure in short point form",
-        "Example": "The deal is referred by Pamfleet Group (“Pamfleet”) and our relationship with it can be traced back to early 2006 when the OIC was with Hang Seng Bank.  After joining ICBC (Asia), OIC’d tried a couple of time to cooperate with Pamfleet, but was in vain owing to the more aggressive offer given by Pamfleet’s partner banks, like CITIC Ka Wah Bank.  However, due to ICBCA business scale, network plus OIC’s marketing effort and cordial relationship, Pamfleet agreed to provide an industry / office acquisition project for our consideration. In this project, Pamfleet is to cooperate with Angelo Gordon Group (“Angelo Gordon”), a US investment company dedicated to alternative investment to form a fund, which will be used to acquire Ever Gain Plaza located in Kwai Chung (the “Property”) or the companies holding the Property."
+        "Question": "Please extract the overview of the credit proposal, highlighting key information such as the borrower's name, request credit amount, purpose of the credit and the proposed credit structure in short point form",
+        "Example": "The deal is referred by Pamfleet Group (“Pamfleet”) and our relationship with it can be traced back to early 2006 when the OIC was with Hang Seng Bank.  After joining ICBC (Asia), OIC'd tried a couple of time to cooperate with Pamfleet, but was in vain owing to the more aggressive offer given by Pamfleet's partner banks, like CITIC Ka Wah Bank.  However, due to ICBCA business scale, network plus OIC's marketing effort and cordial relationship, Pamfleet agreed to provide an industry / office acquisition project for our consideration. In this project, Pamfleet is to cooperate with Angelo Gordon Group (“Angelo Gordon”), a US investment company dedicated to alternative investment to form a fund, which will be used to acquire Ever Gain Plaza located in Kwai Chung (the “Property”) or the companies holding the Property."
     },
     {
         "Section": "Executive Summary",
@@ -20,7 +20,7 @@
         "Sub-section": "Purpose of the Loan",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the credit facility with the breakdown of the funds’ allocation and highlights of the specific areas or projects where the credit will be utilized. For example, it could be for working capital , capital expenditure, expansion into new markets, research and development, or debt refinancing in detail point form",
+        "Question": "Please extract the credit facility with the breakdown of the funds' allocation and highlights of the specific areas or projects where the credit will be utilized. For example, it could be for working capital , capital expenditure, expansion into new markets, research and development, or debt refinancing in detail point form",
         "Example": "Acquisition of the majority of Ever Gain Plaza by Pamfleet and Angelo Gordon."
     },
     {
@@ -33,34 +33,34 @@
     },
     {
         "Section": "Client Request",
-        "Sub-section": " proposed repayment plan",
+        "Sub-section": "Proposed repayment plan",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the the proposed repayment plan for the credit facility, outlining the repayment term, interest rate and any specific repayment structures or conditions. in short point form",
-        "Example": "First Legal Charge on the Property plus other terms customary to this type of financing (detailed in the Annex). The requirement that the Facility A + mezzanine loans should not exceed 70% of the prevailing Market Value of the Property. The need for additional securities or a reduction of the aggregate outstanding if the above condition is exceeded, to return the LTV ratio to 60% or below within 45 days. The condition that All Monies First Legal Mortgage on the Property is only for the Bank, with other lenders only getting a Second Legal Mortgage."
+        "Question": "Please extract the the proposed repayment plan for the credit facility, outlining the repayment term, interest rate and any specific repayment structures or conditions. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]'",
+        "Example": "XYZ Corporation proposes a five-year repayment term for the credit facility, with a market-competitive interest rate. The structure includes a 12-month interest-only period, followed by quarterly principal and interest payments.  "
     },
     {
         "Section": "Client Request",
         "Sub-section": "specific milestones or project timelines",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the the client has specific milestones or project timelines, include them to demonstrate the expected usage of funds over time. in short point form",
-        "Example": ""
+        "Question": "Please extract the the client has specific milestones or project timelines, include them to demonstrate the expected usage of funds over time. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]'",
+        "Example": "XYZ Corporation plans to strategically deploy funds: 25% for tech upgrades by Q1, 20% for marketing and expansion in Q2, 30% towards operational efficiencies in Q3, and 15% for Q4's strategic evaluation, with 10% reserved for contingencies to ensure adaptability and steadfast progress towards our operational and financial milestones throughout the year.        "
     },
     {
         "Section": "Client Request",
-        "Sub-section": " collateral or security",
+        "Sub-section": "Collateral or security",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the the credit facility required collateral or security, detail the assets or guarantees the client is willing to pledge to secure the loan. in short point form",
-        "Example": ""
+        "Question": "Please extract the the credit facility required collateral or security, detail the assets or guarantees the client is willing to pledge to secure the loan. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]'",
+        "Example": "XYZ Corporation is willing to offer substantial collateral, including first-lien claims on all company-owned real estate, a pledge of 30% of our inventory, and a security interest in our proprietary technology patents. Furthermore, we are prepared to back the loan with personal guarantees from our Board of Directors."
     },
     {
         "Section": "Shareholders and Group Structure",
         "Sub-section": "List of Shareholders",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the out the major shareholders of the company with their names, ownership percentages and any relevant background information in short point form",
+        "Question": "Please extract the out the major shareholders of the company with their names, ownership percentages and any relevant background information in short point form. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]' ",
         "Example": "XYZ Corporation is owned by a diverse group of shareholders. The largest shareholder is John Doe, who holds a 40% stake in the company. Jane Smith and Robert Johnson are also significant shareholders, each holding a 30% stake. The remaining shares are distributed among various minor shareholders, who collectively hold a 30% stake in the company."
     },
     {
@@ -68,15 +68,15 @@
         "Sub-section": "Group Ownership Structure",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the If the client’s company is part of a larger group structure, outline the key entities within the group and explain its relationships between the entities., including parent companies, subsidiaries and affiliates",
+        "Question": "Please extract the If the client's company is part of a larger group structure, outline the key entities within the group and explain its relationships between the entities., including parent companies, subsidiaries and affiliates. If the information is not provided in text, only output text by Request  information using the format: '[RM Please provide further information on Keywords]' ",
         "Example": "The ownership structure of XYZ Corporation is hierarchical. John Doe, as the majority shareholder, holds the position of Chairman of the Board. Jane Smith, despite having the same amount of shares as Robert Johnson, serves as the Chief Executive Officer due to her extensive experience and knowledge in the industry. Robert Johnson, with his considerable financial expertise, functions as the Chief Financial Officer. This structure ensures that all major shareholders have significant influence over the company's strategic decisions."
     },
     {
         "Section": "Shareholders and Group Structure",
-        "Sub-section": "transactions or relationships between the client’s company and related parties",
+        "Sub-section": "transactions or relationships between the client's company and related parties",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the If there are any significant transactions or relationships between the client’s company and related parties, disclose and explain them.",
+        "Question": "Please extract the If there are any significant transactions or relationships between the client's company and related parties, disclose and explain them. If the information is not provided in text, only output text by Request  information using the format: '[RM Please provide further information on Keywords]' ",
         "Example": "XYZ Corporation has expanded its business operations through several subsidiaries. ABC Manufacturing is a subsidiary that specializes in the production of automotive parts. DEF Logistics is another subsidiary that provides transportation and logistics services. Finally, GHI Technologies is a start-up under XYZ Corporation that focuses on developing cutting-edge artificial intelligence solutions. Despite operating independently, these subsidiaries align their strategies with the overall direction set by XYZ Corporation, creating a synergistic group structure."
     },
     {
@@ -85,7 +85,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the clear and concise description of the project, like its nature, purpose and objectives. ",
-        "Example": "The Property comprises the majority portion of Ever Gain Plaza. This portion is approximately 582,335 square feet, or 60% of the industrial office floor area (7/F–28/F). The Property also includes 187 car parking bays on the Lower Ground Floor, Ground Floor, 1st Floor and 2nd Floor. With its distinctive architectural design and energy-efficient curtain wall system, Ever Gain Plaza is a landmark industrial office building in the Kwai Chung area. Completed in 1998, Ever Gain Plaza offers easy access to Hong Kong’s major container terminals, as well as to rail and major road networks. "
+        "Example": "The Property comprises the majority portion of Ever Gain Plaza. This portion is approximately 582,335 square feet, or 60% of the industrial office floor area (7/F–28/F). The Property also includes 187 car parking bays on the Lower Ground Floor, Ground Floor, 1st Floor and 2nd Floor. With its distinctive architectural design and energy-efficient curtain wall system, Ever Gain Plaza is a landmark industrial office building in the Kwai Chung area. Completed in 1998, Ever Gain Plaza offers easy access to Hong Kong's major container terminals, as well as to rail and major road networks. "
     },
     {
         "Section": "Project Details",
@@ -109,7 +109,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the resources needed to execute the project successfully, including financial resources and other resources like personnel, equipment, technology or materials.",
-        "Example": "A landmark industrial office building in Kwai Chung strategically positioned within 8 minutes by car to Hong Kong’s major container terminals and 15 minutes to the Hong Kong International Airport, the Central business district, and the border with mainland China. Ever Gain Plaza is within 5 minutes walking distance to the Kwai Fong MTR (subway) station. High quality building specifications and facilities - considered to be a benchmark property in the area. Key tenants in the building are predominantly major corporate industrial office occupiers such as NTT Asia, Arrow Asia, Jardine Shipping and NEC Technologies. High occupancy rate of approximately 90% is supported by strong tenant covenants."
+        "Example": "A landmark industrial office building in Kwai Chung strategically positioned within 8 minutes by car to Hong Kong's major container terminals and 15 minutes to the Hong Kong International Airport, the Central business district, and the border with mainland China. Ever Gain Plaza is within 5 minutes walking distance to the Kwai Fong MTR (subway) station. High quality building specifications and facilities - considered to be a benchmark property in the area. Key tenants in the building are predominantly major corporate industrial office occupiers such as NTT Asia, Arrow Asia, Jardine Shipping and NEC Technologies. High occupancy rate of approximately 90% is supported by strong tenant covenants."
     },
     {
         "Section": "Industry / Section Analysis",
@@ -133,7 +133,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the analysis of the competitive landscape within the industry, like identifying the major competitors, their market shares and key strengths and weaknesses. Highlight any unique selling compositions or competitive advantages that the client possess.",
-        "Example": "Kwai Chung, including Kwai Fong, Kwai Hing and Tsuen Wan, is becoming increasingly commercially oriented and is popular for office, light industrial, logistics operations and data centre users. Kwai Chung has been transforming from a traditional industrial district into a secondary office hub. The area is gradually being repositioned as a logistics and data centre hub due to its strategic location near Hong Kong’s major container ports and Hong Kong International Airport.The Kwai Chung office market had a supply spike in 2006 and mid-2008, due to the completion of Nina Tower and Kowloon Commerce Centre Tower 1. This supply offered a critical mass of Grade-A office space. With an increasing number of multi-national corporations and major occupiers attracted to the area, the vacancy rate has dropped significantly. The improvement in vacancy rates has also led to upward rental pressure in these decentralized locations, and this is set to continue due to attractive demand/supply dynamics in the submarket.The office vacancy of Kwai Chung district is 1.3% as at April 2012 which is a 1.9% reduction from April 2011, compared to a 1.7% reduction for overall Kowloon and New Territories. This trend is set to continue due to steady demand and limited supply."
+        "Example": "Kwai Chung, including Kwai Fong, Kwai Hing and Tsuen Wan, is becoming increasingly commercially oriented and is popular for office, light industrial, logistics operations and data centre users. Kwai Chung has been transforming from a traditional industrial district into a secondary office hub. The area is gradually being repositioned as a logistics and data centre hub due to its strategic location near Hong Kong's major container ports and Hong Kong International Airport.The Kwai Chung office market had a supply spike in 2006 and mid-2008, due to the completion of Nina Tower and Kowloon Commerce Centre Tower 1. This supply offered a critical mass of Grade-A office space. With an increasing number of multi-national corporations and major occupiers attracted to the area, the vacancy rate has dropped significantly. The improvement in vacancy rates has also led to upward rental pressure in these decentralized locations, and this is set to continue due to attractive demand/supply dynamics in the submarket.The office vacancy of Kwai Chung district is 1.3% as at April 2012 which is a 1.9% reduction from April 2011, compared to a 1.7% reduction for overall Kowloon and New Territories. This trend is set to continue due to steady demand and limited supply."
     },
     {
         "Section": "Industry / Section Analysis",
@@ -141,7 +141,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the the potential opportunities and threats within the industry. Opportunities could be untapped markets, technological advancements, or regulatory changes that could benefit the industry. Threats might include increasing competition, negative market trends, or potential regulatory obstacles.",
-        "Example": "Despite the relatively slow external trade environment during early 2012, sentiment in the industrial market remained positive. This came on the back of improved domestic consumption and robust retail sales supported by mainland visitors, which translated into leasing demand for logistic centres and warehouse storage space. In the factories and industrial/office leasing market, demand continued to be driven by cost conscious tenants who were attracted by cheaper rents. The market also witnessed more relocation demand from occupiers impacted by industrial revitalization or redevelopment plans of not only storage facilities, but also factory and industrial/office buildings. This pushed the existing tenants to other industrial facilities where vacant space is available. On the supply front, the market witnessed the completion and official opening of Interlink, Goodman’s latest storage facility in Tsing Yi. It is the fourth biggest warehouse in Hong Kong, and is the largest development over the past decade with around 2.4 million sq ft. On the back of a prolonged shortage of prime new supply in the market, space in the development was quickly absorbed and the facility was almost fully leased out prior to completion."
+        "Example": "Despite the relatively slow external trade environment during early 2012, sentiment in the industrial market remained positive. This came on the back of improved domestic consumption and robust retail sales supported by mainland visitors, which translated into leasing demand for logistic centres and warehouse storage space. In the factories and industrial/office leasing market, demand continued to be driven by cost conscious tenants who were attracted by cheaper rents. The market also witnessed more relocation demand from occupiers impacted by industrial revitalization or redevelopment plans of not only storage facilities, but also factory and industrial/office buildings. This pushed the existing tenants to other industrial facilities where vacant space is available. On the supply front, the market witnessed the completion and official opening of Interlink, Goodman's latest storage facility in Tsing Yi. It is the fourth biggest warehouse in Hong Kong, and is the largest development over the past decade with around 2.4 million sq ft. On the back of a prolonged shortage of prime new supply in the market, space in the development was quickly absorbed and the facility was almost fully leased out prior to completion."
     },
     {
         "Section": "Management",
@@ -153,26 +153,26 @@
     },
     {
         "Section": "Management",
-        "Sub-section": "overview of the client’s senior management and key executives",
+        "Sub-section": "overview of the client's senior management and key executives",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the an overview of the client’s senior management and key executives, including their names, titles and roles within the company with highlights of their relevant experience, qualifications, and achievements.",
-        "Example": "a) Key persons under Angelo Gordon. Wilson Leung is based in Hong Kong and is the head of Angelo, Gordon’s Asian real estate activities. Before joining the firm in 2002, Wilson was a management consultant for Bain & Company, a strategy consulting firm in San Francisco. He managed a small real estate portfolio for a non-profit institution prior to that. He received a B.S. degree from Cornell University. Wilson is fluent in Mandarin, Cantonese and English. Ken Ng is the Managing Director and Head of China Real Estate, focusing on the real estate investment in Hong Kong and the PRC. Zoe Zuo is the Vice President, focusing on the real estate investment in Hong Kong and the PRC. b) Key persons under Pamfleet Andrew Moore is the Principal and Chief Executive Officer. Kelvin Wong is the Principal and Director."
+        "Question": "Please extract the an overview of the client's senior management and key executives, including their names, titles and roles within the company with highlights of their relevant experience, qualifications, and achievements.",
+        "Example": "a) Key persons under Angelo Gordon. Wilson Leung is based in Hong Kong and is the head of Angelo, Gordon's Asian real estate activities. Before joining the firm in 2002, Wilson was a management consultant for Bain & Company, a strategy consulting firm in San Francisco. He managed a small real estate portfolio for a non-profit institution prior to that. He received a B.S. degree from Cornell University. Wilson is fluent in Mandarin, Cantonese and English. Ken Ng is the Managing Director and Head of China Real Estate, focusing on the real estate investment in Hong Kong and the PRC. Zoe Zuo is the Vice President, focusing on the real estate investment in Hong Kong and the PRC. b) Key persons under Pamfleet Andrew Moore is the Principal and Chief Executive Officer. Kelvin Wong is the Principal and Director."
     },
     {
         "Section": "Financial Information of the Borrower",
         "Sub-section": "Financial Statements",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the the borrower’s audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.",
+        "Question": "Please extract the the borrower's audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.",
         "Example": "Financial statements are crucial documents that provide an overview of a company's financial health and performance. They include the balance sheet, income statement, and cash flow statement.  For example, ABC Company's financial statements for the fiscal year 2023 showed a strong financial position. The balance sheet exhibited a healthy increase in assets relative to liabilities, with total assets reaching $5 million, up 20% from the previous year. The income statement highlighted a robust net profit margin of 15%, indicating efficient operations. The cash flow statement revealed a positive cash flow from operating activities, suggesting that the company's core business operations are profitable."
     },
     {
         "Section": "Financial Information of the Borrower",
-        "Sub-section": "borrower’s revenue ",
+        "Sub-section": "borrower's revenue ",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the the breakdown of the borrower’s revenue sources and its cost structure.",
+        "Question": "Please extract the the breakdown of the borrower's revenue sources and its cost structure.",
         "Example": "Projections are forward-looking estimates that give an idea of a company's future financial performance based on current data and assumptions. For instance, ABC Company's projections for the fiscal year 2024 are optimistic. Based on current growth trends and market conditions, the company expects revenue to increase by 10% to $11 million. Net income is forecasted to grow by 8%, reflecting anticipated efficiency gains in operations. The company also projects a 5% increase in cash flow from operating activities, indicating strong future liquidity."
     },
     {
@@ -185,10 +185,10 @@
     },
     {
         "Section": "Financial Information of the Borrower",
-        "Sub-section": "borrower’s financial performance",
+        "Sub-section": "borrower's financial performance",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the insights into borrower’s financial performance, trends and future prospects. If there is any significant events or facts that have influenced the borrower’s financial results, please explain it.",
+        "Question": "Please extract the insights into borrower's financial performance, trends and future prospects. If there is any significant events or facts that have influenced the borrower's financial results, please explain it.",
         "Example": "Credit history reflects a company's ability to meet its financial obligations and is often used by lenders to assess creditworthiness. For example, ABC Company has maintained an excellent credit history over the past five years. The company has consistently met its debt obligations on time, and it has a credit score of AA from a leading credit rating agency. This strong credit history enhances ABC Company's reputation with lenders and investors, and it should help secure favorable terms for any future borrowing."
     },
     {
@@ -196,7 +196,7 @@
         "Sub-section": "Existing Loans",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the list of the borrower’s existing credit facilities from other banks or financial institutions, including details such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date and any collateral or guarantees associated with each facility.",
+        "Question": "Please extract the list of the borrower's existing credit facilities from other banks or financial institutions, including details such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date and any collateral or guarantees associated with each facility.",
         "Example": "Currently, the company has an existing loan with ABC Bank, which was obtained in 2018 for the purpose of financing a machinery purchase. The loan amount is $500,000, and it has a fixed interest rate of 4% per annum. The repayment term is set at 5 years, with monthly installments. As part of the company's expansion plans in 2020, a loan was secured from XYZ Bank. The loan amount of $1,000,000 was utilized for the construction of a new production facility. The loan carries a variable interest rate of 5% based on the prevailing market rates and has a repayment term of 7 years."
     },
     {
