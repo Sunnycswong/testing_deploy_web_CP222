@@ -288,6 +288,8 @@ def section_1_template():
     proposal_proposal_template_text = """
         Read through this task carefully and take your time. Ensure all information is factual and verifiable:
 
+        **Please limit the generated content in 200 words**
+
         1. Craft your content based on the provided ----Client Name---- and ----Input Information----. Exclude any details from the ----Example for Reference----.
         2. Replace any mention of "RM Note", "Component", or client meetings with "It is mentioned that".
         3. Present your answers clearly without justifications or recommendations, and refrain from revealing the source of your input.
@@ -834,13 +836,11 @@ def review_prompt_template():
 
         Double check the ----Input Paragraph---- does not contains any content from ----Example----.
         If the Input Paragraph contains any content from ----Example----, remove them.
-        If the Input Paragraph contains examples like "XYZ Corporation", "ABC Manufacturing", "ABC Company", "DEF Logistics", "GHI Technologies", 
+        If the Input Paragraph contains examples like "XYZ Corporation", "ABC Manufacturing", "ABC Company", "DEF Logistics", "GHI Technologies", remove those sentences. 
+
         ----Example----
         {example}
 
-        - Remove the sentence that telling the "information is missing" or "information have not been provided" or "information have not been not been mentioned"
-
-        Your response should not highlight missing or unspecified information. Instead, request additional information using the provided format when necessary. Do not mention any lack of specific information in the output.
         Take this task one step at a time and remember to breathe.
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["first_gen_paragraph", "example"])
@@ -891,12 +891,11 @@ def review_prompt_template_2():
         1. Use only the information provided. Do not make assumptions or use general language to fill in the gaps. If a sentence states or implies that information is missing or not provided, do not include it in your output. 
         2. If the input contains sentences stating or implying that information is missing or not provided, such as 'However, further information is needed to provide a more comprehensive summary of the project details.' or 'Additionally, No specific information is provided about the proposed loan facility.' or "Additionally, no information is provided regarding the proposed loan facility.", these must be removed entirely from your output.
         3. Instead of these sentences, request the specific missing information using this format: '[RM Please provide further information on Keywords...]', you can return many times if there are information missing. 
-        4. Take this task one step at a time and remember to breathe
-        5. if the first_gen_paragraph contains "In view of the above", do not edit and remove that sentence.
-        6. Remove any sentence that solely consists of a format for requesting information, such as "Point: [RM Please provide further information on ???]". These do not add substantive content and should be excluded from the edited paragraph.
-        7. Replace 'RM Notes' to 'provided content' in such sentence like: 'The RM Notes do not provide specific names or background information for these shareholders.'
-        8. Remove the sentence that telling the "information is missing" or "information have not been provided" or "information have not been not been mentioned"
-
+        4. if the ----Input Paragraph---- contains "In view of the above", do not edit and remove that sentence.
+        5. Remove any sentence that solely consists of a format for requesting information, such as "<Point>: [RM Please provide further information on ???]". These do not add substantive content and should be excluded from the edited paragraph.
+        6. Remove the sentences that contain the following phrases "information is missing" or "information have not been provided" or "information have not been not been mentioned"
+        
+        Take this task one step at a time and remember to breathe
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["reviewed"])
@@ -1169,3 +1168,4 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client, rm_text_variable)
 
     return output_json
+
