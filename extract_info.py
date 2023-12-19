@@ -592,6 +592,7 @@ def section_6_template():
         ----Client Name----
         {client_name}
 
+        Note: The ----Example for Reference---- is intended solely for context and should not be incorporated into your assessment.
         ----Example for Reference----
         {example}
 
@@ -833,21 +834,10 @@ def review_prompt_template():
 
         Double check the ----Input Paragraph---- does not contains any content from ----Example----.
         If the Input Paragraph contains any content from ----Example----, remove them.
+        If the Input Paragraph contains examples like "XYZ Corporation", "ABC Manufacturing", "ABC Company", "DEF Logistics", "GHI Technologies", 
         ----Example----
         {example}
 
-        - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
-        - Do not state that information is missing, not mentioned, or not provided. If specific information such as the proposed loan facility isn't available in the input, do not mention its absence or request it.
-        - If specific information isn't provided, request it in this format: '[RM Please provide further information on Keywords...]'. Do not state that information is missing or not mentioned.
-        - Avoid subjective language or personal judgments. 
-        - Do not invent numbers or statistics unless explicitly provided.
-        - Do not mention 'RM Notes', 'RM Note', 'Component', or any meetings with the client. Use 'It is mentioned that...' instead.
-        - Do not justify your answers or provide your own suggestions. Stick to the information provided.
-        - Use English and divide your content into short paragraphs. Do not exceed 100 words per paragraph.
-        - Do not introduce your sections, start directly.
-        - Avoid subjective language or personal judgments. 
-        - if the first_gen_paragraph contains "In view of the above", do not edit and remove that sentence.
-        - Do not mention any example provided in the content
         - Remove the sentence that telling the "information is missing" or "information have not been provided" or "information have not been not been mentioned"
 
         Your response should not highlight missing or unspecified information. Instead, request additional information using the provided format when necessary. Do not mention any lack of specific information in the output.
@@ -1179,4 +1169,3 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client, rm_text_variable)
 
     return output_json
-
