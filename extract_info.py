@@ -833,13 +833,14 @@ def review_prompt_template():
 
         ----Input Paragraph----
         {first_gen_paragraph}
-
-        Double check the ----Input Paragraph---- does not contains any content from ----Example----.
-        If the Input Paragraph contains any content from ----Example----, remove them.
-        If the Input Paragraph contains examples like "XYZ Corporation", "ABC Manufacturing", "ABC Company", "DEF Logistics", "GHI Technologies", remove those sentences. 
-
+        
         ----Example----
         {example}
+
+        When crafting your response, adhere to the following guidelines:
+        Double check the ----Input Paragraph---- does not contains any content from ----Example----.
+        If the Input Paragraph contains any content from ----Example----, remove them.
+        Remove those sentence containing any of the following keywords: "ABC bank", "XYZ bank", "XYZ Corporation", "ABC Manufacturing", "ABC Company", "DEF Logistics", "GHI Technologies". 
 
         Take this task one step at a time and remember to breathe.
         """
@@ -891,9 +892,8 @@ def review_prompt_template_2():
         1. Use only the information provided. Do not make assumptions or use general language to fill in the gaps. If a sentence states or implies that information is missing or not provided, do not include it in your output. 
         2. If the input contains sentences stating or implying that information is missing or not provided, such as 'However, further information is needed to provide a more comprehensive summary of the project details.' or 'Additionally, No specific information is provided about the proposed loan facility.' or "Additionally, no information is provided regarding the proposed loan facility.", these must be removed entirely from your output.
         3. Instead of these sentences, request the specific missing information using this format: '[RM Please provide further information on Keywords...]', you can return many times if there are information missing. 
-        4. if the ----Input Paragraph---- contains "In view of the above", do not edit and remove that sentence.
-        5. Remove any sentence that solely consists of a format for requesting information, such as "<Point>: [RM Please provide further information on ???]". These do not add substantive content and should be excluded from the edited paragraph.
-        6. Remove the sentences that contain the following phrases "information is missing" or "information have not been provided" or "information have not been not been mentioned"
+        4. Remove any sentence that solely consists of a format for requesting information, such as "<Point>: [RM Please provide further information on ???]". These do not add substantive content and should be excluded from the edited paragraph.
+        5. Remove the sentences that contain the following phrases "information is missing" or "information have not been provided" or "information have not been not been mentioned"
         
         Take this task one step at a time and remember to breathe
         """
