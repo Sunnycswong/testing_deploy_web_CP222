@@ -212,15 +212,15 @@
         "Sub-section": "Weaknesses",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the Weaknesses this deal by sharing the relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength.",
-        "Example": "No consolidated financial information of the 2 sponsors, namely Pamfleet and Angelo Gordon for full assessment of their financial strengths. This is a non-recourse deal. However, a sinking fund arrangement will be set up with the upcoming 3-month principal and interest repayments put into the bank account with ICBCA."
+        "Question": "Please extract the weaknesses of this deal based on the relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords related to the weaknesses: risk, risks)",
+        "Example": ""
     },
     {
         "Section": "Opinion of the Relationship Manager",
         "Sub-section": "Strengths",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the Strengths of this deal by sharing the relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength.",
+        "Question": "Please extract the strengths of this deal based on the business development and potential, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords related to the strengths: market leader, growth, potential, leverage, strong, innovative)",
         "Example": "From the projected cashflow and the LTV of the Property, we consider that this is a bankable deal in view of: 1. Pamfleet and Angelo Gordon are experienced property investment companies with satisfactory track record. 2. Acceptable LTV at around 38% (not including IRS for hedging) with maximum LTV not exceeding 50%. 3. Satisfactory cashflow projection for servicing the Facility. 4. Low breakeven price at around HKD1,300 per sq ft (vis-à-vis the market price at around HKD3.2-3.6K per sq ft). 5. Valuable account with projected income of HKD24.4M and RAROC at around 24.09%, especially in view of the low administrative works involved."
     },
     {

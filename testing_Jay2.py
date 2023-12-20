@@ -126,7 +126,7 @@ The company plans to enter new markets, both domestically and internationally, t
 GogoX aims to invest in technology and infrastructure improvements to streamline operations, optimize delivery routes, and enhance overall efficiency.			
 
 5	Risk Assessment:		
-The logistics industry is subject to various risks, including intense competition, regulatory changes, and economic downturns. GogoX has implemented risk mitigation measures such as diversification of services and markets, maintaining strong relationships with key partners, and closely monitoring market trends.			
+The logistics industry is subject to various risks and weaknesses, including intense competition, regulatory changes, and economic downturns. GogoX has implemented risk mitigation measures such as diversification of services and markets, maintaining strong relationships with key partners, and closely monitoring market trends.			
 Operational risks, such as driver availability, vehicle maintenance, and service disruptions, are managed through rigorous driver screening, continuous training programs, and proactive maintenance schedules.			
 Financial risks are mitigated by maintaining a healthy liquidity position, diversifying funding sources, and prudent financial management practices.			
 			
@@ -149,7 +149,15 @@ GogoX has demonstrated a strong market position, consistent financial performanc
 """
 
 #%%
-extract_info.run_first_gen("Client Request", rm_note_txt, client) 
+output_dict = extract_info.run_first_gen("Opinion of the Relationship Manager", rm_note_txt, client)
+print(">>> Generated Output:", output_dict['output'])
+print(">>> RM fill:", output_dict['RM_fill'])
+
+#%%
+output_dict = extract_info.run_first_gen("Client Request", rm_note_txt, client)
+print(">>> Generated Output:", output_dict['output'])
+print(">>> RM fill:", output_dict['RM_fill'])
+
 #%%
 extract_info.run_first_gen("Shareholders and Group Structure", rm_note_txt, client) 
 
@@ -162,8 +170,6 @@ extract_info.run_first_gen("Management", rm_note_txt, client)
 #%%
 extract_info.run_first_gen("Financial Information of the Borrower", rm_note_txt, client)
 
-
-
 #%%
 extract_info.run_first_gen("Other Banking Facilities", rm_note_txt, client) 
 
@@ -175,6 +181,3 @@ extract_info.run_first_gen("Summary of Recommendation", rm_note_txt, client)
 
 #%%
 extract_info.run_first_gen("Industry / Section Analysis", rm_note_txt, client) 
-
-#%%
-extract_info.run_first_gen("Opinion of the Relationship Manager", rm_note_txt, client) 
