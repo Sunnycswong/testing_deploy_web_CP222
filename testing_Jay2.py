@@ -162,5 +162,17 @@ extract_info_jay.run_first_gen("Shareholders and Group Structure", rm_note_txt, 
 #%%
 extract_info_jay.run_first_gen("Other Banking Facilities", rm_note_txt, client) 
 
+# %%
+extract_info_jay.run_first_gen("Project Details", rm_note_txt, client) 
 
 #%%
+extract_info_jay.run_first_gen("Summary of Recommendation", rm_note_txt, client) 
+
+#%%
+extract_info_jay.run_first_gen("Industry / Section Analysis", rm_note_txt, client) 
+
+#%%
+extract_info_jay.run_first_gen("Opinion of the Relationship Manager", rm_note_txt, client) 
+
+
+# %%
