@@ -20,31 +20,31 @@
         "Sub-section": "Purpose of the Loan",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the credit facility with the breakdown of the funds' allocation and highlights of the specific areas or projects where the credit will be utilized. For example, it could be for working capital , capital expenditure, expansion into new markets, research and development, or debt refinancing in detail point form",
-        "Example": "Acquisition of the majority of Ever Gain Plaza by Pamfleet and Angelo Gordon."
+        "Question": "Please extract the Purpose of the Loan, such as credit facility with the breakdown of the funds' allocation and highlights of the specific areas or projects where the credit will be utilized. For example, it could be for working capital , capital expenditure, expansion into new markets, research and development, or debt refinancing in detail point form",
+        "Example": "XYZ Corporation is seeking a $15 million credit facility allocated for enhanced operational agility and growth: $3 million for bolstering working capital, $4 million dedicated to capital expenditures for fleet and infrastructure upgrades, $5 million aimed at geographic expansion into new markets, $2 million for research and development to innovate our service offerings, and $1 million for refinancing existing debt to optimize our financial standing. This targeted deployment is designed to fortify our market position and drive sustainable growth."
     },
     {
         "Section": "Client Request",
         "Sub-section": "Amount Requested",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the amount of the credit and type of facility such as a term loan, revolving credit line, or a combination of various credit instruments in detail point form",
-        "Example": "Term Loan Facility of HKD757.5M for acquisition. IRS Facility of HKD757.5M (notional) for hedging the interest rate risk of the Facility."
+        "Question": "Please extract the amount of the credit and repayment term in detail point form",
+        "Example": "Pamfleet is seeking a $15 million credit facility to support the strategic growth initiatives. XYZ Corporation proposes a 5 years/five years repayment term for the credit facility."
     },
     {
         "Section": "Client Request",
         "Sub-section": "Proposed repayment plan",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the the proposed repayment plan for the credit facility, outlining the repayment term, interest rate and any specific repayment structures or conditions. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]'",
-        "Example": "XYZ Corporation proposes a five-year repayment term for the credit facility, with a market-competitive interest rate. The structure includes a 12-month interest-only period, followed by quarterly principal and interest payments.  "
+        "Question": "Please extract the the proposed repayment plan for the credit facility, includes the repayment term, interest rate and any specific repayment structures or conditions. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]'",
+        "Example": "XYZ Corporation proposes a 5 years/five years repayment term for the credit facility. The structure includes a 12-month interest-only period, followed by quarterly principal and interest payments.  "
     },
     {
         "Section": "Client Request",
         "Sub-section": "specific milestones or project timelines",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the the client has specific milestones or project timelines, include them to demonstrate the expected usage of funds over time. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]'",
+        "Question": "Please extract the specific milestones or project timelines, include them to demonstrate the expected usage of funds over time. If the information is not provided in text, only output text by Request information using the format: '[RM Please provide further information on Keywords]'",
         "Example": "XYZ Corporation plans to strategically deploy funds: 25% for tech upgrades by Q1, 20% for marketing and expansion in Q2, 30% towards operational efficiencies in Q3, and 15% for Q4's strategic evaluation, with 10% reserved for contingencies to ensure adaptability and steadfast progress towards our operational and financial milestones throughout the year.        "
     },
     {
@@ -68,7 +68,7 @@
         "Sub-section": "Group Ownership Structure",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the If the client's company is part of a larger group structure, outline the key entities within the group and explain its relationships between the entities., including parent companies, subsidiaries and affiliates. If the information is not provided in text, only output text by Request  information using the format: '[RM Please provide further information on Keywords]' ",
+        "Question": "Please extract the If the company is part of a larger group structure, outline the key entities within the group and explain its relationships between the entities., including parent companies, subsidiaries and affiliates. If the information is not provided in text, only output text by Request  information using the format: '[RM Please provide further information on Keywords]' ",
         "Example": "The ownership structure of XYZ Corporation is hierarchical. John Doe, as the majority shareholder, holds the position of Chairman of the Board. Jane Smith, despite having the same amount of shares as Robert Johnson, serves as the Chief Executive Officer due to her extensive experience and knowledge in the industry. Robert Johnson, with his considerable financial expertise, functions as the Chief Financial Officer. This structure ensures that all major shareholders have significant influence over the company's strategic decisions."
     },
     {
@@ -76,7 +76,7 @@
         "Sub-section": "transactions or relationships between the client's company and related parties",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the If there are any significant transactions or relationships between the client's company and related parties, disclose and explain them. If the information is not provided in text, only output text by Request  information using the format: '[RM Please provide further information on Keywords]' ",
+        "Question": "Please extract the If there are any significant transactions or relationships between the company and related parties, disclose and explain them. If the information is not provided in text, only output text by Request  information using the format: '[RM Please provide further information on Keywords]' ",
         "Example": "XYZ Corporation has expanded its business operations through several subsidiaries. ABC Manufacturing is a subsidiary that specializes in the production of automotive parts. DEF Logistics is another subsidiary that provides transportation and logistics services. Finally, GHI Technologies is a start-up under XYZ Corporation that focuses on developing cutting-edge artificial intelligence solutions. Despite operating independently, these subsidiaries align their strategies with the overall direction set by XYZ Corporation, creating a synergistic group structure."
     },
     {
@@ -132,7 +132,7 @@
         "Sub-section": "Competitive Landscape",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the analysis of the competitive landscape within the industry, like identifying the major competitors, their market shares and key strengths and weaknesses. Highlight any unique selling compositions or competitive advantages that the client possess.",
+        "Question": "Please extract the analysis of the competitive landscape within the industry, like identifying the major competitors, their market shares and key strengths and weaknesses. Highlight any unique selling compositions or competitive advantages that possess.",
         "Example": "Kwai Chung, including Kwai Fong, Kwai Hing and Tsuen Wan, is becoming increasingly commercially oriented and is popular for office, light industrial, logistics operations and data centre users. Kwai Chung has been transforming from a traditional industrial district into a secondary office hub. The area is gradually being repositioned as a logistics and data centre hub due to its strategic location near Hong Kong's major container ports and Hong Kong International Airport.The Kwai Chung office market had a supply spike in 2006 and mid-2008, due to the completion of Nina Tower and Kowloon Commerce Centre Tower 1. This supply offered a critical mass of Grade-A office space. With an increasing number of multi-national corporations and major occupiers attracted to the area, the vacancy rate has dropped significantly. The improvement in vacancy rates has also led to upward rental pressure in these decentralized locations, and this is set to continue due to attractive demand/supply dynamics in the submarket.The office vacancy of Kwai Chung district is 1.3% as at April 2012 which is a 1.9% reduction from April 2011, compared to a 1.7% reduction for overall Kowloon and New Territories. This trend is set to continue due to steady demand and limited supply."
     },
     {
@@ -156,7 +156,7 @@
         "Sub-section": "overview of the client's senior management and key executives",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the an overview of the client's senior management and key executives, including their names, titles and roles within the company with highlights of their relevant experience, qualifications, and achievements.",
+        "Question": "Please extract the an overview of the company senior management and key executives, including their names, titles and roles within the company with highlights of their relevant experience, qualifications, and achievements.",
         "Example": "a) Key persons under Angelo Gordon. Wilson Leung is based in Hong Kong and is the head of Angelo, Gordon's Asian real estate activities. Before joining the firm in 2002, Wilson was a management consultant for Bain & Company, a strategy consulting firm in San Francisco. He managed a small real estate portfolio for a non-profit institution prior to that. He received a B.S. degree from Cornell University. Wilson is fluent in Mandarin, Cantonese and English. Ken Ng is the Managing Director and Head of China Real Estate, focusing on the real estate investment in Hong Kong and the PRC. Zoe Zuo is the Vice President, focusing on the real estate investment in Hong Kong and the PRC. b) Key persons under Pamfleet Andrew Moore is the Principal and Chief Executive Officer. Kelvin Wong is the Principal and Director."
     },
     {
@@ -165,15 +165,15 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the the borrower's audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.",
-        "Example": "Financial statements are crucial documents that provide an overview of a company's financial health and performance. They include the balance sheet, income statement, and cash flow statement.  For example, ABC Company's financial statements for the fiscal year 2023 showed a strong financial position. The balance sheet exhibited a healthy increase in assets relative to liabilities, with total assets reaching $5 million, up 20% from the previous year. The income statement highlighted a robust net profit margin of 15%, indicating efficient operations. The cash flow statement revealed a positive cash flow from operating activities, suggesting that the company's core business operations are profitable."
+        "Example": "Audited financial statements for the fiscal year ending December 31, 2022, reveal a total revenue of $3.1 billion, gross profit of $775 million, operating income of $605 million, net income of $345 million, total assets of $3.4 billion, total liabilities of $1.3 billion, and equity of $2.1 billion. In the subsequent fiscal year ending December 31, 2023, the company's financial performance improved, with total revenue increasing to $3.6 billion, gross profit rising to $900 million, operating income reaching $700 million, net income growing to $400 million, total assets expanding to $4 billion, total liabilities increasing to $1.5 billion, and equity reaching $2.5 billion."
     },
     {
         "Section": "Financial Information of the Borrower",
-        "Sub-section": "borrower's revenue ",
+        "Sub-section": "borrower's revenue",
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the the breakdown of the borrower's revenue sources and its cost structure.",
-        "Example": "Projections are forward-looking estimates that give an idea of a company's future financial performance based on current data and assumptions. For instance, ABC Company's projections for the fiscal year 2024 are optimistic. Based on current growth trends and market conditions, the company expects revenue to increase by 10% to $11 million. Net income is forecasted to grow by 8%, reflecting anticipated efficiency gains in operations. The company also projects a 5% increase in cash flow from operating activities, indicating strong future liquidity."
+        "Example": "ABC generates its revenue primarily from three sources: Delivery and Logistics Services, which accounts for $2.8 billion or 78% of total revenue; Advertising and Partnerships, contributing $500 million or 14% of total revenue; and Subscription and Other Services, generating $300 million or 8% of total revenue. In terms of the company's cost structure, the major components include the Cost of Delivery and Logistics Services, totaling $2.1 billion or 58% of total revenue; Sales and Marketing expenses amounting to $500 million or 14% of total revenue; Research and Development costs of $300 million or 8% of total revenue; General and Administrative expenses of $200 million or 6% of total revenue; and Other Expenses, representing $500 million or 14% of total revenue. "
     },
     {
         "Section": "Financial Information of the Borrower",
@@ -181,15 +181,15 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the Key Financial Ratios",
-        "Example": "Key financial ratios help to analyze a company's financial performance in various aspects like profitability, liquidity, solvency, and efficiency. Using ABC Company as an example, some of the key financial ratios include return on equity (ROE), current ratio, and debt-to-equity ratio. The ROE of ABC Company was 12% in 2023, showing a good return on the money invested by shareholders. The current ratio, which measures the company's ability to cover its short-term liabilities, stood at 1.5, suggesting adequate liquidity. The debt-to-equity ratio was 0.4, indicating a balanced approach to financing its operations with a mix of debt and equity. "
+        "Example": "ABC company maintains a healthy equity to debt ratio of 1.67, indicating a higher proportion of financing through equity rather than debt. This suggests that the company relies more on shareholder investments to fund its operations and expansion. In terms of net income, ABC company reported a robust net income of $400 million for the fiscal year ending December 31, 2023, showcasing its ability to generate substantial profits. The company's return on equity (ROE) stands at 16%, indicating effective return generation on shareholder investment and highlighting ABC company's efficiency in utilizing its equity base to generate profits for its investors."
     },
     {
         "Section": "Financial Information of the Borrower",
         "Sub-section": "borrower's financial performance",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the insights into borrower's financial performance, trends and future prospects. If there is any significant events or facts that have influenced the borrower's financial results, please explain it.",
-        "Example": "Credit history reflects a company's ability to meet its financial obligations and is often used by lenders to assess creditworthiness. For example, ABC Company has maintained an excellent credit history over the past five years. The company has consistently met its debt obligations on time, and it has a credit score of AA from a leading credit rating agency. This strong credit history enhances ABC Company's reputation with lenders and investors, and it should help secure favorable terms for any future borrowing."
+        "Question": "Please extract the insights into borrower's financial performance, trends and future prospects. If there is not solid figures to extract, write shorter",
+        "Example": "ABC company exhibited an 18.5% year-over-year revenue growth, reaching $3.6 billion. The gross profit margin stands at 25% with a net income increase of 12.3% year-over-year. The company maintained a positive operational cash flow of $1 billion. "
     },
     {
         "Section": "Other Banking Facilities",
