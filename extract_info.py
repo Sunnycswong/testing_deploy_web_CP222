@@ -289,12 +289,12 @@ def section_1_template():
     proposal_proposal_template_text = """
         Read through this task carefully and take your time. Ensure all information is factual and verifiable:
 
-        **Please limit the generated content in 200 words**
+        **Please limit the generated content in 150 words**
 
         1. Craft your content based on the provided ----Client Name---- and ----Input Information----. Exclude any details from the ----Example for Reference----.
         2. If you refer to some information, don't mention "RM Note", "the Component", "json" "client meetings" directly; instead, please say "It is mentioned that ".
         3. Present your answers clearly without justifications or recommendations, and refrain from revealing the source of your input.
-        4. Compose your response in English, using concise paragraphs. Split any section over 100 words into smaller paragraphs.
+        4. Compose your response in English, using concise paragraphs.
         5. Maintain continuous sentences within the same paragraph without line breaks.
         6. Begin paragraphs directly without using headings.
         7. Present answers in bullet points or tables as needed, without prefacing what each section includes.
