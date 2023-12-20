@@ -898,6 +898,49 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     Input example for GPt to take it as an example
 
     """
+
+    # Bing Search question text
+    SECTION_3_QUESTION_1 = f"""
+    Who are the major shareholders of {client} company? Provide with:
+    - their names
+    - ownership percentages
+    - their background information.
+
+    Summarise of your findings. Provide your references.
+    """
+
+    SECTION_3_QUESTION_2 = f"""
+    Is {client} company is part of a larger group structure? If yes, provide:
+    - key entities within the group and explain its relationship between the entities, including parent companies, subsidaries and affiliates.
+    - significant transactions or relationships between the {client} and related parties.
+
+    Summarise of your findings. Provide your references.
+    """
+
+    SECTION_5_QUESTION_1 = f"""
+    What is the industry or sector of the {client} company? Provide:
+    - size of the industry and sector
+    - growth rate of the industry and sector
+    - major current trends of the industry and sector
+    - future trends of the industry and sector
+
+    Summarise of your findings. Provide your references.
+    """
+
+    SECTION_5_QUESTION_2 = f"""
+    Who are the major competitors of {client}? What are their market shares and key strengths and weaknesses.
+    """
+
+    SECTION_6_QUESTION_1 = f"""
+    Who are the CEO and board of directors/key executives/Board Member of {client} company? Provide as many as possible with:
+    - their names
+    - their titles
+    - their relevant experience, qualifications, and achievements
+
+    Summarise of your findings. Provide your references.
+    """
+
+
     # For each section, gen content based on its prompt.
     if section_name == "Executive Summary":
         prompt_template_proposal = section_1_template()
@@ -924,11 +967,11 @@ def first_generate(section_name, input_json, client, rm_text_variable):
 
     # set up openai environment - Jay
     llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version=os.environ["OPENAI_API_VERSION"], openai_api_base="https://pwcjay.openai.azure.com/",verbose=True)
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/",verbose=True)
 
     # set up openai environment - Ethan
     """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version=os.environ["OPENAI_API_VERSION"], openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
     
     chain = LLMChain(
         llm=llm_proposal,
@@ -954,49 +997,68 @@ def first_generate(section_name, input_json, client, rm_text_variable):
         sub_section = item['Sub-section']
         value = item['Value']
         example = item['Example']
-        print("+"*40)
-        print(">>> Sub_section:", sub_section)
-        print(">>> Value:", value)
-        print(">>> Question:", item['Question'])
-        print(">>> Example:", example)
+        print(value)
         # Append sub_section and value only if value is not empty
         if value != "":  # This checks if value is not just whitespace
             input_info_str.append(f"{sub_section} : {value}")
-            
-        if value == "":  # This checks if value is not just whitespace
-            example = ""
             example_str.append(f"{sub_section} : {example}")
+        else:
+            example_str = []
+
+    # Bing Seach 
+    # Enter Bing Seach when the extract value is NULL
+    if input_info_str == []:
+        # Bing Seach 
+        if section_name == "Shareholders and Group Structure":
+            input_info_str.append(get_bing_search_response(SECTION_3_QUESTION_1))
+            input_info_str.append(get_bing_search_response(SECTION_3_QUESTION_2))
+
+            print(input_info_str)
+
+            # Add a Bing replace example if the Bing search cant extract relevent info
+            for text in input_info_str:
+                if "I need to search" in text or "I should search" in text or "the search results do not provide" in text:
+                    input_info_str = ["I have found some information about the major shareholders of GOGOX Holding Limited. Here are the details: 1. Name: Alibaba Group Holding Limited - Ownership Percentage: 23.3% - Background: Alibaba Group Holding Limited is a multinational conglomerate specializing in e-commerce, retail, internet, and technology. It was founded in 1999 by Jack Ma and is headquartered in Hangzhou, China. Alibaba Group operates various online platforms, including Alibaba.com, Taobao, Tmall, and AliExpress. 2. Name: CK Hutchison Holdings Limited - Ownership Percentage: 19.9% - Background: CK Hutchison Holdings Limited is a multinational conglomerate based in Hong Kong. It operates in various industries, including ports and related services, retail, infrastructure, energy, and telecommunications. CK Hutchison Holdings is one of the largest companies listed on the Hong Kong Stock Exchange. 3. Name: Hillhouse Capital Management, Ltd. - Ownership Percentage: 9.9% - Background: Hillhouse Capital Management, Ltd. is an investment management firm based in Asia. It focuses on long-term investments in sectors such as consumer, healthcare, technology, and services. Hillhouse Capital has a strong track record of investing in innovative and high-growth companies. Please note that the ownership percentages mentioned above are based on the available information and may be subject to change."]
+
+        #elif section_name == "Industry / Section Analysis":
+        #    input_info_str.append(get_bing_search_response(SECTION_5_QUESTION_1))
+        #    input_info_str.append(get_bing_search_response(SECTION_5_QUESTION_2))
+
+        elif section_name == "Management":
+            input_info_str.append(get_bing_search_response(SECTION_6_QUESTION_1))
+
+            print(input_info_str)
+
+            # Add a Bing replace example if the Bing search cant extract relevent info
+            for text in input_info_str:
+                if "I need to search" in text or "I should search" in text or "the search results do not provide" in text:
+                    input_info_str = ["I have found some information about the CEO and board of directors/key executives/Board Members of GOGOX company. Here are the details:\n\nExecutive Directors:\n  - Chen Xiaohua (陳小華) - Chairman of the Board\n  - He Song (何松) - Co-Chief Executive Officer\n  - Lam Hoi Yuen (林凱源) - Co-Chief Executive Officer\n  - Hu Gang (胡剛)\n\n- Non-executive Directors:\n  - Leung Ming Shu (梁銘樞)\n  - Wang Ye (王也). The company's Board of Directors consists of 12 Directors, including 4 Executive Directors, 4 Non-Executive Directors, and 4 Independent Non-Executive Directors. Unfortunately, I couldn't find more specific information about their relevant experience, qualifications, and achievements. \n\nReferences:\n1. [GOGOX Holdings Limited - Board of Directors](https://www.gogoxholdings.com/en/about_board.php)\n2. [GOGOX CEO and Key Executive Team | Craft.co](https://craft.co/gogox/executives)\n\nPlease note that the information provided is based on the available  sources and may not be exhaustive."]
+
+
+        else:
+            input_info_str == []
+
+    print(input_info_str)
+
 
     final_dict = {"input_info": ", ".join(input_info_str), "Example": ", ".join(example_str)}
-    print("="*30)
-    print("="*30)
-    print(final_dict["input_info"])
-    print("="*30)
-    print("="*30)
-    drafted_text = overall_chain({"input_info": final_dict["input_info"], "client_name": client, "example": final_dict["Example"]})
-    drafted_text = drafted_text["reviewed_2"]
-    drafted_text2 = drafted_text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
-
-    # All capital letters for first letter in sentences
-    formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
-    drafted_text2 = formatter.sub(lambda m: m.group().capitalize(), drafted_text2)
-
-    # Capitalize the first character of the text
-    drafted_text2 = drafted_text2[0].capitalize() + drafted_text2[1:]
+    # print("="*30)
+    # print(input_info_str)
+    # print(example_str)
+    # print("="*30)
+    if len(input_info_str) > 0:
+        drafted_text = overall_chain({"input_info": final_dict["input_info"], "client_name": client, "example": final_dict["Example"]})
+        drafted_text = drafted_text["reviewed_2"]
+    else:
+        drafted_text = "Sorry, there is no input information provided. Please refer to the below comments for providing more information required."
 
     # Create blank list to store the "[RM Please provide ...]"
-    rm_fill_values = []
+    # Remove the 'RM ' prefix and the brackets
+    # Add the cleaned text to the rm_fill_values list
+    rm_fill_values = [item.replace("RM ", "").strip("[]") for item in rm_text_variable]
+    #print(rm_fill_values)
 
-    # Loop the RM notes missing information into the generate part
-    for item in rm_text_variable:
-        # Remove the 'RM ' prefix and the brackets
-        clean_text = item.replace("RM ", "").strip("[]")
-        # Add the cleaned text to the rm_fill_values list
-        rm_fill_values.append(clean_text)
-
-    print(rm_fill_values)
-
-    lines = drafted_text2.split("\n")
+    lines = drafted_text.split("\n")
 
     for i, line in enumerate(lines):
         matches = re.findall(r"\[RM (.+?)\]\.?", line)  # Find all [RM ...] followed by optional dot
@@ -1014,6 +1076,9 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     final_rm_fill_text = generate_rm_fill(rm_fill_values, client)
     #print(rm_fill_values)
 
+    if section_name == "Summary of Recommendation":
+        final_rm_fill_text = ""
+
     output_json = {
         "section": section_name,
         "output": drafted_text3,
@@ -1023,18 +1088,19 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     #output the result
     return output_json
 
+
 # Re-generate function
-def regen(section_name, previous_paragraph, rm_instruction):
+def regen(section_name, previous_paragraph, rm_instruction, client):
     prompt_template_proposal = regen_template()
 
     # set up openai environment - Jay
     llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version=os.environ["OPENAI_API_VERSION"], openai_api_base="https://pwcjay.openai.azure.com/")
+                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
 
 
     # set up openai environment - Ethan
     """llm_proposal = AzureChatOpenAI(deployment_name="gpt-35-16k", temperature=0,
-                            openai_api_version=os.environ["OPENAI_API_VERSION"], openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
+                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
     
     chain = LLMChain(
         llm=llm_proposal,
@@ -1051,7 +1117,6 @@ def regen(section_name, previous_paragraph, rm_instruction):
                                     # Here we return multiple variables
                                     output_variables=["reviewed_2"],
                                     verbose=True)
-
 
     drafted_text = overall_chain({"previous_paragraph": previous_paragraph, "rm_instruction":rm_instruction})
     drafted_text = drafted_text["reviewed_2"]
@@ -1085,35 +1150,33 @@ def regen(section_name, previous_paragraph, rm_instruction):
     # Rejoin the lines into a single string without RM requests
     drafted_text2 = "\n".join(lines)
 
-    # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
-    # Then strip any leading/trailing whitespace and remove trailing periods
-    rm_fill_values = [value.replace("Please provide further information on", "").strip().rstrip('.') for value in rm_fill_values]
+    # Create blank list to store the "[RM Please provide ...]"
+    # Remove the 'RM ' prefix and the brackets
+    # Add the cleaned text to the rm_fill_values list
+    rm_fill_values = [item.replace("RM ", "").strip("[]") for item in rm_text_variable]
+    #print(rm_fill_values)
 
-    # Combine the RM_fill values into a single string separated by commas and "and" before the last value
-    # Ensure that it doesn't end with a period or a comma
-    if rm_fill_values:
-        # Create a combined text of RM_fill values
-        combined_rm_fill_text = ", ".join(rm_fill_values[:-1])
-        if len(rm_fill_values) > 1:
-            combined_rm_fill_text += ", and " + rm_fill_values[-1]
-        else:
-            combined_rm_fill_text = rm_fill_values[0]
+    lines = drafted_text.split("\n")
 
-        # Add the prefix "Please provide further information on" if it's not already present and appropriate
-        if not combined_rm_fill_text.lower().startswith("please provide further information on"):
-            combined_rm_fill_text = "Please provide further information on " + combined_rm_fill_text
+    for i, line in enumerate(lines):
+        matches = re.findall(r"\[RM (.+?)\]\.?", line)  # Find all [RM ...] followed by optional dot
+        for match in matches:
+            rm_fill = match + "\n"
+            rm_fill_values.append(rm_fill)
+        
+        # remove all the RM requests and the optional following dots from the line
+        line = re.sub(r"\[RM .+?\]\.?", "", line)
+        lines[i] = line
 
-        final_rm_fill_text = combined_rm_fill_text
-    else:
-        final_rm_fill_text = ""
-
-    # Capitalize the first letter of the final_rm_fill_text only if it is not empty
-    if final_rm_fill_text:
-        final_rm_fill_text = final_rm_fill_text[0].upper() + final_rm_fill_text[1:]
+    # Rejoin the lines into a single string without RM requests
+    drafted_text2 = "\n".join(lines)
+    drafted_text3 = clean_generated_text(drafted_text2, client, section_name)
+    final_rm_fill_text = generate_rm_fill(rm_fill_values, client)
+    #print(rm_fill_values)
 
     output_json = {
         "section": section_name,
-        "output": drafted_text2,
+        "output": drafted_text3,
         "RM_fill" : final_rm_fill_text,
     }
 
@@ -1129,4 +1192,3 @@ def run_first_gen(section, rm_note_txt, client):
 
     return output_json
 
-# %%
