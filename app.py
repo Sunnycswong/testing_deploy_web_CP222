@@ -71,7 +71,8 @@ def regen():
     section_name = data["section_name"]
     previous_paragraph = data["previous_paragraph"]
     rm_instruction = data["rm_instruction"]
-    output_json = extract_info.regen(section_name, previous_paragraph, rm_instruction)
+    client = data["client"]
+    output_json = extract_info.regen(section_name, previous_paragraph, rm_instruction, client)
     # Convert the JSON response to a JSON-serializable format    
     # Return the JSON response
     return jsonify(output_json)
