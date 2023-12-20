@@ -163,12 +163,13 @@ def web_extract_RM(section, rm_note_txt, client):
     hierarchy_dict_list = hierarchy_dict_list["content"]
 
     prompt_template_for_extracting_rm_note = """
-        For this task, you are tasked with crafting a response based on the information provided. Meticulously examine the details specified under ----Client Name---- and the RM Notes before attempting to answer the ----Question---- presented.
+        For this assignment, your objective is to construct a response using the data outlined under ----Client Name---- and within the ----RM Notes----. Carefully examine the specifics before addressing the ----Question---- presented.
 
-        You must depend exclusively on the details outlined in the ----RM Notes---- to accomplish this task. Do not consult external sources or rely on personal knowledge.
+        Rely solely on the information contained in the ----RM Notes---- for this task, avoiding the use of external sources or drawing from personal knowledge.
 
-        **Important**
-        In the event that the ----RM Notes---- do not offer sufficient details to resolve the ----Question----, request for additional information at the end using this format: '[RM Please provide further information on Keywords]'.
+        Important
+        Should the ----RM Notes---- lack the necessary details to answer the ----Question----, signal the need for more data thusly: '[RM Please provide further information on Keywords]'.
+        Use the ----RM Notes---- to answer the ----Question----. Look at the ----Example---- to see how your answer should look, but don't use the exact words from the ----Example---- in your answer.
 
         ----Client Name----
         {client_name}
@@ -182,18 +183,18 @@ def web_extract_RM(section, rm_note_txt, client):
         ----Example----
         {example}
 
-        As you prepare your response, adhere strictly to the instructions below:
+        When drafting your response, adhere to the following guidelines:
 
-        1. Formulate your answer in clear, concise English.
-        2. Enhance your response with any insights that can be derived from the RM Notes, where possible.
-        3. Ensure that your response is based strictly on the provided information; refrain from creating or assuming details that are not explicitly mentioned.
-        4. Do not include any references to the source of your information in your response.
-        5. In the event that the ----RM Notes---- do not offer sufficient details to resolve the ----Question----, prompt a request for additional information using the format: '[RM Please provide further information on Keywords]'.
-        6. If No information are provided in the RM Notes, request for additional information at the end using this format: '[RM Please provide further information on Keywords]'.
-        
-        Take a systematic and composed approach to this task.
+        Present your answer in clear, succinct English.
+        Infuse your reply with insights, where appropriate, based on the RM Notes.
+        Base your response purely on the provided details; avoid inferring or fabricating information not expressly given.
+        Exclude any mention of the source of the information in your response.
+        If the ----RM Notes---- are insufficient for the ----Question----, request additional details with: '[RM Please provide further information on Keywords]'.
+        In the absence of information in the RM Notes, use: '[RM Please provide further information on Keywords]'.
 
-        Note: The ----Example---- provided is for illustrative purposes only. Do not incorporate its content into your response; instead, use it as a guide for style or format when extracting and presenting information from the RM Notes.
+        Approach this task methodically and with poise.
+
+        Note: The ----Example---- is for reference in terms of style and format only. It should not be incorporated into your response; utilize it as a framework for the structure and presentation of information derived from the RM Notes.
         """
     
     rm_prompt_template = PromptTemplate(template=prompt_template_for_extracting_rm_note, input_variables=["rm_note", "question", "client_name", "example",])
@@ -331,7 +332,7 @@ def section_2_template():
     proposal_proposal_template_text = """
         Approach this task methodically, maintaining a calm pace. Ensure all information provided is factual and substantiated:
 
-        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal for a client. Your writing should be factual, professional, and incorporate essential details about the client's financial situation and the proposed credit terms.
+        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal. Your writing should be factual, professional, and incorporate essential details about the client's financial situation and the proposed credit terms.
 
         - Summarize any missing information at the end of your response with: "[RM Please provide further information on Keywords...]" as a separate sentence, not in bullet point form.
 
@@ -347,6 +348,8 @@ def section_2_template():
         - If details are not available in the input information, request additional data using the specified format: "[RM Please provide further information on Keywords...]", avoiding any indication of missing information within the main output.
         - Remove the sentences that telling the "information is missing" or "information have not been provided" or "information have not been not been mentioned"
         
+        If the ----Input Information---- do not have enough information to generate Client Request paragraph, Output: "There is no information avabilable on Client Request"
+
         ----Input Information----
         {input_info}
 
@@ -358,6 +361,10 @@ def section_2_template():
 
         ----Client Request----
         Deliver a precise summary of the Client Request with the information provided. 
+        Your summary should include:
+        - A detailed description of the desired credit amount and the type of facility, such as a term loan, revolving credit line, or a mix of credit instruments.
+        - An explanation of the purpose of the credit facility, detailing the allocation of funds and highlighting specific areas or projects for credit utilization, such as working capital, capital expenditure, market expansion, research and development, or debt refinancing.
+        - A description of the proposed repayment plan, including the loan-to-value (LTV), amortization period, repayment term, interest rate, and any particular repayment structures or conditions.
 
         Remember to incorporate a request for additional information using the specified format if any is missing, without suggesting uncertainties within the main content of the output. With: "[RM Please provide further information on Keywords...]" as a separate sentence.
 
@@ -380,7 +387,12 @@ def section_2_template():
 def section_3_template():
     proposal_proposal_template_text = """
         Approach this task with attention to detail and maintain a steady breathing rhythm. Here are the guidelines to follow, ensuring that all information is factual and verifiable:
+        
+        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal.
 
+        ----Shareholders and Group Structure----
+        Your summary should based on the ----Input Information---- to draft a paragraph.
+    
         - Present your response in bullet points, limiting each to a maximum of three rows.
 
         - Derive your content solely from the ----Client Name---- and ----Input Information---- provided. The ----Example for Reference---- should only be used to understand the context and not mentioned in your output.
@@ -395,6 +407,8 @@ def section_3_template():
         - Do not include disclaimers or mention the source of your information within your response.
         - Do not mention 'RM notes' in the content
 
+        If the ----Input Information---- do not have enough information to generate Shareholders and Group Structure paragraph, Output: "There is no information avabilable on Shareholders and Group Structure"
+
         ----Input Information----
         {input_info}
 
@@ -404,10 +418,8 @@ def section_3_template():
         ----Example for Reference----
         {example}
 
-        ----Shareholders and Group Structure----
-        Your summary should based on the information to draft a paragraph.
 
-        Proceed through each part of the task methodically, and ensure to maintain deep, regular breaths as you progress.
+        **Proceed through each part of the task methodically, and ensure to maintain deep, regular breaths as you progress.**
         """
     
     
@@ -458,36 +470,27 @@ def section_3_template():
         """
 
 
-
-
 # Project Details
 def section_4_template():
     proposal_proposal_template_text = """
         Read through this task one step at a time and remember to take deep breaths. Ensure your work adheres to the following guidelines, which emphasize factual and verifiable information:
 
+        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal.
+
         - Present your output concisely in bullet point form, with each bullet not exceeding two rows.
-
         - Derive your content directly from the provided ----Client Name---- and ----Input Information----. Use the ----Example for Reference---- solely for context.
-
         - Reference information by stating "It is mentioned that," avoiding direct mentions of "RM Note," "Component," or client meetings.
-
         - Craft your response in English, structured into clear, concise paragraphs. For longer paragraphs over 100 words, break them into smaller, digestible sections.
-
         - Maintain a continuous flow within the same paragraph, avoiding line breaks mid-sentence.
-
         - Initiate your paragraphs directly, without the use of headings.
-
         - Use bullet points or tables for clarity in presenting your answers, without prefacing what the section will include.
-
         - Exclude subjective language and phrases that express sentiment or personal judgment, such as 'unfortunately,' from your responses.
-
         - Incorporate figures and statistics only if they are explicitly included in the provided content. Do not invent data.
-
         - Leave out disclaimers or mentions of information sources within your response.
-
         - If certain information is missing from the input, request it clearly at the end of your response using the format: "[RM Please provide further information on Keywords...]." Avoid creating information or suggesting ambiguities.
-
         - Format requests for additional information as a standalone sentence at the end of your response, not as a bullet point.
+
+        If the ----Input Information---- do not have enough information to generate Project Details paragraph, Output: "There is no information avabilable on Project Details"        
 
         ----Input Information----
         {input_info}
@@ -522,8 +525,13 @@ def section_5_template():
     proposal_proposal_template_text = """
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
+
+        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal.
+
         If specific information is missing, follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
+        
         **Note: Write concise in bullet point form, no more than two rows in each bullet points.**
+
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
         2. Avoid mentioning "RM Note", "Component", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
         3. Do not mention the source of your input, justify your answers, or provide your own suggestions or recommendations.
@@ -538,6 +546,8 @@ def section_5_template():
         12. If specific information is missing or not provided in the input information, return text at the end by follow this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         
         - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
+
+        If the ----Input Information---- do not have enough information to generate Industry / Section Analysis paragraph, Output: "There is no information avabilable on Industry / Section Analysis"                
 
         ----Input Information----
         {input_info}
@@ -563,13 +573,16 @@ def section_5_template():
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
 
-
     return prompt_template_proposal
 
 # Management
 def section_6_template():
     proposal_proposal_template_text = """
         Read this task step by step at a time and take a long breathe. Stick strictly to factual and verifiable information.:
+
+        You are tasked with drafting a succinct paragraph for a credit proposal.
+
+        If the ----Input Information---- do not have enough information to generate Management paragraph, Output: "There is no information avabilable on Management"                
 
         ----Do not include any content from ----Example for Reference---- in your output - it's for reference only----
 
@@ -587,7 +600,7 @@ def section_6_template():
         12. If specific information is missing or not provided in the input information, return text at the end in this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
 
         - Format any missing information in the specified manner at the end of your response following this format: "[RM Please provide further information on Keywords...]" as a standalone sentence, do not include this in bullet point form.
-
+        
         ----Input Information----
         {input_info}
 
@@ -618,6 +631,10 @@ def section_7_template():
         Read this task step by step at a time and take a long breathe.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
 
+        You are tasked with drafting a succinct paragraph for a credit proposal.
+        If the ----Input Information---- do not have enough information to generate Financial Information of the Borrower paragraph, Output: "There is no information avabilable on Financial Information of the Borrower"                                
+        If the ----Input Information---- do not have solid Financial Information numbers to generate Financial Information of the Borrower paragraph, Output: "There is no information avabilable on Financial Information of the Borrower"                                
+
         ----Note: Write concise in bullet point form, no more than two rows in each bullet points.----
 
         1. Base your content on the client name and the input_info provided. Do not include content from 'example' in your output - it's for reference only.
@@ -646,13 +663,12 @@ def section_7_template():
         ----Example for Reference----
         {example}
 
-
         ----Financial Information of the Borrower----
-        Please provide a concise summary of the Financial Information of the Borrower based on the above information. 
-        Ensure the following infomation is included in the input_info:
-        a.	Please provide the borrowers audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.
-        b.	Please provide the breakdown of the borrowers revenue sources and its cost structure.
-        c.	Please provide insights into borrowers financial performance, trends and future prospects. If there is any significant events or facts that have influenced the borrowers financial results, please explain it.
+        Please draft a concise summary of the Financial Information of the Borrower based on the above information. 
+        Your summary should include:
+        a.	the borrowers audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.
+        b.	the breakdown of the borrowers revenue sources and its cost structure.
+        c.	insights into borrowers financial performance, trends and future prospects. 
         
         If specific information is missing, use this format: "[RM Please provide further information on Keywords...]". Do not invent information or state that something is unclear. 
         Avoid mentioning any lack of specific information in the output.
@@ -669,30 +685,23 @@ def section_8_template():
     proposal_proposal_template_text = """
         Embark on this task by reading through each step methodically, and maintain a steady breath. Ensure that you adhere to the following guidelines meticulously, focusing solely on factual and verifiable information:
 
+        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal.
+
         - Should the input information lack details about the company's Other Banking Facilities, clearly state by one sentence only: 'No information on Other Banking Facilities' and request more details at the end using this exact format: "[RM Please provide further information on Keywords...]"
-
         - Compose your response using concise bullet points, with each bullet point occupying no more than two lines.
-
         - Draw content from the 'Input Information' and the 'Client Name'. The 'Example' is to be used exclusively for context and not to be included in your output.
-
         - Frame your response by stating "It is mentioned that," instead of referencing "RM Note," "Component," or any client meetings.
-
         - Craft your response in English, structured into clear paragraphs. Break down any paragraph over 100 words to maintain readability.
-
         - Ensure that each paragraph is continuous with no line breaks mid-sentence.
-
         - Begin each paragraph directly, using bullet points or tables for clear presentation without preamble about what the section includes.
-
         - Refrain from using phrases such as "Based on the input json" or "it is mentioned."
-
         - Keep your language neutral, avoiding subjective phrases that convey personal sentiment or judgment.
-
         - Include figures and statistics in your response only if they are clearly stated in the input information.
-
         - Do not append disclaimers or cite the source of your information in your response.
-
         - If essential information is not provided, indicate the need for more details at the end of your response in the specified format: "[RM Please provide further information on Keywords...]", ensuring this request stands alone and is not part of bullet points.
 
+        If the ----Input Information---- do not have enough information to generate Other Banking Facilities of the Borrower paragraph, Output: "There is no information avabilable on Other Banking Facilities"                        
+        
         ----Input Information----
         {input_info}
 
@@ -725,6 +734,8 @@ def section_9_template():
     proposal_proposal_template_text = """
         Compose a comprehensive credit assessment paragraph for {client_name} by considering the relationship history, creditworthiness, repayment capacity, risk assessment, and the overall banking relationship strength as detailed in the input information. Ensure your assessment highlights both strengths and weaknesses, and is well-balanced and factual. For any areas not covered in the input, kindly request additional details at the end of your assessment using the format "[RM Please provide further information on Keywords...]."
 
+        As a Relationship Manager at a bank, you are tasked with drafting a succinct paragraph for a credit proposal.
+
         ----Instructions:----
         1. Derive content exclusively from the ----Input Information---- provided.
         2. Refer to the client using their name: {client_name}.
@@ -738,6 +749,8 @@ def section_9_template():
         a. The strengths and weaknesses of the deal, drawing on the relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the relationship.
 
         - For any information that is absent, please request it clearly at the end of your summary in the following format: "[RM Please provide further information on Keywords...]" as a separate sentence.
+        
+        If the ----Input Information---- do not have enough information to generate Opinion of the Relationship Manager paragraph, Output: "There is no information avabilable on Opinion of the Relationship Manager"                        
 
         ----Input Information----
         {input_info}
@@ -903,6 +916,60 @@ def review_prompt_template_2():
     return prompt_template_proposal
 
 
+def clean_generated_text(text, client, section_name):
+    #replacement
+    text = text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
+    
+    #reformat the client name
+    insensitive_replace = re.compile(re.escape(client.lower()), re.IGNORECASE)
+    text = insensitive_replace.sub(client, text)
+
+    #Drop some unwanted sentences
+    sentence_list = re.split(r"(?<=[.?!])", text)
+    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF "]
+    sentence_list_dropped = [sentence.strip() for sentence in sentence_list if all(word not in sentence for word in unwanted_word_list)]
+    text = ' '.join(sentence_list_dropped)
+
+    #Remove the section name if it starts with it
+    if text.lower().startswith(section_name.lower()+": "):
+        text = text[len(section_name)+2:]
+
+    #All capital letters for first letter in sentences
+    formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
+    text = formatter.sub(cap, text)
+    text = text[0].upper()+text[1:]
+    return text.strip()
+
+def generate_rm_fill(rm_fill_values, client):
+    # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
+    # Then strip any leading/trailing whitespace and remove trailing periods
+    rm_fill_values = [value.replace("Please provide further information on", "").strip().rstrip('.') for value in rm_fill_values]
+
+    # Combine the RM_fill values into a single string separated by commas and "and" before the last value
+    # Ensure that it doesn't end with a period or a comma
+    if rm_fill_values:
+        # Create a combined text of RM_fill values
+        combined_rm_fill_text = ", ".join(rm_fill_values[:-1])
+        if len(rm_fill_values) > 1:
+            combined_rm_fill_text += ", and " + rm_fill_values[-1]
+        else:
+            combined_rm_fill_text = rm_fill_values[0]
+
+        # Add the prefix "Please provide further information on" if it's not already present and appropriate
+        if not combined_rm_fill_text.lower().startswith("please provide further information on"):
+            combined_rm_fill_text = "Please provide further information on " + combined_rm_fill_text
+
+        final_rm_fill_text = combined_rm_fill_text
+    else:
+        final_rm_fill_text = ""
+
+    #reformat the client name
+    insensitive_replace = re.compile(re.escape(client.lower()), re.IGNORECASE)
+    final_rm_fill_text = insensitive_replace.sub(client, final_rm_fill_text)
+    if (all(final_rm_fill_text.endswith(s) for s in ["!", "?", "."]) is False) & (len(final_rm_fill_text) > 0):
+        final_rm_fill_text = final_rm_fill_text+'.'
+    return final_rm_fill_text
+
 # function to perform first generation of the paragraph
 def first_generate(section_name, input_json, client, rm_text_variable):
 
@@ -978,11 +1045,14 @@ def first_generate(section_name, input_json, client, rm_text_variable):
         value = item['Value']
         example = item['Example']
         print(value)
+        print(example)
         # Append sub_section and value only if value is not empty
         if value != "":  # This checks if value is not just whitespace
             input_info_str.append(f"{sub_section} : {value}")
             
-        example_str.append(f"{sub_section} : {example}")
+        if value == "":  # This checks if value is not just whitespace
+            example = ""
+            example_str.append(f"{sub_section} : {example}")
 
     final_dict = {"input_info": ", ".join(input_info_str), "Example": ", ".join(example_str)}
 
@@ -1007,7 +1077,6 @@ def first_generate(section_name, input_json, client, rm_text_variable):
         # Add the cleaned text to the rm_fill_values list
         rm_fill_values.append(clean_text)
 
-
     print(rm_fill_values)
 
     lines = drafted_text2.split("\n")
@@ -1024,39 +1093,13 @@ def first_generate(section_name, input_json, client, rm_text_variable):
 
     # Rejoin the lines into a single string without RM requests
     drafted_text2 = "\n".join(lines)
-
-
-    print(rm_fill_values)
-
-    # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
-    # Then strip any leading/trailing whitespace and remove trailing periods
-    rm_fill_values = [value.replace("Please provide further information on", "").strip().rstrip('.') for value in rm_fill_values]
-
-    # Combine the RM_fill values into a single string separated by commas and "and" before the last value
-    # Ensure that it doesn't end with a period or a comma
-    if rm_fill_values:
-        # Create a combined text of RM_fill values
-        combined_rm_fill_text = ", ".join(rm_fill_values[:-1])
-        if len(rm_fill_values) > 1:
-            combined_rm_fill_text += ", and " + rm_fill_values[-1]
-        else:
-            combined_rm_fill_text = rm_fill_values[0]
-
-        # Add the prefix "Please provide further information on" if it's not already present and appropriate
-        if not combined_rm_fill_text.lower().startswith("please provide further information on"):
-            combined_rm_fill_text = "Please provide further information on " + combined_rm_fill_text
-
-        final_rm_fill_text = combined_rm_fill_text
-    else:
-        final_rm_fill_text = ""
-
-    # Capitalize the first letter of the final_rm_fill_text only if it is not empty
-    if final_rm_fill_text:
-        final_rm_fill_text = final_rm_fill_text[0].upper() + final_rm_fill_text[1:]
+    drafted_text3 = clean_generated_text(drafted_text2, client, section_name)
+    final_rm_fill_text = generate_rm_fill(rm_fill_values, client)
+    #print(rm_fill_values)
 
     output_json = {
         "section": section_name,
-        "output": drafted_text2,
+        "output": drafted_text3,
         "RM_fill" : final_rm_fill_text,
     }
 
@@ -1168,4 +1211,3 @@ def run_first_gen(section, rm_note_txt, client):
     output_json = first_generate(section, extract_json, client, rm_text_variable)
 
     return output_json
-
