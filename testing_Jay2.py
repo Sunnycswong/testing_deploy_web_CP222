@@ -174,7 +174,9 @@ extract_info.run_first_gen("Financial Information of the Borrower", rm_note_txt,
 extract_info.run_first_gen("Other Banking Facilities", rm_note_txt, client) 
 
 # %%
-extract_info.run_first_gen("Project Details", rm_note_txt, client) 
+output_dict = extract_info.run_first_gen("Project Details", rm_note_txt, client)
+print(">>> Generated Output:", output_dict['output'])
+print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
 extract_info.run_first_gen("Summary of Recommendation", rm_note_txt, client) 
