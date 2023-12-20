@@ -99,7 +99,7 @@ import re
 from langchain.chains import SimpleSequentialChain
 from langchain.chains import SequentialChain
 
-
+from test_search import get_bing_search_response
 
 
 # Setting credit
