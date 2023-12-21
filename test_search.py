@@ -34,65 +34,66 @@ def get_bing_search_response(question):
     return response
 
 # TODO hard code for testing
-client_name = "GOGOX Holding Limited"
-section_name = "Shareholders and Group Structure"
+if __name__ == "__main__":
+    client_name = "GOGOX Holding Limited"
+    section_name = "Shareholders and Group Structure"
 
-SECTION_3_QUESTION_1 = f"""
-Who are the major shareholders of {client_name}? Provide with:
-- their names
-- ownership percentages
-- their background information.
+    SECTION_3_QUESTION_1 = f"""
+    Who are the major shareholders of {client_name}? Provide with:
+    - their names
+    - ownership percentages
+    - their background information.
 
-Summarise of your findings. Provide your references.
+    Summarise of your findings. Provide your references.
 
-"""
+    """
 
-SECTION_3_QUESTION_2 = f"""
-Is {client_name} is part of a larger group structure? If yes, provide:
-- key entities within the group and explain its relationship between the entities, including parent companies, subsidaries and affiliates.
-- significant transactions or relationships between the {client_name} and related parties.
+    SECTION_3_QUESTION_2 = f"""
+    Is {client_name} is part of a larger group structure? If yes, provide:
+    - key entities within the group and explain its relationship between the entities, including parent companies, subsidaries and affiliates.
+    - significant transactions or relationships between the {client_name} and related parties.
 
-Summarise of your findings. Provide your references.
+    Summarise of your findings. Provide your references.
 
-"""
+    """
 
-SECTION_5_QUESTION_1 = f"""
-What is the industry or sector of the {client_name}? Provide:
-- size of the industry and sector
-- growth rate of the industry and sector
-- major current trends of the industry and sector
-- future trends of the industry and sector
+    SECTION_5_QUESTION_1 = f"""
+    What is the industry or sector of the {client_name}? Provide:
+    - size of the industry and sector
+    - growth rate of the industry and sector
+    - major current trends of the industry and sector
+    - future trends of the industry and sector
 
-Summarise of your findings. Provide your references.
+    Summarise of your findings. Provide your references.
 
-"""
+    """
 
-SECTION_5_QUESTION_2 = f"""
-Who are the major competitors of {client_name}? What are their market shares and key strengths and weaknesses.
+    SECTION_5_QUESTION_2 = f"""
+    Who are the major competitors of {client_name}? What are their market shares and key strengths and weaknesses.
 
-"""
+    """
 
-SECTION_6_QUESTION_1 = f"""
-Who are the CEO and Direector/Board Member of {client_name}? Provide as many as possible with:
-- their names
-- their titles
-- their relevant experience, qualifications, and achievements
+    SECTION_6_QUESTION_1 = f"""
+    Who are the CEO and Direector/Board Member of {client_name}? Provide as many as possible with:
+    - their names
+    - their titles
+    - their relevant experience, qualifications, and achievements
 
-Summarise of your findings. Provide your references.
+    Summarise of your findings. Provide your references.
 
-"""
+    """
 
-# TODO move to core script
-if section_name == "Shareholders and Group Structure":
-    print(get_bing_search_response(SECTION_3_QUESTION_1))
-    print(get_bing_search_response(SECTION_3_QUESTION_2))
+    # TODO move to core script
+    if section_name == "Shareholders and Group Structure":
+        print(get_bing_search_response(SECTION_3_QUESTION_1))
+        print(get_bing_search_response(SECTION_3_QUESTION_2))
 
-elif section_name == "Industry / Section Analysis":
-    print(get_bing_search_response(SECTION_5_QUESTION_1))
-    print(get_bing_search_response(SECTION_5_QUESTION_2))
+    elif section_name == "Industry / Section Analysis":
+        print(get_bing_search_response(SECTION_5_QUESTION_1))
+        print(get_bing_search_response(SECTION_5_QUESTION_2))
 
-elif section_name == "Management":
-    print(get_bing_search_response(SECTION_6_QUESTION_1))
+    elif section_name == "Management":
+        print(get_bing_search_response(SECTION_6_QUESTION_1))
 
-# small test
-# print(get_bing_search_response(SECTION_5_QUESTION_1))
+    # small test
+    # print(get_bing_search_response(SECTION_5_QUESTION_1))
