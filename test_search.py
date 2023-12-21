@@ -34,11 +34,11 @@ def get_bing_search_response(question):
     return response
 
 # TODO hard code for testing
-if __name__ == "__main__":
-    client_name = "GOGOX Holding Limited"
-    section_name = "Shareholders and Group Structure"
 
-    SECTION_3_QUESTION_1 = f"""
+client_name = "GOGOX Holding Limited"
+section_name = "Shareholders and Group Structure"
+
+SECTION_3_QUESTION_1 = f"""
     Who are the major shareholders of {client_name}? Provide with:
     - their names
     - ownership percentages
@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     """
 
-    SECTION_3_QUESTION_2 = f"""
+SECTION_3_QUESTION_2 = f"""
     Is {client_name} is part of a larger group structure? If yes, provide:
     - key entities within the group and explain its relationship between the entities, including parent companies, subsidaries and affiliates.
     - significant transactions or relationships between the {client_name} and related parties.
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     """
 
-    SECTION_5_QUESTION_1 = f"""
+SECTION_5_QUESTION_1 = f"""
     What is the industry or sector of the {client_name}? Provide:
     - size of the industry and sector
     - growth rate of the industry and sector
@@ -68,12 +68,12 @@ if __name__ == "__main__":
 
     """
 
-    SECTION_5_QUESTION_2 = f"""
+SECTION_5_QUESTION_2 = f"""
     Who are the major competitors of {client_name}? What are their market shares and key strengths and weaknesses.
 
     """
 
-    SECTION_6_QUESTION_1 = f"""
+SECTION_6_QUESTION_1 = f"""
     Who are the CEO and Direector/Board Member of {client_name}? Provide as many as possible with:
     - their names
     - their titles
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     """
 
-    """# TODO move to core script
+"""# TODO move to core script
     if section_name == "Shareholders and Group Structure":
         print(get_bing_search_response(SECTION_3_QUESTION_1))
         print(get_bing_search_response(SECTION_3_QUESTION_2))
