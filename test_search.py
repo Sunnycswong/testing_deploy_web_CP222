@@ -17,7 +17,8 @@ def get_bing_search_response(question):
                                     llm=llm_proposal,
                                     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
                                     agent_kwargs={'prefix':BING_PROMPT_PREFIX},
-                                    callback_manager=None
+                                    callback_manager=None,
+                                    handle_parsing_errors=True #By Jay
                                     )
 
     #As LLMs responses are never the same, we do a for loop in case the answer cannot be parsed according to our prompt instructions
