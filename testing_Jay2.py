@@ -153,6 +153,9 @@ GogoX has demonstrated a strong market position, consistent financial performanc
 """
 
 #%%
+#        "Example": "The weaknesses of the project include the lack of consolidated financial information of the sponsors and the non-recourse nature of the deal. However, a sinking fund arrangement will be established to handle principal and interest repayments. On the other hand, the project exhibits several strengths. Pamfleet and Angelo Gordon are experienced property investment companies with a satisfactory track record. The loan-to-value ratio (LTV) is acceptable at around 38%, and the projected cashflow supports servicing the facility. Additionally, the breakeven price is low compared to the market price, and the projected income from the valuable account is promising with a favorable risk-adjusted return on capital (RAROC). Considering the strengths and weaknesses, the project is deemed bankable and has the potential for success."
+# "From the projected cashflow and the LTV of the Property, we consider that this is a bankable deal in view of: 1. Pamfleet and Angelo Gordon are experienced property investment companies with satisfactory track record. 2. Acceptable LTV at around 38% (not including IRS for hedging) with maximum LTV not exceeding 50%. 3. Satisfactory cashflow projection for servicing the Facility. 4. Low breakeven price at around HKD1,300 per sq ft (vis-à-vis the market price at around HKD3.2-3.6K per sq ft). 5. Valuable account with projected income of HKD24.4M and RAROC at around 24.09%, especially in view of the low administrative works involved."
+
 output_dict = extract_info.run_first_gen("Opinion of the Relationship Manager", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
