@@ -287,6 +287,8 @@ def section_1_template():
 
         **Please limit the generated content in 150 words**
 
+        **Please generate the content in paragraphs, not in point form**
+
         1. Craft your content based on the provided ----Client Name---- and ----Input Information----. Exclude any details from the ----Example for Reference----.
         2. If you refer to some information, don't mention "RM Note", "the Component", "json" "client meetings" directly; instead, please say "It is mentioned that ".
         3. Present your answers clearly without justifications or recommendations, and refrain from revealing the source of your input.
@@ -318,6 +320,8 @@ def section_1_template():
         2. A summary of the credit proposal, emphasizing the borrower's name, requested credit amount, credit purpose, and credit structure details.
 
         If details are missing, close your response with a request for additional information using the specified format: "[RM Please provide further information on Keywords...]". Avoid any indication of missing information within the output itself.
+        
+        **Do not mention the process of how you complete this task**
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -359,6 +363,9 @@ def section_2_template():
         Remember to incorporate a request for additional information using the specified format if any is missing, without suggesting uncertainties within the main content of the output. With: "[RM Please provide further information on Keywords...]" as a separate sentence.
 
         Proceed with each task step by step, and remember to breathe deeply as you work.
+        
+        **Do not mention the process of how you complete this task**
+
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -395,6 +402,8 @@ def section_3_template():
         Your summary should based on the information to draft a paragraph.
 
         Proceed through each part of the task methodically, and ensure to maintain deep, regular breaths as you progress.
+
+        **Do not mention the process of how you complete this task**
         """
     
     
@@ -439,9 +448,13 @@ def section_4_template():
 
         Conclude the Project Details with key information about the proposed loan facility.
 
+        **When generating the content, do not breakdown project's timeline in Phases**
+
         If any specific details are absent, end your response with a request for more information using the prescribed format: "[RM Please provide further information on Keywords...]." Ensure all provided information is clear and Don't mention any deficiencies in the output.
 
         Tackle this task methodically, and keep your breathing steady and calm.
+
+        **Do not mention the process of how you complete this task**
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -489,6 +502,8 @@ def section_5_template():
         Should there be gaps in the provided information, signal the need for additional details using the designated format: "[RM Please provide further information on Keywords...]." Refrain from hypothesizing or noting any ambiguities in the output.
 
         Approach each segment of the task methodically, and ensure you keep a steady breathing rhythm.
+
+        **Do not mention the process of how you complete this task**
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -536,6 +551,8 @@ def section_6_template():
         Take this task one step at a time and remember to breathe.
 
         Note: The ----Example for Reference---- is intended solely for context and should not be incorporated into your assessment.
+
+        **Do not mention the process of how you complete this task**
     """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -589,6 +606,8 @@ def section_7_template():
         If specific information is missing, use this format: "[RM Please provide further information on Keywords...]". Don't invent information or state that something is unclear. 
         Avoid mentioning any lack of specific information in the output.
         Remember to approach this task one step at a time and to breathe.
+
+        **Do not mention the process of how you complete this task**
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -633,13 +652,16 @@ def section_8_template():
         If there is a lack of specific details, use the format : "[RM Please provide further information on Keywords...]", to request the necessary information, and avoid making assumptions or indicating uncertainties.
 
         Proceed with each step of this task with focus, and remember to breathe evenly throughout.
+
+        **Do not mention the process of how you complete this task**
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
 
 
     return prompt_template_proposal
-#based on the business development of the client, relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the relationship.
+
+# based on the business development of the client, relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the relationship.
 # Opinion of the Relationship Manager
 def section_9_template():
     proposal_proposal_template_text = """
@@ -671,6 +693,8 @@ def section_9_template():
         {example}
 
         Note: The ----Example for Reference---- is intended solely for context and should not be incorporated into your assessment.
+
+        **Do not mention the process of how you complete this task**
         """
     
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"])
@@ -740,6 +764,8 @@ def regen_template():
         Don't mention any lack of specific information in the output.
 
         Take this task one step at a time and remember to breathe.
+
+        **Do not mention the process of how you complete this task**
         """
     prompt_template_proposal = PromptTemplate(template=proposal_proposal_template_text, input_variables=["previous_paragraph", "rm_instruction"])
 
@@ -1125,27 +1151,6 @@ def regen(section_name, previous_paragraph, rm_instruction, client, deployment_n
     # Loop the RM notes missing information into the generate part
     #for i in rm_text_variable:
     #    rm_fill_values.append(i)
-
-    lines = drafted_text2.split("\n")
-
-    for i, line in enumerate(lines):
-        matches = re.findall(r"\[RM (.+?)\]\.?", line)  # Find all [RM ...] followed by optional dot
-        for match in matches:
-            rm_fill = match + "\n"
-            rm_fill_values.append(rm_fill)
-        
-        # remove all the RM requests and the optional following dots from the line
-        line = re.sub(r"\[RM .+?\]\.?", "", line)
-        lines[i] = line
-
-    # Rejoin the lines into a single string without RM requests
-    drafted_text2 = "\n".join(lines)
-
-    # Create blank list to store the "[RM Please provide ...]"
-    # Remove the 'RM ' prefix and the brackets
-    # Add the cleaned text to the rm_fill_values list
-    rm_fill_values = [item.replace("RM ", "").strip("[]") for item in rm_text_variable]
-    #print(rm_fill_values)
 
     lines = drafted_text.split("\n")
 
