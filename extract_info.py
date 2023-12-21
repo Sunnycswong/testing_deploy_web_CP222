@@ -113,13 +113,16 @@ DOC_INTELL_ENDPOINT = "https://doc-intelligence-test.cognitiveservices.azure.com
 DOC_INTELL_KEY = "9fac3bb92b3c4ef292c20df9641c7374"
 
 DEPLOYMENT_NAME = "gpt-35-16k"
+OPENAI_API_TYPE = "azure"
+OPENAI_API_BASE = "https://pwcjay.openai.azure.com/"
+OPENAI_API_VERSION = "2023-09-01-preview"
+OPENAI_API_KEY = "f282a661571f45a0bdfdcd295ac808e7"
 
 # set up openai environment - Jay
-os.environ["OPENAI_API_TYPE"] = "azure"
-os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
-os.environ["OPENAI_API_VERSION"] = "2023-09-01-preview"
-os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
-
+# os.environ["OPENAI_API_TYPE"] = "azure"
+# os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
+# os.environ["OPENAI_API_VERSION"] = "2023-09-01-preview"
+# os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
 
 # set up openai environment - Ethan
 #os.environ["OPENAI_API_TYPE"] = "azure"
@@ -155,7 +158,7 @@ def load_json(json_path):
 '''
 
 #This funcition is to prepare the rm note in desired format for web, call by app.py
-def web_extract_RM(section, rm_note_txt, client):
+def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
     hierarchy_file_name = "config/hierarchy_v3.json"
 
     hierarchy_dict_list = load_json(hierarchy_file_name)
@@ -201,15 +204,8 @@ def web_extract_RM(section, rm_note_txt, client):
 
     
     # set up openai environment - Jay
-    llm_rm_note = AzureChatOpenAI(deployment_name=DEPLOYMENT_NAME, temperature=0,
-                            openai_api_version=os.environ["OPENAI_API_VERSION"], openai_api_base="https://pwcjay.openai.azure.com/",verbose=True)
-
-
-    # set up openai environment - Ethan
-    """llm_rm_note = AzureChatOpenAI(deployment_name=DEPLOYMENT_NAME, temperature=0,
-                            openai_api_version=os.environ["OPENAI_API_VERSION"], openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
-    
-    #"example": dictionary["Example"],
+    llm_rm_note = AzureChatOpenAI(deployment_name=deployment_name, temperature=0,
+                            openai_api_version=openai_api_version, openai_api_base=openai_api_base,verbose=True)
 
     output_dict_list = []
     rm_text_list = []  # Variable to store the "[RM ...]" text
@@ -835,7 +831,7 @@ def clean_generated_text(text, client, section_name):
     text = insensitive_replace.sub(client, text)
 
     #Drop some unwanted sentences
-    sentence_list = re.split(r"(?<=[.?!])", text)
+    sentence_list = re.split(r"(?<=[.?!] )", text)
     unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess"]
     sentence_list_dropped = [sentence for sentence in sentence_list if all(word not in sentence for word in unwanted_word_list)]
     text = ' '.join(sentence_list_dropped)
@@ -890,8 +886,7 @@ def generate_rm_fill(rm_fill_values, client):
     return final_rm_fill_text
 
 # function to perform first generation of the paragraph
-def first_generate(section_name, input_json, client, rm_text_variable):
-
+def first_generate(section_name, input_json, client, rm_text_variable, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
     """
     A core function to generate the proposal per section
 
@@ -909,7 +904,7 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     """
 
     # Bing Search question text
-    SECTION_3_QUESTION_1 = f"""
+    section_3_question_1 = f"""
     Who are the major shareholders of {client} company? Provide with:
     - their names
     - ownership percentages
@@ -918,7 +913,7 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     Summarise of your findings. Provide your references.
     """
 
-    SECTION_3_QUESTION_2 = f"""
+    section_3_question_2 = f"""
     Is {client} company is part of a larger group structure? If yes, provide:
     - key entities within the group and explain its relationship between the entities, including parent companies, subsidaries and affiliates.
     - significant transactions or relationships between the {client} and related parties.
@@ -926,7 +921,7 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     Summarise of your findings. Provide your references.
     """
 
-    SECTION_5_QUESTION_1 = f"""
+    section_5_question_1 = f"""
     What is the industry or sector of the {client} company? Provide:
     - size of the industry and sector
     - growth rate of the industry and sector
@@ -936,11 +931,11 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     Summarise of your findings. Provide your references.
     """
 
-    SECTION_5_QUESTION_2 = f"""
+    section_5_question_2 = f"""
     Who are the major competitors of {client}? What are their market shares and key strengths and weaknesses.
     """
 
-    SECTION_6_QUESTION_1 = f"""
+    section_6_question_1 = f"""
     Who are the CEO and board of directors/key executives/Board Member of {client} company? Provide as many as possible with:
     - their names
     - their titles
@@ -974,13 +969,9 @@ def first_generate(section_name, input_json, client, rm_text_variable):
         prompt_template_proposal = first_gen_template()
 
     # set up openai environment - Jay
-    llm_proposal = AzureChatOpenAI(deployment_name=DEPLOYMENT_NAME, temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/",verbose=True)
+    llm_proposal = AzureChatOpenAI(deployment_name=deployment_name, temperature=0,
+                            openai_api_version=openai_api_version, openai_api_base=openai_api_base,verbose=True)
 
-    # set up openai environment - Ethan
-    """llm_proposal = AzureChatOpenAI(deployment_name=DEPLOYMENT_NAME, temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
-    
     chain = LLMChain(
         llm=llm_proposal,
         prompt=prompt_template_proposal,
@@ -1021,8 +1012,8 @@ def first_generate(section_name, input_json, client, rm_text_variable):
     if input_info_str == []:
         # Bing Seach 
         if section_name == "Shareholders and Group Structure":
-            input_info_str.append(get_bing_search_response(SECTION_3_QUESTION_1))
-            input_info_str.append(get_bing_search_response(SECTION_3_QUESTION_2))
+            input_info_str.append(get_bing_search_response(section_3_question_1))
+            input_info_str.append(get_bing_search_response(section_3_question_2))
 
             print(input_info_str)
 
@@ -1032,11 +1023,11 @@ def first_generate(section_name, input_json, client, rm_text_variable):
                     input_info_str = ["I have found some information about the major shareholders of GOGOX Holding Limited. Here are the details: 1. Name: Alibaba Group Holding Limited - Ownership Percentage: 23.3% - Background: Alibaba Group Holding Limited is a multinational conglomerate specializing in e-commerce, retail, internet, and technology. It was founded in 1999 by Jack Ma and is headquartered in Hangzhou, China. Alibaba Group operates various online platforms, including Alibaba.com, Taobao, Tmall, and AliExpress. 2. Name: CK Hutchison Holdings Limited - Ownership Percentage: 19.9% - Background: CK Hutchison Holdings Limited is a multinational conglomerate based in Hong Kong. It operates in various industries, including ports and related services, retail, infrastructure, energy, and telecommunications. CK Hutchison Holdings is one of the largest companies listed on the Hong Kong Stock Exchange. 3. Name: Hillhouse Capital Management, Ltd. - Ownership Percentage: 9.9% - Background: Hillhouse Capital Management, Ltd. is an investment management firm based in Asia. It focuses on long-term investments in sectors such as consumer, healthcare, technology, and services. Hillhouse Capital has a strong track record of investing in innovative and high-growth companies. Please note that the ownership percentages mentioned above are based on the available information and may be subject to change."]
 
         #elif section_name == "Industry / Section Analysis":
-        #    input_info_str.append(get_bing_search_response(SECTION_5_QUESTION_1))
-        #    input_info_str.append(get_bing_search_response(SECTION_5_QUESTION_2))
+        #    input_info_str.append(get_bing_search_response(section_5_question_1))
+        #    input_info_str.append(get_bing_search_response(section_5_question_2))
 
         elif section_name == "Management":
-            input_info_str.append(get_bing_search_response(SECTION_6_QUESTION_1))
+            input_info_str.append(get_bing_search_response(section_6_question_1))
 
             print(input_info_str)
 
@@ -1056,7 +1047,7 @@ def first_generate(section_name, input_json, client, rm_text_variable):
         drafted_text = overall_chain({"input_info": final_dict["input_info"], "client_name": client, "example": final_dict["Example"]})
         drafted_text = drafted_text["reviewed_2"]
     else:
-        drafted_text = "Sorry, there is no input information provided. Please refer to the below comments for providing more information required."
+        drafted_text = "There is no information for {} specified.".format(section_name)
 
     # Create blank list to store the "[RM Please provide ...]"
     # Remove the 'RM ' prefix and the brackets
@@ -1096,18 +1087,12 @@ def first_generate(section_name, input_json, client, rm_text_variable):
 
 
 # Re-generate function
-def regen(section_name, previous_paragraph, rm_instruction, client):
+def regen(section_name, previous_paragraph, rm_instruction, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
     prompt_template_proposal = regen_template()
 
     # set up openai environment - Jay
-    llm_proposal = AzureChatOpenAI(deployment_name=DEPLOYMENT_NAME, temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://pwcjay.openai.azure.com/")
-
-
-    # set up openai environment - Ethan
-    """llm_proposal = AzureChatOpenAI(deployment_name=DEPLOYMENT_NAME, temperature=0,
-                            openai_api_version="2023-05-15", openai_api_base="https://lwyethan-azure-openai-test-01.openai.azure.com/")"""
-    
+    llm_proposal = AzureChatOpenAI(deployment_name=deployment_name, temperature=0,
+                            openai_api_version=openai_api_version, openai_api_base=openai_api_base)
     chain = LLMChain(
         llm=llm_proposal,
         prompt=prompt_template_proposal,
