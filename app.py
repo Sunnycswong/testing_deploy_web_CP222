@@ -59,7 +59,7 @@ def extract_rm_notes():
     #=================================
     #TODO: Temp correction for the name of "Industry / Section Analysis"
     if section_name.strip() == "Industrial Section Analysis":
-        section_name == "Industry / Section Analysis"
+        section_name = "Industry / Section Analysis"
     #=================================
         
     rm_note_txt = data["rm_note_txt"]
@@ -78,7 +78,7 @@ def regen():
     #=================================
     #TODO: Temp correction for the name of "Industry / Section Analysis"
     if section_name.strip() == "Industrial Section Analysis":
-        section_name == "Industry / Section Analysis"
+        section_name = "Industry / Section Analysis"
     #=================================
     previous_paragraph = data["previous_paragraph"]
     rm_instruction = data["rm_instruction"]
