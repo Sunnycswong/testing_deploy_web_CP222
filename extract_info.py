@@ -205,7 +205,7 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
     
     # set up openai environment - Jay
     llm_rm_note = AzureChatOpenAI(deployment_name=deployment_name, temperature=0,
-                            openai_api_version=openai_api_version, openai_api_base=openai_api_base,verbose=True)
+                            openai_api_version=openai_api_version, openai_api_base=openai_api_base, verbose=True)
 
     output_dict_list = []
     rm_text_list = []  # Variable to store the "[RM ...]" text
@@ -853,7 +853,7 @@ def clean_generated_text(text, client, section_name):
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
     text = formatter.sub(cap, text)
     text = text[0].upper()+text[1:]
-    return text.strip().replace("\n\n", "\n")
+    return text.strip().replace("\n\n", "\n").replace(".  ", ". ").replace("!  ", "! ").replace("?  ", "? ")
 
 def generate_rm_fill(rm_fill_values, client):
     # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
@@ -1176,10 +1176,10 @@ def regen(section_name, previous_paragraph, rm_instruction, client, deployment_n
 
 
 # Wrapper function
-def run_first_gen(section, rm_note_txt, client):
-
-    extract_json, rm_text_variable = web_extract_RM(section ,rm_note_txt, client)
-    output_json = first_generate(section, extract_json, client, rm_text_variable)
-
+def run_first_gen(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
+    extract_json, rm_text_variable = web_extract_RM(section ,rm_note_txt, client
+        , deployment_name=deployment_name, openai_api_version=openai_api_version, openai_api_base=openai_api_base)
+    output_json = first_generate(section, extract_json, client, rm_text_variable
+        , deployment_name=deployment_name, openai_api_version=openai_api_version, openai_api_base=openai_api_base)
     return output_json
 
