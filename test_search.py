@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     """
 
-    # TODO move to core script
+    """# TODO move to core script
     if section_name == "Shareholders and Group Structure":
         print(get_bing_search_response(SECTION_3_QUESTION_1))
         print(get_bing_search_response(SECTION_3_QUESTION_2))
@@ -93,7 +93,7 @@ if __name__ == "__main__":
         print(get_bing_search_response(SECTION_5_QUESTION_2))
 
     elif section_name == "Management":
-        print(get_bing_search_response(SECTION_6_QUESTION_1))
+        print(get_bing_search_response(SECTION_6_QUESTION_1))"""
 
     # small test
     # print(get_bing_search_response(SECTION_5_QUESTION_1))
