@@ -56,6 +56,12 @@ def extract_rm_notes():
     # client meaning client name here
     client = data["client"]
     section_name = data["section_name"]
+    #=================================
+    #TODO: Temp correction for the name of "Industry / Section Analysis"
+    if section_name.strip() == "Industrial Section Analysis":
+        section_name == "Industry / Section Analysis"
+    #=================================
+        
     rm_note_txt = data["rm_note_txt"]
     output_json = extract_info.run_first_gen(section_name, rm_note_txt, client) 
 
@@ -69,6 +75,11 @@ def regen():
     data = request.get_json()
     logging.info("API request param:", data)
     section_name = data["section_name"]
+    #=================================
+    #TODO: Temp correction for the name of "Industry / Section Analysis"
+    if section_name.strip() == "Industrial Section Analysis":
+        section_name == "Industry / Section Analysis"
+    #=================================
     previous_paragraph = data["previous_paragraph"]
     rm_instruction = data["rm_instruction"]
     client = data["client"]

@@ -995,9 +995,7 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
         prompt_template_proposal = section_3_template()
     elif section_name == "Project Details":
         prompt_template_proposal = section_4_template()    
-    #TODO: Temp correction for the name of "Industry / Section Analysis"
-    elif (section_name == "Industry / Section Analysis") | (section_name.strip() == "Industrial Section Analysis"):
-        print(">>> Can successfully read the industry section prompt!!!!!!!!!!!!!!!!!!!!!!")
+    elif section_name == "Industry / Section Analysis":
         print(">>> Can successfully read the industry section prompt!!!!!!!!!!!!!!!!!!!!!!")
         print(">>> Can successfully read the industry section prompt!!!!!!!!!!!!!!!!!!!!!!")
         prompt_template_proposal = section_5_template()
@@ -1008,6 +1006,8 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     elif section_name == "Other Banking Facilities":
         prompt_template_proposal = section_8_template()
     elif section_name == "Opinion of the Relationship Manager":
+        print(">>> Can successfully read the opinion section prompt!!!!!!!!!!!!!!!!!!!!!!")
+        print(">>> Can successfully read the opinion section prompt!!!!!!!!!!!!!!!!!!!!!!")
         prompt_template_proposal = section_9_template()
     elif section_name == "Summary of Recommendation":
         prompt_template_proposal = section_10_template()
@@ -1211,6 +1211,9 @@ def regen(section_name, previous_paragraph, rm_instruction, client, deployment_n
 def run_first_gen(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
     extract_json, rm_text_variable = web_extract_RM(section ,rm_note_txt, client
         , deployment_name=deployment_name, openai_api_version=openai_api_version, openai_api_base=openai_api_base)
+    print("extract_json!!!!!!"*3)
+    print(extract_json)
+    print("extract_json!!!!!!"*3)
     output_json = first_generate(section, extract_json, client, rm_text_variable
         , deployment_name=deployment_name, openai_api_version=openai_api_version, openai_api_base=openai_api_base)
     return output_json
