@@ -205,7 +205,11 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
 
         Note: The ----Example---- is for reference in terms of style and format only. It should not be incorporated into your response; utilize it as a framework for the structure and presentation of information derived from the RM Notes.
         """
-    
+    print("#"*50)
+    logging.info("rm_note_txt logging.info:", rm_note_txt)
+    print("%"*50)
+    print("rm_note_txt printing:", rm_note_txt)
+    print("#"*50)
     rm_prompt_template = PromptTemplate(template=prompt_template_for_extracting_rm_note, input_variables=["rm_note", "question", "client_name", "example",])
 
     
@@ -991,7 +995,8 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
         prompt_template_proposal = section_3_template()
     elif section_name == "Project Details":
         prompt_template_proposal = section_4_template()    
-    elif section_name == "Industry / Section Analysis":
+    #TODO: Temp correction for the name of "Industry / Section Analysis"
+    elif (section_name == "Industry / Section Analysis") | (section_name == "Industrial Section Analysis"):
         prompt_template_proposal = section_5_template()
     elif section_name == "Management":
         prompt_template_proposal = section_6_template()
@@ -1078,10 +1083,16 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
             input_info_str == []
 
     final_dict = {"input_info": "\n\n".join(input_info_str), "Example": "\n\n".join(example_str)}
-    print("="*30)
-    print(">>> input_info:", final_dict["input_info"])
-    print(">>> example:", example_str)
-    print("="*30)
+    print("="*50)
+    print("="*50)
+    print("\n>>> Section Name: ", section_name)
+    print("\n>>> Section Name: ", section_name)
+    print("\n>>> Section Name: ", section_name)
+    print("\n>>> input_info:", final_dict["input_info"])
+    print("+"*50)
+    print("\n>>> example:", example_str)
+    print("="*50)
+    print("="*50)
     if len(input_info_str) > 0:
         drafted_text = overall_chain({"input_info": final_dict["input_info"], "client_name": client, "example": final_dict["Example"]})
         drafted_text = drafted_text["reviewed_2"]

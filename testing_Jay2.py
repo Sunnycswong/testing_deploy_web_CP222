@@ -142,7 +142,7 @@ The proposed repayment plan consists of regular principal and interest payments 
 The Expansion plans include 3 areas:
 a) Expanding the business in 3 cities in China (Beijing, Shanghai and Shenzhen)
 b) technology investments (AI assistant fo drivers and AI-based matching among drivers and customers)
-c) Working capital needs: expanding 300 more permanent staff, including customer service supports in the 3 new cities, technology experts in IT and AI."			
+c) Working capital needs: expanding 300 more permanent staff, including customer service supports in the 3 new cities, technology experts in IT and AI.			
 The timeline for this expansion is within the next 36 months. 
 
 8	Shareholders and Group Structure:		
