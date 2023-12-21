@@ -996,7 +996,10 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     elif section_name == "Project Details":
         prompt_template_proposal = section_4_template()    
     #TODO: Temp correction for the name of "Industry / Section Analysis"
-    elif (section_name == "Industry / Section Analysis") | (section_name == "Industrial Section Analysis"):
+    elif (section_name == "Industry / Section Analysis") | (section_name.strip() == "Industrial Section Analysis"):
+        print(">>> Can successfully read the industry section prompt!!!!!!!!!!!!!!!!!!!!!!")
+        print(">>> Can successfully read the industry section prompt!!!!!!!!!!!!!!!!!!!!!!")
+        print(">>> Can successfully read the industry section prompt!!!!!!!!!!!!!!!!!!!!!!")
         prompt_template_proposal = section_5_template()
     elif section_name == "Management":
         prompt_template_proposal = section_6_template()
