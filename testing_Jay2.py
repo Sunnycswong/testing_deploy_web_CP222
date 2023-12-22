@@ -163,7 +163,6 @@ New Horizon Capital (15%), Alibaba Entrepreneurs Fund (23.3%), InnoVision Capita
 Conclusion:			
 GogoX has demonstrated a strong market position, consistent financial performance, and a well-defined growth strategy. With its robust operational capabilities, innovative technology platform, and customer-centric approach, the company is well-positioned to capitalize on the growing demand for logistics and delivery services. The proposed credit facility, in line with the company's financial projections, will support GogoX's expansion plans and enable it to maintain its competitive edge in the market.					
 """
-
 #%%
 extract_json, rm_text_variable = extract_info.web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
         , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE, )
@@ -201,7 +200,8 @@ financial_section_dict = extract_info.run_first_gen("Financial Information of th
 print(">>> Generated Output:", financial_section_dict['output'])
 print(">>> RM fill:", financial_section_dict['RM_fill'])
 #%%
-financial_supplement = """Financial Performance
+financial_supplement = """Please include the below Financial Performance suplemenary information:
+
 GogoX exhibited an 18.5% year-over-year revenue growth, reaching $3.6 billion. The gross profit margin stands at 25% with a net income increase of 12.3% year-over-year. The company maintained a positive operational cash flow of $1 billion.
 
 Trends
