@@ -274,3 +274,7 @@ output_dict = extract_info.run_first_gen("Industry / Section Analysis", rm_note_
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 # %%
+#=================================================================
+#Testing for exporting the doc
+export_doc.create_docx("GogoX", {'consolidated_text': [output_dict]})
+# %%

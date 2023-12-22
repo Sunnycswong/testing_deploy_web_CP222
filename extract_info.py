@@ -937,7 +937,7 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     if section_name == "Summary of Recommendation":
         final_rm_fill_text = ""
     if disclaimer_of_bing_search:
-        disclaimer_of_bing_search_text = "The above generated content contains informatoin from Bing Search, as there is missing information detected in the RM Note. Please helps review and confirm it."
+        disclaimer_of_bing_search_text = "The above generated content contains informatoin from Bing Search, as there is missing information detected in the RM Note. Please help review and confirm it."
         final_rm_fill_text = disclaimer_of_bing_search_text + '\n' + final_rm_fill_text
 
     output_json = {

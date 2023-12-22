@@ -134,7 +134,6 @@ os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
 
 
 def create_docx(client_name, json_data):
-    
     storage_service = "creditproposal"
     storage_api_key = "hJ2qb//J1I1KmVeDHBpwEpnwluoJzm+b6puc5h7k+dnDSFQ0oxuh1qBz+qPB/ZT7gZvGufwRbUrN+ASto6JOCw=="
     connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_service};AccountKey={storage_api_key}"
