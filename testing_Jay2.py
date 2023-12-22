@@ -159,7 +159,7 @@ The timeline for this expansion is within the next 36 months.
 
 8	Shareholders and Group Structure:		
 New Horizon Capital (15%), Alibaba Entrepreneurs Fund (23.3%), InnoVision Capital (17.2%) are the shareholders of GogoX
-			
+
 Conclusion:			
 GogoX has demonstrated a strong market position, consistent financial performance, and a well-defined growth strategy. With its robust operational capabilities, innovative technology platform, and customer-centric approach, the company is well-positioned to capitalize on the growing demand for logistics and delivery services. The proposed credit facility, in line with the company's financial projections, will support GogoX's expansion plans and enable it to maintain its competitive edge in the market.					
 """
@@ -199,7 +199,54 @@ extract_info.run_first_gen("Executive Summary", rm_note_txt, client, deployment_
 extract_info.run_first_gen("Management", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
 
 #%%
-extract_info.run_first_gen("Financial Information of the Borrower", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+financial_section_dict = extract_info.run_first_gen("Financial Information of the Borrower", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+print(">>> Generated Output:", financial_section_dict['output'])
+print(">>> RM fill:", financial_section_dict['RM_fill'])
+#%%
+financial_supplement = """Financial Performance
+GogoX exhibited an 18.5% year-over-year revenue growth, reaching $3.6 billion. The gross profit margin stands at 25% with a net income increase of 12.3% year-over-year. The company maintained a positive operational cash flow of $1 billion.
+
+Trends
+GogoX, as a market leader in the logistics and delivery industry, has seen a 23% increase in active users, reaching 15 million. The network of registered drivers has expanded to over 2 million.
+
+Audited Financial Statements (2022)
+Total Revenue: $3.1 billion
+Gross Profit: $775 million
+Operating Income: $605 million
+Net Income: $345 million
+Total Assets: $3.4 billion
+Total Liabilities: $1.3 billion
+Equity: $2.1 billion
+
+GogoX’s audited financial statements for the fiscal year ending December 31, 2023, indicate:
+Total Revenue: $3.6 billion
+Gross Profit: $900 million
+Operating Income: $700 million
+Net Income: $400 million
+Total Assets: $4 billion
+Total Liabilities: $1.5 billion
+Equity: $2.5 billion
+
+GogoX’s revenue primarily comes from:
+Delivery and Logistics Services: $2.8 billion (78% of total revenue)
+Advertising and Partnerships: $500 million (14% of total revenue)
+Subscription and Other Services: $300 million (8% of total revenue)
+Cost Structure
+Major components of GogoX 's cost structure include:
+Cost of Delivery and Logistics Services: $2.1 billion (58% of total revenue)
+Sales and Marketing: $500 million (14% of total revenue)
+Research and Development: $300 million (8% of total revenue)
+General and Administrative: $200 million (6% of total revenue)
+Other Expenses: $500 million (14% of total revenue)
+
+Equity to Debt Ratio: GogoX 's ratio is 1.67, indicating more financing through equity than debt.
+Net Income: GogoX reported a net income of $400 million for the fiscal year ending December 31, 2023.
+Return on Equity (ROE): GOGOX's ROE is 16%, reflecting effective return generation on shareholder investment.
+"""
+
+regen_dict = extract_info.regen("Financial Information of the Borrower", financial_section_dict['output'], rm_instruction=financial_supplement, client="GogoX", deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+print(">>> Regen Generated Output:", regen_dict['output'])
+print(">>> Regen RM fill:", regen_dict['RM_fill'])
 
 #%%
 extract_info.run_first_gen("Other Banking Facilities", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
