@@ -212,7 +212,7 @@
         "Sub-section": "Weaknesses",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the weaknesses of the client in numbering point form. You can include the following: business development, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords: weaknesses, risk, risks)",
+        "Question": "Please extract the weaknesses of the client in numbering point form, based on the business development, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords: risk)",
         "Example": ""
     },
     {
@@ -220,7 +220,7 @@
         "Sub-section": "Strengths",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the strengths of the client in numbering point form. You can include the following: business development and potential, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords: market leader, growth, potential, leverage, strong, innovative)",
+        "Question": "Please extract the strengths of the client in numbering point form, based on the business development and potential, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords: market leader, growth, potential, leverage, strong, innovative)",
         "Example": ""
     },
     {
