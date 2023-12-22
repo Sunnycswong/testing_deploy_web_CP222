@@ -163,9 +163,16 @@ New Horizon Capital (15%), Alibaba Entrepreneurs Fund (23.3%), InnoVision Capita
 Conclusion:			
 GogoX has demonstrated a strong market position, consistent financial performance, and a well-defined growth strategy. With its robust operational capabilities, innovative technology platform, and customer-centric approach, the company is well-positioned to capitalize on the growing demand for logistics and delivery services. The proposed credit facility, in line with the company's financial projections, will support GogoX's expansion plans and enable it to maintain its competitive edge in the market.					
 """
+
+#%%
+output_dict =  extract_info.run_first_gen("Executive Summary", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+print(">>> Generated Output:", output_dict['output'])
+print(">>> RM fill:", output_dict['RM_fill'])
+
+
 #%%
 extract_json, rm_text_variable = extract_info.web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
-        , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE, )
+        , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(extract_json[0]['Sub-section']+":", extract_json[0]['Value'])
 #print("="*30)
 #print(extract_json[1]['Sub-section']+":", extract_json[1]['Value'])
@@ -188,9 +195,6 @@ print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
 extract_info.run_first_gen("Shareholders and Group Structure", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
-
-#%%
-extract_info.run_first_gen("Executive Summary", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
 
 #%%
 output_dict =  extract_info.run_first_gen("Management", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)

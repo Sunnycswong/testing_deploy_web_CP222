@@ -206,19 +206,20 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
     
     # set up openai environment - Jay
     llm_rm_note = AzureChatOpenAI(deployment_name=deployment_name, temperature=0,
-                            openai_api_version=openai_api_version, openai_api_base=openai_api_base, verbose=True)
+                            openai_api_version=openai_api_version, openai_api_base=openai_api_base, verbose=False)
 
     output_dict_list = []
     rm_text_list = []  # Variable to store the "[RM ...]" text
 
     for dictionary in hierarchy_dict_list:
         if dictionary["Section"] == section: #loop by section
-            chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template, verbose=True)
+            chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template, verbose=False)
             dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client, "example": dictionary["Example"]})['text']
             dictionary["Value"] = dictionary["Value"].replace("Based on the given information, ", "")
-            print("="*30)
-            print(dictionary["Value"])
-            print("="*30)
+            # print("="*30)
+            # print("dictionary[Value]:")
+            # print(dictionary["Value"])
+            # print("="*30)
             dictionary["Value"] = clean_generated_text(dictionary["Value"], client, section)
             # Use regular expressions to find the pattern "[RM ...]"
             for deleted_word in ["RM", "NA", "N/A"]:
@@ -756,25 +757,23 @@ def clean_generated_text(text, client, section_name):
     unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess", "is not mentioned in the RM Notes", "not provided in the RM Notes", "not explicitly mentioned", "further information is needed", "no specific mention of", "not possible to provide ", "is not provided in the input information", "unable to extract ", "request further information"]
     sentence_list_dropped = [sentence for sentence in sentence_list if all(word not in sentence for word in unwanted_word_list)]
     text = ' '.join(sentence_list_dropped)
-
-    #Drop those numbering point 
+    #Drop those sentence only = numbering point 
     out_sentence_list = []
     for l in text.split('\n'):
         if len(l) >= 2:
-            if ((l[0].isdigit()) & ( l[1:].strip() == '.')) | (l.strip()[0] == '-'):
+            if ((l[0].isdigit()) & ( l[1:].strip() == '.')) | (l.strip()[0:] == '-'):
                 continue
         out_sentence_list.append(l)
     text = '\n'.join(out_sentence_list)
-
     #Remove the section name if it starts with it
     if len(text) >= len(section_name)+2:
         if text.lower().startswith(section_name.lower()+": "):
             text = text[len(section_name)+2:]
-
     #All capital letters for first letter in sentences
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
     text = formatter.sub(cap, text)
-    text = text[0].upper()+text[1:]
+    if len(text) >= 2:
+        text = text[0].upper()+text[1:]
     return text.strip().replace("\n\n\n\n\n", "\n").replace("\n\n\n\n", "\n").replace("\n\n\n", "\n").replace("\n\n", "\n").replace(".  ", ". ").replace("!  ", "! ").replace("?  ", "? ").replace("in the RM Notes", "").replace('. . ', '. ').replace('. . . ', '. ')
 
 def generate_rm_fill(rm_fill_values, client):
