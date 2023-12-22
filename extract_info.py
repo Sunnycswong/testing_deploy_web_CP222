@@ -99,7 +99,7 @@ import re
 from langchain.chains import SimpleSequentialChain
 from langchain.chains import SequentialChain
 
-from test_search import get_bing_search_response
+from bing_search import bing_search_for_credit_proposal
 
 
 # Setting credit
@@ -220,7 +220,7 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
     rm_text_list = []  # Variable to store the "[RM ...]" text
 
     for dictionary in hierarchy_dict_list:
-        if dictionary["Section"] == section:
+        if dictionary["Section"] == section: #loop by section
             chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template, verbose=True)
             dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client, "example": dictionary["Example"]})['text']
             dictionary["Value"] = dictionary["Value"].replace("Based on the given information, ", "")
@@ -230,30 +230,15 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
                 matches = re.findall(r"\[{} [^\]]+\]".format(deleted_word), dictionary["Value"], re.DOTALL)
                 for match in matches:
                     dictionary["Value"] = dictionary["Value"].replace(match, "")
-            
-            # if match:
-            #     rm_text_variable = match.group(0)  # Store the "[RM ...]" text in the variable
-            #     rm_text_list.append(rm_text_variable)
-            #     #dictionary["Value"] = dictionary["Value"].replace(rm_text_variable, "")  # Remove the "[RM ...]" text from the "Value"
-            #     dictionary["Value"] = ""
-            
+                    rm_text_list.append(match)
             output_dict_list.append(dictionary)
 
     # Create Json file 
     # output_json_name = "GOGOVAN_hierarchy_rm_note.json"
     # json.dump(output_dict_list, open(output_json_name, "w"), indent=4)
-
     return output_dict_list, rm_text_list
 
-'''
-        ======
-        Example: (Keyword: proposal_example)
-        {example}
-        ======
-
-'''
-
-proposal_proposal_template_text_generic = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_GENERIC = """
     Carefully consider the following guidelines while working on this task:
 
     ----Note: Write as comprehensively as necessary to fully address the task. There is no maximum length.----
@@ -286,7 +271,7 @@ proposal_proposal_template_text_generic = """
 
 # Executive Summary
 
-proposal_proposal_template_text_executive_summary = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_EXECUTIVE_SUMMARY = """
 Read through this task carefully and take your time. Ensure all information is factual and verifiable:
 
 **Please limit the generated content in 150 words**
@@ -328,7 +313,7 @@ If details are missing, close your response with a request for additional inform
 **Do not mention the process of how you complete this task**
 """
 
-proposal_proposal_template_text_client_request = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_CLIENT_REQUEST = """
         Approach this task methodically, maintaining a calm pace:
 
         You are tasked with drafting a succinct paragraph for a credit proposal for a client. Your writing should be factual, professional, and incorporate essential details about the client's proposed credit terms.
@@ -366,7 +351,7 @@ proposal_proposal_template_text_client_request = """
 
         """
 
-proposal_proposal_template_text_shareholders_and_group_structure = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_SHAREHOLDERS_AND_GROUP_STRUCTURE = """
         Approach this task with attention to detail and maintain a steady breathing rhythm. Here are the guidelines to follow, ensuring that all information is factual and verifiable:
 
         **Do not mention the input sources of your generated content**
@@ -400,7 +385,7 @@ proposal_proposal_template_text_shareholders_and_group_structure = """
         **Do not mention the process or instructions of how you complete this task**
         """
 
-proposal_proposal_template_text_project_details = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_PROJECT_DETAILS = """
         Read through this task one step at a time and remember to take deep breaths. Ensure your work adheres to the following guidelines, which emphasize factual and verifiable information:
 
         1. Present your output concisely in bullet point form, with each bullet not exceeding two rows.
@@ -443,7 +428,7 @@ proposal_proposal_template_text_project_details = """
 
         """
 
-proposal_proposal_template_text_industry_section_analysis = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_INDUSTRY_SECTION_ANALYSIS = """
         Read this task step by step at a time and take a deep breath.
 
         **Do not mention the input sources of your generated content**
@@ -493,7 +478,7 @@ proposal_proposal_template_text_industry_section_analysis = """
         """
 
 # Management
-proposal_proposal_template_text_management = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_MANAGEMENT = """
         Read this task step by step at a time and take a deep breath. Stick strictly to factual and verifiable information.:
 
         ----Don't include any content from ----Example for Reference---- in your output - it's for reference only----
@@ -536,7 +521,7 @@ proposal_proposal_template_text_management = """
     """
 
 # Financial Information of the Borrower
-proposal_proposal_template_text_financial_info_of_borrower = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_FINANCIAL_INFO_OF_BORROWER = """
         Read this task step by step at a time and take a deep breath.
         Carefully consider the following guidelines while working on this task, Stick strictly to factual and verifiable information.:
 
@@ -585,7 +570,7 @@ proposal_proposal_template_text_financial_info_of_borrower = """
         """
 
 # Other Banking Facilities
-proposal_proposal_template_text_other_banking_facilities = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_OTHER_BANKING_FACILITIES = """
         Embark on this task by reading through each step methodically, and maintain a steady breath. Ensure that you adhere to the following guidelines meticulously, focusing solely on factual and verifiable information:
 
         1. Should the input information lack details about the company's Other Banking Facilities, clearly state by one sentence only: 'No information on Other Banking Facilities' and request more details at the end using this exact format: "[RM Please provide further information on Keywords...]"
@@ -627,7 +612,7 @@ proposal_proposal_template_text_other_banking_facilities = """
 # based on the business development of the client, relationship history, creditworthiness, repayment capacity, risk assessment, and the strength of the relationship.
 
 # Opinion of the Relationship Manager
-proposal_proposal_template_text_opinion_of_relationship_manager = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_OPINION_OF_RELATIONSHIP_MANAGER = """
         Read this task step by step at a time and take a deep breath, then compose a comprehensive summary of the strengths and weaknesses of the deal and the client from the Bank Relationship Manager's opinion .
 
         ----Instructions:----
@@ -662,7 +647,7 @@ proposal_proposal_template_text_opinion_of_relationship_manager = """
         """
 
 # Summary of Recommendation
-proposal_proposal_template_text_summary_of_recommendation = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_SUMMARY_OF_RECOMMENDATION = """
         Take this task step by step, and remember to breathe.
         Please follow these guidelines strictly, focusing on factual and verifiable information:
 
@@ -691,7 +676,7 @@ proposal_proposal_template_text_summary_of_recommendation = """
         """
 
 # template for regeneration
-proposal_proposal_template_text_regen = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_REGEN = """
         To complete this task, carefully consider the previous paragraph and the RM's instructions. Your task is to edit and summarize the previous paragraph according to the RM instructions provided.
 
         ----Previous Paragraph----
@@ -723,7 +708,7 @@ proposal_proposal_template_text_regen = """
         **Do not mention the process of how you complete this task**
         """
 
-proposal_proposal_template_text_review_prompt = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_REVIEW_PROMPT = """
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
         Please Don't add additional content to the Paragraph.
 
@@ -742,7 +727,7 @@ proposal_proposal_template_text_review_prompt = """
         """
 
 # One more template for extracting the useless sentence
-proposal_proposal_template_text_formatting_prompt = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_FORMATTING_PROMPT = """
         To complete this task, you need to review and edit the Input paragraph according to the instructions provided.
         Please Don't add additional content to the Paragraph.
 
@@ -759,7 +744,7 @@ proposal_proposal_template_text_formatting_prompt = """
         Take this task one step at a time and remember to breathe
         """
 
-proposal_proposal_template_text_regen = """
+PROPOSAL_PROPOSAL_TEMPLATE_TEXT_REGEN_REVIEW = """
     To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
     Please Don't add additional content to the Paragraph.
 
@@ -866,60 +851,18 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     Input example for GPt to take it as an example
 
     """
-
-    # Bing Search question text
-    section_3_question_1 = f"""
-    Who are the major shareholders of {client} company? Provide with:
-    - their names
-    - ownership percentages
-    - their background information.
-
-    Summarise of your findings. Provide your references.
-    """
-
-    section_3_question_2 = f"""
-    Is {client} company is part of a larger group structure? If yes, provide:
-    - key entities within the group and explain its relationship between the entities, including parent companies, subsidaries and affiliates.
-    - significant transactions or relationships between the {client} and related parties.
-
-    Summarise of your findings. Provide your references.
-    """
-
-    section_5_question_1 = f"""
-    What is the industry or sector of the {client} company? Provide:
-    - size of the industry and sector
-    - growth rate of the industry and sector
-    - major current trends of the industry and sector
-    - future trends of the industry and sector
-
-    Summarise of your findings. Provide your references.
-    """
-
-    section_5_question_2 = f"""
-    Who are the major competitors of {client}? What are their market shares and key strengths and weaknesses.
-    """
-
-    section_6_question_1 = f"""
-    Who are the CEO and board of directors/key executives/Board Member of {client} company? Provide as many as possible with:
-    - their names
-    - their titles
-    - their relevant experience, qualifications, and achievements
-
-    Summarise of your findings. Provide your references.
-    """
-
     # For each section, gen content based on its prompt.
-    proposal_proposal_template_text = proposal_proposal_template_text_executive_summary if section_name == "Executive Summary" \
-        else proposal_proposal_template_text_client_request if section_name == "Client Request" \
-        else proposal_proposal_template_text_shareholders_and_group_structure if section_name == "Shareholders and Group Structure" \
-        else proposal_proposal_template_text_project_details if section_name == "Project Details" \
-        else proposal_proposal_template_text_industry_section_analysis if section_name == "Industry / Section Analysis" \
-        else proposal_proposal_template_text_management if section_name == "Management" \
-        else proposal_proposal_template_text_financial_info_of_borrower if section_name == "Financial Information of the Borrower" \
-        else proposal_proposal_template_text_other_banking_facilities if section_name == "Other Banking Facilities" \
-        else proposal_proposal_template_text_opinion_of_relationship_manager if section_name == "Opinion of the Relationship Manager" \
-        else proposal_proposal_template_text_summary_of_recommendation if section_name == "Client Request" \
-        else proposal_proposal_template_text_generic
+    proposal_proposal_template_text = PROPOSAL_PROPOSAL_TEMPLATE_TEXT_EXECUTIVE_SUMMARY if section_name == "Executive Summary" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_CLIENT_REQUEST if section_name == "Client Request" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_SHAREHOLDERS_AND_GROUP_STRUCTURE if section_name == "Shareholders and Group Structure" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_PROJECT_DETAILS if section_name == "Project Details" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_INDUSTRY_SECTION_ANALYSIS if section_name == "Industry / Section Analysis" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_MANAGEMENT if section_name == "Management" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_FINANCIAL_INFO_OF_BORROWER if section_name == "Financial Information of the Borrower" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_OTHER_BANKING_FACILITIES if section_name == "Other Banking Facilities" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_OPINION_OF_RELATIONSHIP_MANAGER if section_name == "Opinion of the Relationship Manager" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_SUMMARY_OF_RECOMMENDATION if section_name == "Summary of Recommendation" \
+        else PROPOSAL_PROPOSAL_TEMPLATE_TEXT_GENERIC
 
     # set up openai environment - Jay
     llm_proposal = AzureChatOpenAI(deployment_name=deployment_name, temperature=0,
@@ -932,11 +875,11 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     )
 
     review_chain = LLMChain(llm=llm_proposal
-                            , prompt=PromptTemplate(template=proposal_proposal_template_text_review_prompt, input_variables=["first_gen_paragraph", "example"])
+                            , prompt=PromptTemplate(template=PROPOSAL_PROPOSAL_TEMPLATE_TEXT_REVIEW_PROMPT, input_variables=["first_gen_paragraph", "example"])
                             , output_key="reviewed",verbose=True)
 
     checking_formatting_chain = LLMChain(llm=llm_proposal
-                                , prompt=PromptTemplate(template=proposal_proposal_template_text_formatting_prompt, input_variables=["reviewed"])
+                                , prompt=PromptTemplate(template=PROPOSAL_PROPOSAL_TEMPLATE_TEXT_FORMATTING_PROMPT, input_variables=["reviewed"])
                                 , output_key="reviewed_2",verbose=True)
 
     overall_chain = SequentialChain(chains=[chain, review_chain, checking_formatting_chain], 
@@ -964,37 +907,11 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     if example_str_empty:
         example_str = []
 
-    # Bing Seach 
+    # Call Bing Search if it's empty
     # Enter Bing Seach when the extract value is NULL
-    if input_info_str == []:
-        # Bing Seach 
-        if section_name == "Shareholders and Group Structure":
-            input_info_str = ["1. Name: Alibaba Group Holding Limited - Ownership Percentage: 23.3% - Background: Alibaba Group Holding Limited is a multinational conglomerate specializing in e-commerce, retail, internet, and technology. It was founded in 1999 by Jack Ma and is headquartered in Hangzhou, China. Alibaba Group operates various online platforms, including Alibaba.com, Taobao, Tmall, and AliExpress. 2. Name: CK Hutchison Holdings Limited - Ownership Percentage: 19.9% - Background: CK Hutchison Holdings Limited is a multinational conglomerate based in Hong Kong. It operates in various industries, including ports and related services, retail, infrastructure, energy, and telecommunications. CK Hutchison Holdings is one of the largest companies listed on the Hong Kong Stock Exchange. 3. Name: Hillhouse Capital Management, Ltd. - Ownership Percentage: 9.9% - Background: Hillhouse Capital Management, Ltd. is an investment management firm based in Asia. It focuses on long-term investments in sectors such as consumer, healthcare, technology, and services. Hillhouse Capital has a strong track record of investing in innovative and high-growth companies. Please note that the ownership percentages mentioned above are based on the available information and may be subject to change."]
-            #input_info_str.append(get_bing_search_response(section_3_question_1))
-            #input_info_str.append(get_bing_search_response(section_3_question_2))
-
-
-            # Add a Bing replace example if the Bing search cant extract relevent info
-            #for text in input_info_str:
-            #    if "I need to search" in text or "I should search" in text or "the search results do not provide" in text:
-            #        input_info_str = ["I have found some information about the major shareholders of GOGOX Holding Limited. Here are the details: 1. Name: Alibaba Group Holding Limited - Ownership Percentage: 23.3% - Background: Alibaba Group Holding Limited is a multinational conglomerate specializing in e-commerce, retail, internet, and technology. It was founded in 1999 by Jack Ma and is headquartered in Hangzhou, China. Alibaba Group operates various online platforms, including Alibaba.com, Taobao, Tmall, and AliExpress. 2. Name: CK Hutchison Holdings Limited - Ownership Percentage: 19.9% - Background: CK Hutchison Holdings Limited is a multinational conglomerate based in Hong Kong. It operates in various industries, including ports and related services, retail, infrastructure, energy, and telecommunications. CK Hutchison Holdings is one of the largest companies listed on the Hong Kong Stock Exchange. 3. Name: Hillhouse Capital Management, Ltd. - Ownership Percentage: 9.9% - Background: Hillhouse Capital Management, Ltd. is an investment management firm based in Asia. It focuses on long-term investments in sectors such as consumer, healthcare, technology, and services. Hillhouse Capital has a strong track record of investing in innovative and high-growth companies. Please note that the ownership percentages mentioned above are based on the available information and may be subject to change."]
-
-        #elif section_name == "Industry / Section Analysis":
-        #    input_info_str.append(get_bing_search_response(section_5_question_1))
-        #    input_info_str.append(get_bing_search_response(section_5_question_2))
-
-        elif section_name == "Management":
-            input_info_str = ["CEO and board of directors/key executives/Board Members of GOGOX company:\n\nExecutive Directors:\n  - Chen Xiaohua (陳小華) - Chairman of the Board\n  - He Song (何松) - Co-Chief Executive Officer\n  - Lam Hoi Yuen (林凱源) - Co-Chief Executive Officer\n  - Hu Gang (胡剛)\n\n- Non-executive Directors:\n  - Leung Ming Shu (梁銘樞)\n  - Wang Ye (王也). The company's Board of Directors consists of 12 Directors, including 4 Executive Directors, 4 Non-Executive Directors, and 4 Independent Non-Executive Directors. Unfortunately, I couldn't find more specific information about their relevant experience, qualifications, and achievements. \n\nReferences:\n1. [GOGOX Holdings Limited - Board of Directors](https://www.gogoxholdings.com/en/about_board.php)\n2. [GOGOX CEO and Key Executive Team | Craft.co](https://craft.co/gogox/executives)\n\nPlease note that the information provided is based on the available  sources and may not be exhaustive."]
-            #input_info_str.append(get_bing_search_response(section_6_question_1))
-
-            #print(input_info_str)
-
-            # Add a Bing replace example if the Bing search cant extract relevent info
-            #for text in input_info_str:
-            #    if "I need to search" in text or "I should search" in text or "the search results do not provide" in text:
-            #        input_info_str = ["I have found some information about the CEO and board of directors/key executives/Board Members of GOGOX company. Here are the details:\n\nExecutive Directors:\n  - Chen Xiaohua (陳小華) - Chairman of the Board\n  - He Song (何松) - Co-Chief Executive Officer\n  - Lam Hoi Yuen (林凱源) - Co-Chief Executive Officer\n  - Hu Gang (胡剛)\n\n- Non-executive Directors:\n  - Leung Ming Shu (梁銘樞)\n  - Wang Ye (王也). The company's Board of Directors consists of 12 Directors, including 4 Executive Directors, 4 Non-Executive Directors, and 4 Independent Non-Executive Directors. Unfortunately, I couldn't find more specific information about their relevant experience, qualifications, and achievements. \n\nReferences:\n1. [GOGOX Holdings Limited - Board of Directors](https://www.gogoxholdings.com/en/about_board.php)\n2. [GOGOX CEO and Key Executive Team | Craft.co](https://craft.co/gogox/executives)\n\nPlease note that the information provided is based on the available  sources and may not be exhaustive."]
-        else:
-            input_info_str == []
+    if len(rm_text_variable) > 0:
+        bing_search_list = bing_search_for_credit_proposal(client, section_name) #will return a list
+        input_info_str.extend(bing_search_list)
 
     final_dict = {"input_info": "\n\n".join(input_info_str), "Example": "\n\n".join(example_str)}
     print("="*50)
@@ -1058,16 +975,16 @@ def regen(section_name, previous_paragraph, rm_instruction, client, deployment_n
                             openai_api_version=openai_api_version, openai_api_base=openai_api_base)
     chain = LLMChain(
         llm=llm_proposal,
-        prompt=PromptTemplate(template=proposal_proposal_template_text_regen, input_variables=["previous_paragraph", "rm_instruction"]),
+        prompt=PromptTemplate(template=PROPOSAL_PROPOSAL_TEMPLATE_TEXT_REGEN, input_variables=["previous_paragraph", "rm_instruction"]),
         output_key="re_gen_paragraph"
     )
 
     review_chain = LLMChain(llm=llm_proposal
-                            , prompt=PromptTemplate(template=proposal_proposal_template_text_review_prompt, input_variables=["first_gen_paragraph", "example"])
+                            , prompt=PromptTemplate(template=PROPOSAL_PROPOSAL_TEMPLATE_TEXT_REGEN_REVIEW, input_variables=["re_gen_paragraph"])
                             , output_key="reviewed",verbose=True)
 
     checking_formatting_chain = LLMChain(llm=llm_proposal
-                                , prompt=PromptTemplate(template=proposal_proposal_template_text_formatting_prompt, input_variables=["reviewed"])
+                                , prompt=PromptTemplate(template=PROPOSAL_PROPOSAL_TEMPLATE_TEXT_FORMATTING_PROMPT, input_variables=["reviewed"])
                                 , output_key="reviewed_2",verbose=True)
 
     overall_chain = SequentialChain(chains=[chain, review_chain, checking_formatting_chain], 
