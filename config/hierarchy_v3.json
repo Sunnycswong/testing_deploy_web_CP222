@@ -212,7 +212,7 @@
         "Sub-section": "Weaknesses",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the weaknesses of this deal based on the relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords related to the weaknesses: risk, risks)",
+        "Question": "Please extract the weaknesses of this deal based on the relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords related to the weaknesses: weaknesses, risk, risks)",
         "Example": ""
     },
     {

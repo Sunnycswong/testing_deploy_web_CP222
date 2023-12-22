@@ -106,6 +106,13 @@ OPENAI_API_BASE = "https://pwcjay.openai.azure.com/"
 OPENAI_API_VERSION = "2023-09-01-preview"
 OPENAI_API_KEY = "f282a661571f45a0bdfdcd295ac808e7"
 
+#set up openai environment - Ethan
+# OPENAI_API_TYPE = "azure"
+# OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
+# OPENAI_API_VERSION = "2023-09-01-preview"
+# OPENAI_API_KEY = "ff96d48045584cb9844fc70e5b802918"
+# DEPLOYMENT_NAME = "gpt-35-turbo"
+
 client = "GogoX"
 section_name = 'Executive Summary'
 rm_note_txt = """Client: GogoX
@@ -133,7 +140,8 @@ GogoX aims to invest in technology and infrastructure improvements to streamline
 The logistics industry is subject to various risks and weaknesses, including intense competition, regulatory changes, and economic downturns. GogoX has implemented risk mitigation measures such as diversification of services and markets, maintaining strong relationships with key partners, and closely monitoring market trends.			
 Operational risks, such as driver availability, vehicle maintenance, and service disruptions, are managed through rigorous driver screening, continuous training programs, and proactive maintenance schedules.			
 Financial risks are mitigated by maintaining a healthy liquidity position, diversifying funding sources, and prudent financial management practices.			
-			
+The above risk assessment can be treated as the weaknesses.
+
 6	Credit Request and Repayment Plan:		
 GogoX is requesting a credit facility of $10 million to support its expansion plans			
 The proposed repayment plan consists of regular principal and interest payments over a 3 years term, aligning with the company's projected cash flow generation and financial performance.			
@@ -153,9 +161,15 @@ GogoX has demonstrated a strong market position, consistent financial performanc
 """
 
 #%%
+# extract_json, rm_text_variable = extract_info.web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
+#         , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+# print(extract_json[0]['Sub-section']+":", extract_json[0]['Value'])
+# print("="*30)
+# print(extract_json[1]['Sub-section']+":", extract_json[1]['Value'])
+
+#%%
 #        "Example": "The weaknesses of the project include the lack of consolidated financial information of the sponsors and the non-recourse nature of the deal. However, a sinking fund arrangement will be established to handle principal and interest repayments. On the other hand, the project exhibits several strengths. Pamfleet and Angelo Gordon are experienced property investment companies with a satisfactory track record. The loan-to-value ratio (LTV) is acceptable at around 38%, and the projected cashflow supports servicing the facility. Additionally, the breakeven price is low compared to the market price, and the projected income from the valuable account is promising with a favorable risk-adjusted return on capital (RAROC). Considering the strengths and weaknesses, the project is deemed bankable and has the potential for success."
 # "From the projected cashflow and the LTV of the Property, we consider that this is a bankable deal in view of: 1. Pamfleet and Angelo Gordon are experienced property investment companies with satisfactory track record. 2. Acceptable LTV at around 38% (not including IRS for hedging) with maximum LTV not exceeding 50%. 3. Satisfactory cashflow projection for servicing the Facility. 4. Low breakeven price at around HKD1,300 per sq ft (vis-à-vis the market price at around HKD3.2-3.6K per sq ft). 5. Valuable account with projected income of HKD24.4M and RAROC at around 24.09%, especially in view of the low administrative works involved."
-
 output_dict = extract_info.run_first_gen("Opinion of the Relationship Manager", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])

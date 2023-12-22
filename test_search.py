@@ -1,8 +1,35 @@
-from src.general_prompts import *
+import os
+import requests
+
 from langchain.chat_models import AzureChatOpenAI
 from langchain.agents import initialize_agent, AgentType
-from search import CustomBingSearch
 from src.get_keys import GetAzureKeys
+from langchain.utilities import BingSearchAPIWrapper
+from langchain.tools import BaseTool
+
+from src.get_keys import GetAzureKeys
+from src.general_prompts import *
+# from dotenv import load_dotenv, find_dotenv
+# _ = load_dotenv(find_dotenv())  # read local .env file
+
+keys = GetAzureKeys()
+
+class CustomBingSearch(BaseTool):
+    """Tool for a Bing Search Wrapper"""
+    
+    name = "@bing"
+    description = "useful when the questions includes the term: @bing.\n"
+
+    k: int = 5
+    
+    def _run(self, query: str) -> str:
+        bing = BingSearchAPIWrapper(k=self.k)
+        return bing.results(query,num_results=self.k)
+            
+    async def _arun(self, query: str) -> str:
+        """Use the tool asynchronously."""
+        raise NotImplementedError("This Tool does not support async")
+
 
 keys = GetAzureKeys()
 
