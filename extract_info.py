@@ -154,15 +154,6 @@ def load_json(json_path):
         data = json.load(f)
     return data
 
-'''
-    You could follow the below extraction example format to output the answer.
-    example (Keyword: example):
-    {example}
-
-    3. The example (Keyword: proposal_example) above is just for your reference only to improve your theme, you must not directly copy the content in the examples
-
-'''
-
 #This funcition is to prepare the rm note in desired format for web, call by app.py
 def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
     hierarchy_file_name = "config/hierarchy_v3.json"
@@ -194,7 +185,7 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
 
         ---Instructions---
         When drafting your response, adhere to the following guidelines:
-        1.  Important: The ----Example---- is for reference in terms of style and format only. It should not be incorporated into your response; utilize it as a framework for the structure and presentation of information derived from the RM Notes.
+        1. Important: The ----Example---- is for reference in terms of style and format only. It should not be incorporated into your response; utilize it as a framework for the structure and presentation of information derived from the RM Notes.
         2. Present your answer in clear, succinct English.
         3. Infuse your reply with insights, where appropriate, based on the RM Notes.
         4. Write your response strictly on the provided details; avoid inferring or fabricating information not expressly given.
@@ -225,6 +216,9 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
             chain = LLMChain(llm=llm_rm_note, prompt=rm_prompt_template, verbose=True)
             dictionary["Value"] = chain({"rm_note":rm_note_txt, "question": dictionary["Question"], "client_name": client, "example": dictionary["Example"]})['text']
             dictionary["Value"] = dictionary["Value"].replace("Based on the given information, ", "")
+            print("="*30)
+            print(dictionary["Value"])
+            print("="*30)
             dictionary["Value"] = clean_generated_text(dictionary["Value"], client, section)
             # Use regular expressions to find the pattern "[RM ...]"
             for deleted_word in ["RM", "NA", "N/A"]:
@@ -759,7 +753,7 @@ def clean_generated_text(text, client, section_name):
 
     #Drop some unwanted sentences
     sentence_list = re.split(r"(?<=[.?!] )", text)
-    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess", "is not mentioned in the RM Notes", "not provided in the RM Notes", "not explicitly mentioned", "further information is needed", "no specific mention of", "not possible to provide ", "is not provided in the input information", "unable to extract "]
+    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess", "is not mentioned in the RM Notes", "not provided in the RM Notes", "not explicitly mentioned", "further information is needed", "no specific mention of", "not possible to provide ", "is not provided in the input information", "unable to extract ", "request further information"]
     sentence_list_dropped = [sentence for sentence in sentence_list if all(word not in sentence for word in unwanted_word_list)]
     text = ' '.join(sentence_list_dropped)
 
@@ -773,8 +767,9 @@ def clean_generated_text(text, client, section_name):
     text = '\n'.join(out_sentence_list)
 
     #Remove the section name if it starts with it
-    if text.lower().startswith(section_name.lower()+": "):
-        text = text[len(section_name)+2:]
+    if len(text) >= len(section_name)+2:
+        if text.lower().startswith(section_name.lower()+": "):
+            text = text[len(section_name)+2:]
 
     #All capital letters for first letter in sentences
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')

@@ -193,7 +193,9 @@ extract_info.run_first_gen("Shareholders and Group Structure", rm_note_txt, clie
 extract_info.run_first_gen("Executive Summary", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
 
 #%%
-extract_info.run_first_gen("Management", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
+output_dict =  extract_info.run_first_gen("Management", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+print(">>> Generated Output:", output_dict['output'])
+print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
 financial_section_dict = extract_info.run_first_gen("Financial Information of the Borrower", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
@@ -245,6 +247,11 @@ Return on Equity (ROE): GOGOX's ROE is 16%, reflecting effective return generati
 regen_dict = extract_info.regen("Financial Information of the Borrower", financial_section_dict['output'], rm_instruction=financial_supplement, client="GogoX", deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Regen Generated Output:", regen_dict['output'])
 print(">>> Regen RM fill:", regen_dict['RM_fill'])
+
+#%%
+financial_section_dict['output']
+#%%
+financial_supplement
 
 #%%
 extract_info.run_first_gen("Other Banking Facilities", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
