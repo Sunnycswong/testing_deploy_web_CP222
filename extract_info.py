@@ -128,7 +128,7 @@ OPENAI_API_TYPE = "azure"
 OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
 OPENAI_API_VERSION = "2023-09-01-preview"
 OPENAI_API_KEY = "ad3708e3714d4a6b9a9613de82942a2b"
-DEPLOYMENT_NAME = "gpt-35-turbo"
+DEPLOYMENT_NAME = "gpt-35-turbo-16k"
 
 # set up openai environment - Sonia
 #os.environ["OPENAI_API_TYPE"] = "azure"
@@ -226,15 +226,16 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
             dictionary["Value"] = dictionary["Value"].replace("Based on the given information, ", "")
             
             # Use regular expressions to find the pattern "[RM ...]"
-            match = re.search(r"\[RM [^\]]+\]", dictionary["Value"])
-            if match:
-                rm_text_variable = match.group(0)  # Store the "[RM ...]" text in the variable
-                rm_text_list.append(rm_text_variable)
-                #dictionary["Value"] = dictionary["Value"].replace(rm_text_variable, "")  # Remove the "[RM ...]" text from the "Value"
-                dictionary["Value"] = ""
+            for deleted_word in ["RM", "NA", "N/A"]:
+                matches = re.findall(r"\[{} [^\]]+\]".format(deleted_word), dictionary["Value"], re.DOTALL)
+                for match in matches:
+                    dictionary["Value"] = dictionary["Value"].replace(match, "")
             
-            if "[N/A]" in dictionary["Value"]:
-                dictionary["Value"] = ""
+            # if match:
+            #     rm_text_variable = match.group(0)  # Store the "[RM ...]" text in the variable
+            #     rm_text_list.append(rm_text_variable)
+            #     #dictionary["Value"] = dictionary["Value"].replace(rm_text_variable, "")  # Remove the "[RM ...]" text from the "Value"
+            #     dictionary["Value"] = ""
             
             output_dict_list.append(dictionary)
 
