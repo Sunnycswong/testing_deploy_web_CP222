@@ -781,7 +781,7 @@ def clean_generated_text(text, client, section_name):
 
     #Drop some unwanted sentences
     sentence_list = re.split(r"(?<=[.?!] )", text)
-    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess", "is not mentioned in the RM Notes"]
+    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess", "is not mentioned in the RM Notes", "not provided in the RM Notes"]
     sentence_list_dropped = [sentence for sentence in sentence_list if all(word not in sentence for word in unwanted_word_list)]
     text = ' '.join(sentence_list_dropped)
 
@@ -802,7 +802,7 @@ def clean_generated_text(text, client, section_name):
     formatter = re.compile(r'(?<=[\.\?!]\s)(\w+)')
     text = formatter.sub(cap, text)
     text = text[0].upper()+text[1:]
-    return text.strip().replace("\n\n", "\n").replace(".  ", ". ").replace("!  ", "! ").replace("?  ", "? ")
+    return text.strip().replace("\n\n", "\n").replace(".  ", ". ").replace("!  ", "! ").replace("?  ", "? ").replace("in the RM Notes", "")
 
 def generate_rm_fill(rm_fill_values, client):
     # Remove the specific phrase "Please provide further information on" from each value in rm_fill_values
@@ -909,9 +909,14 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
 
     # Call Bing Search if it's empty
     # Enter Bing Seach when the extract value is NULL
-    if len(rm_text_variable) > 0:
-        bing_search_list = bing_search_for_credit_proposal(client, section_name) #will return a list
+    disclaimer_of_bing_search = False
+    if (len(rm_text_variable) > 0) | (section_name in ["Shareholders and Group Structure", "Management"]):
+        #TODO: for GogoX only:
+        bing_search_list, disclaimer_of_bing_search = bing_search_for_credit_proposal(
+            client="GOGOX Holding Limited" if client.lower() == "gogox" else client
+            , section_name=section_name) #will return a list
         input_info_str.extend(bing_search_list)
+        
 
     final_dict = {"input_info": "\n\n".join(input_info_str), "Example": "\n\n".join(example_str)}
     print("="*50)
@@ -954,8 +959,12 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     final_rm_fill_text = generate_rm_fill(rm_fill_values, client)
     #print(rm_fill_values)
 
+    #Edit the format of final rm fill
     if section_name == "Summary of Recommendation":
         final_rm_fill_text = ""
+    if disclaimer_of_bing_search:
+        disclaimer_of_bing_search_text = "The above generated content contains informatoin from Bing Search, as there is no relevant information detected in the RM Note. Please helps review and confirm it."
+        final_rm_fill_text = disclaimer_of_bing_search_text + '\n' + final_rm_fill_text
 
     output_json = {
         "section": section_name,
