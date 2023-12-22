@@ -112,6 +112,9 @@ CONNECT_STR = f"DefaultEndpointsProtocol=https;AccountName={STORAGE_SERVICE};Acc
 DOC_INTELL_ENDPOINT = "https://doc-intelligence-test.cognitiveservices.azure.com/"
 DOC_INTELL_KEY = "9fac3bb92b3c4ef292c20df9641c7374"
 
+OPENAI_API_BASE = ""
+OPENAI_API_VERSION = ""
+DEPLOYMENT_NAME = ""
 
 # set up openai environment - Jay
 # OPENAI_API_TYPE = "azure"
@@ -124,7 +127,7 @@ DOC_INTELL_KEY = "9fac3bb92b3c4ef292c20df9641c7374"
 OPENAI_API_TYPE = "azure"
 OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
 OPENAI_API_VERSION = "2023-09-01-preview"
-OPENAI_API_KEY = "ff96d48045584cb9844fc70e5b802918"
+OPENAI_API_KEY = "ad3708e3714d4a6b9a9613de82942a2b"
 DEPLOYMENT_NAME = "gpt-35-turbo"
 
 # set up openai environment - Sonia
@@ -139,8 +142,8 @@ DEPLOYMENT_NAME = "gpt-35-turbo"
 #os.environ["AZURE_COGNITIVE_SEARCH_API_KEY"] = SEARCH_API_KEY
 #os.environ["AZURE_INDEX_NAME"] = INDEX_NAME
 
-
-# Core LLM call funcition
+# set up openai environment
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 def cap(match):
     return(match.group().capitalize())
@@ -174,7 +177,7 @@ def web_extract_RM(section, rm_note_txt, client, deployment_name=DEPLOYMENT_NAME
         Rely solely on the information contained in the ----RM Notes---- for this task, avoiding the use of external sources or drawing from personal knowledge.
 
         ----Important Note----
-        If the ----RM Notes---- lack the necessary details to answer the ----Question----, signal the need for more data thusly: '[RM Please provide further information on Keywords]'.
+        If the ----RM Notes---- lacks the necessary details to answer the ----Question----, signal the need for more data thusly: '[RM Please provide further information on Keywords]'.
         Use the ----RM Notes---- to answer the ----Question----. Look at the ----Example---- to see how your answer should look, but don't use the exact words from the ----Example---- in your answer.
 
         ----Client Name----
@@ -566,7 +569,6 @@ proposal_proposal_template_text_financial_info_of_borrower = """
         ----Example for Reference----
         {example}
 
-
         ----Financial Information of the Borrower----
         Please provide a concise summary of the Financial Information of the Borrower based on the above information. 
         Ensure the following infomation is included in the input_info:
@@ -639,8 +641,8 @@ proposal_proposal_template_text_opinion_of_relationship_manager = """
 
         ----Opinion of the Relationship Manager----
         Your answer should include the following 2 parts (Please follow the order)
-        a. The strengths of this deal: Capture the numbering point after the keyword "Strengths : "
-        b. The weaknesses of this deal: Capture the numbering point after the keyword "Weaknesses : "
+        a. The strengths of this deal. Pay attention to the content after the keyword "Strengths : "
+        b. The weaknesses of this deal: Pay attention to the content after the keyword "Weaknesses : "
 
         - For any information that is absent, please request it clearly at the end of your summary in the following format: "[RM Please provide further information on Keywords...]" as a separate sentence.
 
@@ -793,7 +795,7 @@ def clean_generated_text(text, client, section_name):
 
     #Drop some unwanted sentences
     sentence_list = re.split(r"(?<=[.?!] )", text)
-    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess"]
+    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess", "is not mentioned in the RM Notes"]
     sentence_list_dropped = [sentence for sentence in sentence_list if all(word not in sentence for word in unwanted_word_list)]
     text = ' '.join(sentence_list_dropped)
 

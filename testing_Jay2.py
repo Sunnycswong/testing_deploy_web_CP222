@@ -100,18 +100,22 @@ import re
 import export_doc
 import extract_info
 
-DEPLOYMENT_NAME = "gpt-35-16k"
-OPENAI_API_TYPE = "azure"
-OPENAI_API_BASE = "https://pwcjay.openai.azure.com/"
-OPENAI_API_VERSION = "2023-09-01-preview"
-OPENAI_API_KEY = "f282a661571f45a0bdfdcd295ac808e7"
+# DEPLOYMENT_NAME = "gpt-35-16k"
+# OPENAI_API_TYPE = "azure"
+# OPENAI_API_BASE = "https://pwcjay.openai.azure.com/"
+# OPENAI_API_VERSION = "2023-09-01-preview"
+# OPENAI_API_KEY = "f282a661571f45a0bdfdcd295ac808e7"
 
 #set up openai environment - Ethan
-# OPENAI_API_TYPE = "azure"
-# OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
-# OPENAI_API_VERSION = "2023-09-01-preview"
-# OPENAI_API_KEY = "ff96d48045584cb9844fc70e5b802918"
-# DEPLOYMENT_NAME = "gpt-35-turbo"
+OPENAI_API_TYPE = "azure"
+OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
+OPENAI_API_VERSION = "2023-09-01-preview"
+OPENAI_API_KEY = "ad3708e3714d4a6b9a9613de82942a2b"
+DEPLOYMENT_NAME = "gpt-35-turbo"
+
+# set up openai environment
+os.environ["OPENAI_API_TYPE"] = "azure"
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 client = "GogoX"
 section_name = 'Executive Summary'
@@ -161,11 +165,13 @@ GogoX has demonstrated a strong market position, consistent financial performanc
 """
 
 #%%
-# extract_json, rm_text_variable = extract_info.web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
-#         , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
-# print(extract_json[0]['Sub-section']+":", extract_json[0]['Value'])
-# print("="*30)
-# print(extract_json[1]['Sub-section']+":", extract_json[1]['Value'])
+extract_json, rm_text_variable = extract_info.web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
+        , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE, )
+print(extract_json[0]['Sub-section']+":", extract_json[0]['Value'])
+print("="*30)
+print(extract_json[1]['Sub-section']+":", extract_json[1]['Value'])
+print(rm_text_variable)
+#%%
 
 #%%
 #        "Example": "The weaknesses of the project include the lack of consolidated financial information of the sponsors and the non-recourse nature of the deal. However, a sinking fund arrangement will be established to handle principal and interest repayments. On the other hand, the project exhibits several strengths. Pamfleet and Angelo Gordon are experienced property investment companies with a satisfactory track record. The loan-to-value ratio (LTV) is acceptable at around 38%, and the projected cashflow supports servicing the facility. Additionally, the breakeven price is low compared to the market price, and the projected income from the valuable account is promising with a favorable risk-adjusted return on capital (RAROC). Considering the strengths and weaknesses, the project is deemed bankable and has the potential for success."
@@ -173,6 +179,9 @@ GogoX has demonstrated a strong market position, consistent financial performanc
 output_dict = extract_info.run_first_gen("Opinion of the Relationship Manager", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
+
+#%%
+
 
 #%%
 output_dict = extract_info.run_first_gen("Industry / Section Analysis", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
