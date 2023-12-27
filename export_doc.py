@@ -1,108 +1,53 @@
 #%%
 ## Import Library
+import os
 import copy
-import openai
-from azure.core.credentials import AzureKeyCredential
-from azure.identity import AzureDeveloperCliCredential
-from azure.search.documents import SearchClient
-from azure.search.documents.indexes import SearchIndexClient
-from azure.search.documents.indexes.models import (
-    HnswParameters,
-    PrioritizedFields,
-    SearchableField,
-    SearchField,
-    SearchFieldDataType,
-    SearchIndex,
-    SemanticConfiguration,
-    SemanticField,
-    SemanticSettings,
-    SimpleField,
-    VectorSearch,
-    VectorSearchAlgorithmConfiguration,
-)
-from azure.storage.blob import BlobServiceClient
-from langchain.chains import LLMChain
-from langchain.llms import AzureOpenAI 
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts import PromptTemplate
-from langchain.chat_models import AzureChatOpenAI
-from langchain.memory import CosmosDBChatMessageHistory
-import openai
-import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.azuresearch import AzureSearch
-
-import openai
-import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.azuresearch import AzureSearch
-
-from azure.storage.blob import BlobServiceClient
-from azure.core.exceptions import ResourceExistsError
 import json
-
-from langchain.chains import RetrievalQA
-from langchain.chains.question_answering import load_qa_chain
-#from langchain.retrievers import AzureCognitiveSearchRetriever
-from langdetect import detect
-from langchain.prompts import PromptTemplate
 import re
-# Create chain to answer questions
-from langchain.chains import RetrievalQA
-from langchain.chains.question_answering import load_qa_chain
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-from langchain.chains import ConversationalRetrievalChain
-
-# Import Azure OpenAI
-from langchain.llms import AzureOpenAI 
-from langchain.chat_models import AzureChatOpenAI
-from langchain.schema import HumanMessage
-
-import openai
-from azure.core.credentials import AzureKeyCredential
-from azure.identity import AzureDeveloperCliCredential
-from azure.search.documents import SearchClient
-from azure.search.documents.indexes import SearchIndexClient
-from azure.search.documents.indexes.models import (
-    HnswParameters,
-    PrioritizedFields,
-    SearchableField,
-    SearchField,
-    SearchFieldDataType,
-    SearchIndex,
-    SemanticConfiguration,
-    SemanticField,
-    SemanticSettings,
-    SimpleField,
-    VectorSearch,
-    VectorSearchAlgorithmConfiguration,
-)
-
-from azure.storage.blob import BlobServiceClient
-from pypdf import PdfReader
-from langchain.schema import Document
-import openai
-import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.azuresearch import AzureSearch
-#import textwrap
 import logging
+import datetime
+
+#import openai
+#========================================================================
+#from langchain.chains import LLMChain, ConversationalRetrievalChain, RetrievalQA
+#from langchain.llms import AzureOpenAI 
+#from langchain.memory import ConversationBufferMemory, CosmosDBChatMessageHistory
+#from langchain.prompts import PromptTemplate
+#from langchain.chat_models import AzureChatOpenAI
+#from langchain.embeddings.openai import OpenAIEmbeddings
+#from langchain.vectorstores.azuresearch import AzureSearch
+#from langchain.chains.question_answering import load_qa_chain
+#from langchain.retrievers import AzureCognitiveSearchRetriever
+#from langchain.schema import HumanMessage, Document
+
+#========================================================================
 from azure.storage.blob import BlobServiceClient
-from azure.core.exceptions import ResourceExistsError
-import json
+#from azure.core.exceptions import ResourceExistsError
+#from azure.identity import AzureDeveloperCliCredential
+#from azure.search.documents import SearchClient
+#from azure.search.documents.indexes import SearchIndexClient
+# from azure.search.documents.indexes.models import (
+#     HnswParameters,
+#     PrioritizedFields,
+#     SearchableField,
+#     SearchField,
+#     SearchFieldDataType,
+#     SearchIndex,
+#     SemanticConfiguration,
+#     SemanticField,
+#     SemanticSettings,
+#     SimpleField,
+#     VectorSearch,
+#     VectorSearchAlgorithmConfiguration,
+# )
+#===============================================================
+from io import BytesIO
 from docx import Document as DocxDocument
 from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-import re
-from io import BytesIO
-import datetime
 
-# ACS Keys
-index_name = "credit-proposal"
-search_service = "gptdemosearch"
-search_api_key = "PcAZcXbX2hJsxMYExc2SnkMFO0D94p7Zw3Qzeu5WjYAzSeDMuR5O"
+#from langdetect import detect
+#from pypdf import PdfReader
 
 # Blob Storage keys: hosted by Kenny
 STORAGE_SERVICE = "creditproposal"
@@ -111,8 +56,8 @@ CONNECTION_STRING = f"DefaultEndpointsProtocol=https;AccountName={STORAGE_SERVIC
 CONTAINER_NAME = "exportdocs"
 
 # doc_intell Keys
-doc_intell_endpoint = "https://doc-intelligence-test.cognitiveservices.azure.com/"
-doc_intell_key = "9fac3bb92b3c4ef292c20df9641c7374"
+DOC_INTELL_ENDPOINT = "https://doc-intelligence-test.cognitiveservices.azure.com/"
+DOC_INTELL_KEY = "9fac3bb92b3c4ef292c20df9641c7374"
 
 
 # set up openai environment - Jay
@@ -120,7 +65,6 @@ doc_intell_key = "9fac3bb92b3c4ef292c20df9641c7374"
 #os.environ["OPENAI_API_BASE"] = "https://pwcjay.openai.azure.com/"
 #os.environ["OPENAI_API_VERSION"] = "2023-05-15"
 #os.environ["OPENAI_API_KEY"] = "f282a661571f45a0bdfdcd295ac808e7"
-
 
 # set up openai environment - Ethan
 os.environ["OPENAI_API_TYPE"] = "azure"

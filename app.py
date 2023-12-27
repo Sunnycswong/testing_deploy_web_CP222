@@ -1,15 +1,23 @@
 import os
 import json
-import flask
-from flask import redirect, send_file
-from flask import (Flask, redirect, render_template, request,
-                   send_from_directory, url_for, jsonify)
-from flask_cors import CORS
-import logging
-from werkzeug.wsgi import wrap_file
-from werkzeug.datastructures import Headers
-from flask import Flask, Response, redirect, render_template, request, send_from_directory, url_for, jsonify
+
 import io
+import logging
+
+from flask import (
+    redirect,
+    send_file,
+    Flask,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+    jsonify
+)
+from flask_cors import CORS
+
+# from werkzeug.wsgi import wrap_file
+# from werkzeug.datastructures import Headers
 
 import export_doc
 import extract_info
@@ -30,6 +38,9 @@ def favicon():
 
 @app.route('/hello', methods=['POST'])
 def hello():
+   """
+   Testing API
+   """
    name = request.form.get('name')
 
    if name:
@@ -38,7 +49,6 @@ def hello():
    else:
        print('Request for hello page received with no name or blank name -- redirecting')
        return redirect(url_for('index'))
-
 
 # route for healthcheck
 @app.route('/healthcheck', methods=["GET"])
@@ -49,6 +59,9 @@ def healthcheck():
 # route for extracting information from RM notes
 @app.route('/generate', methods=['POST'])
 def first_run():
+    """
+    Main API function to run the first generation
+    """
     data = request.get_json()
     logging.info("API request param:", data)
     # client meaning client name here
@@ -72,6 +85,9 @@ def first_run():
 
 @app.route('/regen', methods=['POST'])
 def regen():
+    """
+    Main API function to run the re-generation
+    """
     data = request.get_json()
     logging.info("API request param:", data)
     section_name = data["section_name"]
@@ -97,6 +113,9 @@ def regen():
 
 @app.route('/export', methods=['POST'])
 def export_document():
+    """
+    Main API function to export the docx document
+    """
     try:
         data = request.get_json()
         if not data or "client_name" not in data or "consolidated_text" not in data:

@@ -1,106 +1,57 @@
 #%%
 ## Import Library
+## Import Library
+import os
 import copy
+import json
+import re
+import logging
+import datetime
+
 import openai
-from azure.core.credentials import AzureKeyCredential
-from azure.identity import AzureDeveloperCliCredential
-from azure.search.documents import SearchClient
-from azure.search.documents.indexes import SearchIndexClient
-from azure.search.documents.indexes.models import (
-    HnswParameters,
-    PrioritizedFields,
-    SearchableField,
-    SearchField,
-    SearchFieldDataType,
-    SearchIndex,
-    SemanticConfiguration,
-    SemanticField,
-    SemanticSettings,
-    SimpleField,
-    VectorSearch,
-    VectorSearchAlgorithmConfiguration,
-)
-from azure.storage.blob import BlobServiceClient
-from langchain.chains import LLMChain
-from langchain.llms import AzureOpenAI 
-from langchain.memory import ConversationBufferMemory
+
+#from langchain.llms import AzureOpenAI 
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import AzureChatOpenAI
-from langchain.memory import CosmosDBChatMessageHistory
-import openai
-import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.azuresearch import AzureSearch
-
-import openai
-import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.azuresearch import AzureSearch
-
-from azure.storage.blob import BlobServiceClient
-from azure.core.exceptions import ResourceExistsError
-import json
-
-from langchain.chains import RetrievalQA
-from langchain.chains.question_answering import load_qa_chain
+#from langchain.embeddings.openai import OpenAIEmbeddings
+#from langchain.vectorstores.azuresearch import AzureSearch
+#from langchain.chains.question_answering import load_qa_chain
 #from langchain.retrievers import AzureCognitiveSearchRetriever
-from langdetect import detect
-from langchain.prompts import PromptTemplate
-import re
-# Create chain to answer questions
-from langchain.chains import RetrievalQA
-from langchain.chains.question_answering import load_qa_chain
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-from langchain.chains import ConversationalRetrievalChain
+
+#from langchain.memory import ConversationBufferMemory, CosmosDBChatMessageHistory
+from langchain.chains import (
+    LLMChain, 
+    #ConversationalRetrievalChain,
+    # RetrievalQA,
+    # SimpleSequentialChain,
+    SequentialChain)
+#from langchain.schema import HumanMessage, Document
 
 # Import Azure OpenAI
-from langchain.llms import AzureOpenAI 
-from langchain.chat_models import AzureChatOpenAI
-from langchain.schema import HumanMessage
+# from azure.storage.blob import BlobServiceClient
+# from azure.core.credentials import AzureKeyCredential
+# from azure.identity import AzureDeveloperCliCredential
+# from azure.search.documents import SearchClient
+# from azure.search.documents.indexes import SearchIndexClient
+# from azure.search.documents.indexes.models import (
+#     HnswParameters,
+#     PrioritizedFields,
+#     SearchableField,
+#     SearchField,
+#     SearchFieldDataType,
+#     SearchIndex,
+#     SemanticConfiguration,
+#     SemanticField,
+#     SemanticSettings,
+#     SimpleField,
+#     VectorSearch,
+#     VectorSearchAlgorithmConfiguration,
+# )
+# from azure.core.exceptions import ResourceExistsError
 
-import openai
-from azure.core.credentials import AzureKeyCredential
-from azure.identity import AzureDeveloperCliCredential
-from azure.search.documents import SearchClient
-from azure.search.documents.indexes import SearchIndexClient
-from azure.search.documents.indexes.models import (
-    HnswParameters,
-    PrioritizedFields,
-    SearchableField,
-    SearchField,
-    SearchFieldDataType,
-    SearchIndex,
-    SemanticConfiguration,
-    SemanticField,
-    SemanticSettings,
-    SimpleField,
-    VectorSearch,
-    VectorSearchAlgorithmConfiguration,
-)
-
-from azure.storage.blob import BlobServiceClient
-from pypdf import PdfReader
-from langchain.schema import Document
-import openai
-import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.azuresearch import AzureSearch
-#import textwrap
-import logging
-from azure.storage.blob import BlobServiceClient
-from azure.core.exceptions import ResourceExistsError
-import json
-from docx import Document as DocxDocument
-from docx.shared import Pt, RGBColor
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-import re
-from langchain.chains import SimpleSequentialChain
-from langchain.chains import SequentialChain
-
+#from pypdf import PdfReader
 from bing_search import bing_search_for_credit_proposal
-
+#from langdetect import detect
 
 # Setting credit
 INDEX_NAME = "credit-proposal"
