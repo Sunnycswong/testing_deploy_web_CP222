@@ -99,17 +99,18 @@ import re
 from io import BytesIO
 import datetime
 
-
+# ACS Keys
 index_name = "credit-proposal"
 search_service = "gptdemosearch"
 search_api_key = "PcAZcXbX2hJsxMYExc2SnkMFO0D94p7Zw3Qzeu5WjYAzSeDMuR5O"
-storage_service = "creditproposal"
-storage_api_key = "hJ2qb//J1I1KmVeDHBpwEpnwluoJzm+b6puc5h7k+dnDSFQ0oxuh1qBz+qPB/ZT7gZvGufwRbUrN+ASto6JOCw=="
-connect_str = f"DefaultEndpointsProtocol=https;AccountName={storage_service};AccountKey={storage_api_key}"
 
-connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_service};AccountKey={storage_api_key}"
-container_name = "exportdocs"
+# Blob Storage keys: hosted by Kenny
+STORAGE_SERVICE = "creditproposal"
+STORAGE_API_KEY = "hJ2qb//J1I1KmVeDHBpwEpnwluoJzm+b6puc5h7k+dnDSFQ0oxuh1qBz+qPB/ZT7gZvGufwRbUrN+ASto6JOCw=="
+CONNECTION_STRING = f"DefaultEndpointsProtocol=https;AccountName={STORAGE_SERVICE};AccountKey={STORAGE_API_KEY}"
+CONTAINER_NAME = "exportdocs"
 
+# doc_intell Keys
 doc_intell_endpoint = "https://doc-intelligence-test.cognitiveservices.azure.com/"
 doc_intell_key = "9fac3bb92b3c4ef292c20df9641c7374"
 
@@ -134,20 +135,6 @@ os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
 
 
 def create_docx(client_name, json_data):
-    """
-    Create a word document based on the latest generated text
-
-    Parameters:
-    ----------
-    client_name: str
-        The client name required
-    json_data: json
-        The input json according to our hierarchy format
-
-    Return:
-    -------
-
-    """
     storage_service = "creditproposal"
     storage_api_key = "hJ2qb//J1I1KmVeDHBpwEpnwluoJzm+b6puc5h7k+dnDSFQ0oxuh1qBz+qPB/ZT7gZvGufwRbUrN+ASto6JOCw=="
     connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_service};AccountKey={storage_api_key}"
@@ -213,12 +200,14 @@ def create_docx(client_name, json_data):
     document_bytes.seek(0)  # Reset the stream position to the beginning
 
     # Store the Word document in Azure Blob Storage
-    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-    container_client = blob_service_client.get_container_client(container_name)
-    blob_client = container_client.get_blob_client(blob_name)
-    blob_client.upload_blob(document_bytes)
+
+    # Temp disable the Blob Storage 
+    #blob_service_client = BlobServiceClient.from_CONNECTION_STRING(CONNECTION_STRING)
+    #container_client = blob_service_client.get_container_client(CONTAINER_NAME)
+    #blob_client = container_client.get_blob_client(blob_name)
+    #blob_client.upload_blob(document_bytes)
 
     # Make sure to reset the stream position again before returning
     document_bytes.seek(0) 
     
-    return blob_name, container_name, document_bytes
+    return blob_name, container_name, storage_service, document_bytes
