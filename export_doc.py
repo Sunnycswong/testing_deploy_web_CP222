@@ -134,6 +134,20 @@ os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
 
 
 def create_docx(client_name, json_data):
+    """
+    Create a word document based on the latest generated text
+
+    Parameters:
+    ----------
+    client_name: str
+        The client name required
+    json_data: json
+        The input json according to our hierarchy format
+
+    Return:
+    -------
+
+    """
     storage_service = "creditproposal"
     storage_api_key = "hJ2qb//J1I1KmVeDHBpwEpnwluoJzm+b6puc5h7k+dnDSFQ0oxuh1qBz+qPB/ZT7gZvGufwRbUrN+ASto6JOCw=="
     connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_service};AccountKey={storage_api_key}"
@@ -207,4 +221,4 @@ def create_docx(client_name, json_data):
     # Make sure to reset the stream position again before returning
     document_bytes.seek(0) 
     
-    return blob_name, container_name, storage_service, document_bytes
+    return blob_name, container_name, document_bytes

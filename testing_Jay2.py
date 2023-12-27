@@ -206,7 +206,7 @@ financial_section_dict = extract_info.run_first_gen("Financial Information of th
 print(">>> Generated Output:", financial_section_dict['output'])
 print(">>> RM fill:", financial_section_dict['RM_fill'])
 #%%
-financial_supplement = """Please include the below Financial Performance suplemenary information:
+financial_supplement = """Please include the below Financial Performance supplementary information:
 
 GogoX exhibited an 18.5% year-over-year revenue growth, reaching $3.6 billion. The gross profit margin stands at 25% with a net income increase of 12.3% year-over-year. The company maintained a positive operational cash flow of $1 billion.
 
@@ -248,17 +248,24 @@ Net Income: GogoX reported a net income of $400 million for the fiscal year endi
 Return on Equity (ROE): GOGOX's ROE is 16%, reflecting effective return generation on shareholder investment.
 """
 
-regen_dict = extract_info.regen("Financial Information of the Borrower", financial_section_dict['output'], rm_instruction=financial_supplement, client="GogoX", deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+previous_paragraph = """
+GogoX's financial performance indicates a healthy profitability margin, reflecting effective cost management and operational efficiency. The company has demonstrated consistent revenue growth over the past few years, showcasing its ability to generate revenue and maintain profitability. GogoX's financial statements reflect a healthy profitability margin, suggesting effective cost management and operational efficiency.
+In terms of future prospects, GogoX has outlined a comprehensive growth strategy. This strategy includes expanding its geographical presence, diversifying its service offerings, and enhancing customer experience. The company plans to enter new markets, both domestically and internationally, to capture additional customer segments and increase market share. GogoX also aims to invest in technology and infrastructure improvements to streamline operations, optimize delivery routes, and enhance overall efficiency. These initiatives indicate a proactive approach to growth and a commitment to staying competitive in the logistics and delivery industry.
+Overall, GogoX's strong market position, consistent financial performance, and well-defined growth strategy suggest positive future prospects for the company. With its robust operational capabilities, innovative technology platform, and customer-centric approach, GogoX is well-positioned to capitalize on the growing demand for logistics and delivery services. The proposed credit facility, aligned with the company's financial projections, will support GogoX's expansion plans and enable it to maintain its competitive edge in the market.
+"""
+#financial_section_dict['output']
+regen_dict = extract_info.regen("Financial Information of the Borrower", previous_paragraph=previous_paragraph, rm_instruction=financial_supplement, client="GogoX", deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Regen Generated Output:", regen_dict['output'])
-print(">>> Regen RM fill:", regen_dict['RM_fill'])
+#print(">>> Regen RM fill:", regen_dict['RM_fill'])
 
 #%%
-financial_section_dict['output']
+print(">>> Generated Output:", financial_section_dict['output'])
 #%%
-financial_supplement
+print(">>> Regen Generated Output:", regen_dict['output'])
+#%%
 
-#%%
-extract_info.run_first_gen("Other Banking Facilities", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
+
+extract_info.run_first_gen("Other Banking Facilities", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 
 # %%
 output_dict = extract_info.run_first_gen("Project Details", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)

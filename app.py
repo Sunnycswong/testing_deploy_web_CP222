@@ -46,15 +46,16 @@ def healthcheck():
     # Returning an api for showing in reactjs
     return {"status": "OK"}
 
-
 # route for extracting information from RM notes
 @app.route('/generate', methods=['POST'])
-def extract_rm_notes():
-
+def first_run():
     data = request.get_json()
     logging.info("API request param:", data)
     # client meaning client name here
+    #TODO: 2023-12-27 Temp fix for adding client for regen function
+    global client
     client = data["client"]
+    #TODO:
     section_name = data["section_name"]
     #=================================
     #TODO: Temp correction for the name of "Industry / Section Analysis"
@@ -69,7 +70,6 @@ def extract_rm_notes():
     # Return the JSON response
     return jsonify(output_json)
 
-
 @app.route('/regen', methods=['POST'])
 def regen():
     data = request.get_json()
@@ -82,12 +82,18 @@ def regen():
     #=================================
     previous_paragraph = data["previous_paragraph"]
     rm_instruction = data["rm_instruction"]
-    client = data["client"]
+    
+    #TODO: 2023-12-27 Temp fix for adding client for regen function
+    try:
+        print(data["client"])
+        client = data["client"]
+    except KeyError:
+        print("Warning: Missing client name and the global variable of client will be used!!!")
+
     output_json = extract_info.regen(section_name, previous_paragraph, rm_instruction, client)
     # Convert the JSON response to a JSON-serializable format    
     # Return the JSON response
     return jsonify(output_json)
-
 
 @app.route('/export', methods=['POST'])
 def export_document():
@@ -99,9 +105,9 @@ def export_document():
         logging.info("API request param:", data)
         client_name = data["client_name"]
         consolidated_text = data["consolidated_text"]
-        blob_name, container_name, storage_service, document_bytes = export_doc.create_docx(client_name, consolidated_text)
+        blob_name, container_name, document_bytes = export_doc.create_docx(client_name, consolidated_text)
   
-        if not blob_name or not container_name or not storage_service or not document_bytes:
+        if (not blob_name) | (not container_name) | (not document_bytes):
             return jsonify({"error": "Failed to create document"}), 500
 
         # Convert BytesIO to a file-like object
@@ -119,5 +125,6 @@ def export_document():
         return jsonify({"error": "Unexpected error occurred"}), 500
 
 if __name__ == '__main__':
+   app.debug = True
    app.run()
 
