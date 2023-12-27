@@ -22,6 +22,7 @@ from flask_cors import CORS
 import export_doc
 import extract_info
 
+global client
 
 app = Flask(__name__)
 cors = CORS(app)
