@@ -73,7 +73,7 @@ def first_run():
     if section_name.strip() == "Industrial Section Analysis":
         section_name = "Industry / Section Analysis"
     #=================================
-        
+    client = data["client"]
     rm_note_txt = data["rm_note_txt"]
     output_json = extract_info.run_first_gen(section_name, rm_note_txt, client) 
 
