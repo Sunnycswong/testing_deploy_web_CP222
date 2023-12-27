@@ -66,9 +66,6 @@ def first_run():
     data = request.get_json()
     logging.info("API request param:", data)
     # client meaning client name here
-    #TODO: 2023-12-27 Temp fix for adding client for regen function
-    global client
-    client = data["client"]
     #TODO:
     section_name = data["section_name"]
     #=================================
@@ -101,13 +98,8 @@ def regen():
     rm_instruction = data["rm_instruction"]
     
     #TODO: 2023-12-27 Temp fix for adding client for regen function
-    try:
-        print(data["client"])
-        client = data["client"]
-    except KeyError:
-        print("Warning: Missing client name and the global variable of client will be used!!!")
-
-    output_json = extract_info.regen(section_name, previous_paragraph, rm_instruction, client)
+    #client = data["client"]
+    output_json = extract_info.regen(section_name, previous_paragraph, rm_instruction, client="GogoX")
     # Convert the JSON response to a JSON-serializable format    
     # Return the JSON response
     return jsonify(output_json)

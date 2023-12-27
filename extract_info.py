@@ -902,7 +902,7 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
 
 
 # Re-generate function
-def regen(section_name, previous_paragraph, rm_instruction, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
+def regen(section_name, previous_paragraph, rm_instruction, client="", deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE):
 
     # set up openai environment - Jay
     llm_proposal = AzureChatOpenAI(deployment_name=deployment_name, temperature=0,
