@@ -105,10 +105,10 @@ def export_document():
         logging.info("API request param:", data)
         client_name = data["client_name"]
         consolidated_text = data["consolidated_text"]
-        blob_name, container_name, document_bytes = export_doc.create_docx(client_name, consolidated_text)
+        blob_name, document_bytes = export_doc.create_docx(client_name, consolidated_text)
   
-        if (not blob_name) | (not container_name) | (not document_bytes):
-            return jsonify({"error": "Failed to create document"}), 500
+        # if (not blob_name) | (not container_name) | (not document_bytes):
+        #     return jsonify({"error": "Failed to create document"}), 500
 
         # Convert BytesIO to a file-like object
         document_bytes.seek(0)

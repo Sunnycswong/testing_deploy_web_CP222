@@ -133,13 +133,24 @@ os.environ["OPENAI_API_KEY"] = "ff96d48045584cb9844fc70e5b802918"
 #os.environ["AZURE_COGNITIVE_SEARCH_API_KEY"] = search_api_key
 #os.environ["AZURE_INDEX_NAME"] = index_name
 
-
 def create_docx(client_name, json_data):
-    storage_service = "creditproposal"
-    storage_api_key = "hJ2qb//J1I1KmVeDHBpwEpnwluoJzm+b6puc5h7k+dnDSFQ0oxuh1qBz+qPB/ZT7gZvGufwRbUrN+ASto6JOCw=="
-    connection_string = f"DefaultEndpointsProtocol=https;AccountName={storage_service};AccountKey={storage_api_key}"
-    container_name = "exportdocs"
-    
+    """
+    Create a word document based on the latest generated text
+
+    Parameters:
+    ----------
+    client_name: str
+        The client name required
+    json_data: json
+        The input json according to our hierarchy format
+
+    Return:
+    -------
+    blob_name: str
+        The output filename
+    document_bytes: io.BytesIO
+        Output word object in io.BytesIO format
+    """
     # Create a new Word document
     document = DocxDocument()
 
@@ -191,7 +202,6 @@ def create_docx(client_name, json_data):
                 
     current_time = datetime.datetime.now()
     time_string = current_time.strftime("_%Y_%m_%d_%H_%M_%S")
-    
     blob_name = client_name + time_string + '_Word_proposal.docx'
     
     # Save the Word document to a BytesIO object
@@ -210,4 +220,4 @@ def create_docx(client_name, json_data):
     # Make sure to reset the stream position again before returning
     document_bytes.seek(0) 
     
-    return blob_name, container_name, storage_service, document_bytes
+    return blob_name, document_bytes
