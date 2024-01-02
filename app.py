@@ -1,3 +1,4 @@
+#%%
 import os
 import json
 
@@ -20,7 +21,7 @@ from flask_cors import CORS
 # from werkzeug.datastructures import Headers
 
 import export_doc
-import testing_deploy_web_CP222.main_gpt as main_gpt
+import main_gpt
 
 global client
 
@@ -139,4 +140,3 @@ def export_document():
 if __name__ == '__main__':
    app.debug = True
    app.run()
-
