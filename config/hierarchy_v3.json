@@ -165,7 +165,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the the borrower's audited financial statements for the past 2 to 3 years, including balance sheet, income statement and cash flow statement.",
-        "Example": "Audited financial statements for the fiscal year ending December 31, 2022, reveal a total revenue of $3.1 billion, gross profit of $775 million, operating income of $605 million, net income of $345 million, total assets of $3.4 billion, total liabilities of $1.3 billion, and equity of $2.1 billion. In the subsequent fiscal year ending December 31, 2023, the company's financial performance improved, with total revenue increasing to $3.6 billion, gross profit rising to $900 million, operating income reaching $700 million, net income growing to $400 million, total assets expanding to $4 billion, total liabilities increasing to $1.5 billion, and equity reaching $2.5 billion."
+        "Example": "Audited financial statements for the fiscal year ending December 31, 2022, reveal a total revenue of $XXX billion, gross profit of $XXX million, operating income of $X million, net income of $XXX million, total assets of $3.4 billion, total liabilities of $X billion. In the subsequent fiscal year ending December 31, 2023, the company's financial performance improved, with total revenue increasing to $3.6 billion, gross profit rising to $X million, operating income reaching $X million, net income growing to $X million, total assets expanding to $X billion, total liabilities increasing to $X billion, and equity reaching $X billion."
     },
     {
         "Section": "Financial Information of the Borrower",
@@ -173,7 +173,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the the breakdown of the borrower's revenue sources and its cost structure.",
-        "Example": "ABC generates its revenue primarily from three sources: Delivery and Logistics Services, which accounts for $2.8 billion or 78% of total revenue; Advertising and Partnerships, contributing $500 million or 14% of total revenue; and Subscription and Other Services, generating $300 million or 8% of total revenue. In terms of the company's cost structure, the major components include the Cost of Delivery and Logistics Services, totaling $2.1 billion or 58% of total revenue; Sales and Marketing expenses amounting to $500 million or 14% of total revenue; Research and Development costs of $300 million or 8% of total revenue; General and Administrative expenses of $200 million or 6% of total revenue; and Other Expenses, representing $500 million or 14% of total revenue. "
+        "Example": "ABC generates its revenue primarily from three sources: Delivery and Logistics Services, which accounts for $XXX billion or XX% of total revenue; Advertising and Partnerships, contributing $XXX million or 14% of total revenue; and Subscription and Other Services, generating $XXX million or X% of total revenue. In terms of the company's cost structure, the major components include the Cost of Delivery and Logistics Services, totaling $X billion or XX% of total revenue; Sales and Marketing expenses amounting to $X million or X% of total revenue; Research and Development costs of $XXX million or X% of total revenue; General and Administrative expenses of $XXX million or X% of total revenue; and Other Expenses, representing $XXX million or XX% of total revenue. "
     },
     {
         "Section": "Financial Information of the Borrower",
@@ -212,7 +212,7 @@
         "Sub-section": "Weaknesses",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the weaknesses of the client in numbering point form, based on the business development, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords: risk)",
+        "Question": "Please extract the weaknesses of the client in numbering point form, based on the business development, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords: risk, If they appear in the RM Note; if not please do not copy them.)",
         "Example": ""
     },
     {
@@ -220,7 +220,7 @@
         "Sub-section": "Strengths",
         "Breakdown": "",
         "Value": "",
-        "Question": "Please extract the strengths of the client in numbering point form, based on the business development and potential, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength. (Pay attention to the keywords: market leader, growth, potential, leverage, strong, innovative)",
+        "Question": "Please extract the strengths of the client in numbering point form, based on the business development and potential, relationship history, assessment of creditworthiness, repayment capacity, risk assessment, and relationship strength provided in the RM Note, if any.",
         "Example": ""
     },
     {

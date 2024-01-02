@@ -20,7 +20,7 @@ from flask_cors import CORS
 # from werkzeug.datastructures import Headers
 
 import export_doc
-import extract_info
+import testing_deploy_web_CP222.main_gpt as main_gpt
 
 global client
 
@@ -75,7 +75,7 @@ def first_run():
     #=================================
     client = data["client"]
     rm_note_txt = data["rm_note_txt"]
-    output_json = extract_info.run_first_gen(section_name, rm_note_txt, client) 
+    output_json = main_gpt.run_first_gen(section_name, rm_note_txt, client) 
 
     # Convert the JSON response to a JSON-serializable format    
     # Return the JSON response
@@ -99,7 +99,7 @@ def regen():
     
     #TODO: 2023-12-27 Temp fix for adding client for regen function
     #client = data["client"]
-    output_json = extract_info.regen(section_name, previous_paragraph, rm_instruction, client="GogoX")
+    output_json = main_gpt.regen(section_name, previous_paragraph, rm_instruction, client="GogoX")
     # Convert the JSON response to a JSON-serializable format    
     # Return the JSON response
     return jsonify(output_json)

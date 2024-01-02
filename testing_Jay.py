@@ -1,30 +1,36 @@
 #%%
 ## Import Library
 import os
-import copy
-import json
-import re
-import logging
-import datetime
+#import copy
+#import json
+#import re
+#import logging
+#import datetime
 
 import export_doc
-import extract_info
+from main_gpt import web_extract_RM, run_first_gen, regen
+
+OPENAI_API_VERSION = "2023-09-01-preview"
 
 # DEPLOYMENT_NAME = "gpt-35-16k"
 # OPENAI_API_TYPE = "azure"
 # OPENAI_API_BASE = "https://pwcjay.openai.azure.com/"
-# OPENAI_API_VERSION = "2023-09-01-preview"
 # OPENAI_API_KEY = "f282a661571f45a0bdfdcd295ac808e7"
 
 #set up openai environment - Ethan
+# OPENAI_API_TYPE = "azure"
+# OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
+# OPENAI_API_KEY = "ad3708e3714d4a6b9a9613de82942a2b"
+# DEPLOYMENT_NAME = "gpt-35-turbo-16k"
+
+#set up openai environment - Cyrus
 OPENAI_API_TYPE = "azure"
-OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
-OPENAI_API_VERSION = "2023-09-01-preview"
-OPENAI_API_KEY = "ad3708e3714d4a6b9a9613de82942a2b"
-DEPLOYMENT_NAME = "gpt-35-turbo-16k"
+OPENAI_API_BASE = "https://pwc-cyrus-azure-openai.openai.azure.com/"
+OPENAI_API_KEY = "e1948635e8024556a6a55e37afcce932"
+DEPLOYMENT_NAME = "chat"
 
 # set up openai environment
-os.environ["OPENAI_API_TYPE"] = "azure"
+os.environ["OPENAI_API_TYPE"] = OPENAI_API_TYPE
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 client = "GogoX"
@@ -73,45 +79,48 @@ New Horizon Capital (15%), Alibaba Entrepreneurs Fund (23.3%), InnoVision Capita
 Conclusion:			
 GogoX has demonstrated a strong market position, consistent financial performance, and a well-defined growth strategy. With its robust operational capabilities, innovative technology platform, and customer-centric approach, the company is well-positioned to capitalize on the growing demand for logistics and delivery services. The proposed credit facility, in line with the company's financial projections, will support GogoX's expansion plans and enable it to maintain its competitive edge in the market.					
 """
-
+rm_note_txt = "NA"
 #%%
-output_dict =  extract_info.run_first_gen("Executive Summary", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+output_dict = run_first_gen("Executive Summary", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
-extract_json, rm_text_variable = extract_info.web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
+extract_json, rm_text_variable = web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
         , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
-print(extract_json[0]['Sub-section']+":", extract_json[0]['Value'])
-#print("="*30)
-#print(extract_json[1]['Sub-section']+":", extract_json[1]['Value'])
-print(rm_text_variable)
+for l in extract_json:
+        print(l['Sub-section']+":", l['Value'])
+        print("="*30)
+for l in rm_text_variable:
+        print(l)
 
 #%%
-output_dict = extract_info.run_first_gen("Opinion of the Relationship Manager", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+output_dict = run_first_gen("Opinion of the Relationship Manager"
+        , rm_note_txt=rm_note_txt
+        , client=client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
-output_dict = extract_info.run_first_gen("Industry / Section Analysis", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+output_dict = run_first_gen("Industry / Section Analysis", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
-output_dict = extract_info.run_first_gen("Client Request", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+output_dict = run_first_gen("Client Request", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
-extract_info.run_first_gen("Shareholders and Group Structure", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
+run_first_gen("Shareholders and Group Structure", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
 
 #%%
-output_dict =  extract_info.run_first_gen("Management", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+output_dict = run_first_gen("Management", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
-financial_section_dict = extract_info.run_first_gen("Financial Information of the Borrower", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+financial_section_dict = run_first_gen("Financial Information of the Borrower", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", financial_section_dict['output'])
 print(">>> RM fill:", financial_section_dict['RM_fill'])
 #%%
@@ -163,28 +172,26 @@ In terms of future prospects, GogoX has outlined a comprehensive growth strategy
 Overall, GogoX's strong market position, consistent financial performance, and well-defined growth strategy suggest positive future prospects for the company. With its robust operational capabilities, innovative technology platform, and customer-centric approach, GogoX is well-positioned to capitalize on the growing demand for logistics and delivery services. The proposed credit facility, aligned with the company's financial projections, will support GogoX's expansion plans and enable it to maintain its competitive edge in the market.
 """
 #financial_section_dict['output']
-regen_dict = extract_info.regen("Financial Information of the Borrower", previous_paragraph=previous_paragraph, rm_instruction=financial_supplement, client="GogoX", deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+regen_dict = regen("Financial Information of the Borrower", previous_paragraph=previous_paragraph, rm_instruction=financial_supplement, client="GogoX", deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Regen Generated Output:", regen_dict['output'])
 #print(">>> Regen RM fill:", regen_dict['RM_fill'])
 
-#%%
 print(">>> Generated Output:", financial_section_dict['output'])
-#%%
 print(">>> Regen Generated Output:", regen_dict['output'])
 #%%
-extract_info.run_first_gen("Other Banking Facilities", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+run_first_gen("Other Banking Facilities", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 
 # %%
-output_dict = extract_info.run_first_gen("Project Details", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
+output_dict = run_first_gen("Project Details", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
-output_dict = extract_info.run_first_gen("Summary of Recommendation", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
+output_dict = run_first_gen("Summary of Recommendation", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 #%%
-output_dict = extract_info.run_first_gen("Industry / Section Analysis", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
+output_dict = run_first_gen("Industry / Section Analysis", rm_note_txt, client, deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE) 
 print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 # %%
