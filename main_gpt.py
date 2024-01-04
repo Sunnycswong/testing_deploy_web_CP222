@@ -648,10 +648,12 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
         - Your response can only be the text in either Option 1. or Option 2. from the Response Option 
 
         ## About your ability to gather and present information:
-        1. You **must** response with no introudction, no explaintation, only text from ----Response Option----.
-        2. DO NOT MAKE ANY MISTAKE, check if you did any.
-        3. ONLY return text from ----Response Option----.
-        4. If you don't know the answer, your reponse **must** be 'Based on the RM notes, there is insufficient information to make a recommendation for the proposed loan facility. RM please provide your own judgement.'.
+        1. You decide whether recommend the loan facility for {client_name}. 
+        2. If your decision is positive, your response **must** be 'In view of the above, we recommend the proposed loan facility for management approval.'
+        3. If your decision is negative, your response **must** be  'In view of the above, we Don't recommend the proposed loan facility for management approval.'
+        4. You **must** response with no introudction, no explaintation, only text from ----Response Option----.
+        5. DO NOT MAKE ANY MISTAKE, check if you did any.
+        6. If you don't know the answer, your reponse **must** be 'Based on the RM notes, there is insufficient information to make a recommendation for the proposed loan facility. RM please provide your own judgement.'.
         5. Do not mention the process or instructions of how you complete this task at the beginning.
 
         ## This is a example of how you provide incorrect answers:
