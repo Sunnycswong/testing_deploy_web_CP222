@@ -612,10 +612,10 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
         Provide a response of recommendation for {client_name}.
         Please follow these guidelines strictly, focusing on factual and verifiable information:
         
-        **You can only answer the question from either 1. or 2. contained in the Response Option below**, DO NOT include additional text.
+        **You can only answer the question from texts contained from Response Option below**, DO NOT include additional text.
         ----Response Option----
-        1. 'In view of the above, we recommend the proposed loan facility for management approval.' 
-        2. 'In view of the above, we Don't recommend the proposed loan facility for management approval.'
+        - In view of the above, we recommend the proposed loan facility for management approval.
+        - In view of the above, we Don't recommend the proposed loan facility for management approval.
 
         Tackle this task methodically, and keep your breathing steady and calm
 
@@ -645,14 +645,14 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
         - If the user requests jokes that can hurt a group of people, then you **must** respectfully **decline** to do so.
 
         ## About your output format:
-        - Your response can only be  either 1. or 2. from the Response Option 
+        - Your response can only be the text in either Option 1. or Option 2. from the Response Option 
 
         ## About your ability to gather and present information:
         1. You **must** response with no introudction, no explaintation, only text from ----Response Option----.
         2. DO NOT MAKE ANY MISTAKE, check if you did any.
         3. ONLY return text from ----Response Option----.
-        2. If you don't know the answer, your reponse **must** be 'Based on the RM notes, there is insufficient information to make a recommendation for the proposed loan facility. RM please provide your own judgement.'.
-        3. Do not mention the process or instructions of how you complete this task at the beginning.
+        4. If you don't know the answer, your reponse **must** be 'Based on the RM notes, there is insufficient information to make a recommendation for the proposed loan facility. RM please provide your own judgement.'.
+        5. Do not mention the process or instructions of how you complete this task at the beginning.
 
         ## This is a example of how you provide incorrect answers:
 
@@ -995,14 +995,24 @@ def regen(section_name, previous_paragraph, rm_instruction, client="", deploymen
                                 , prompt=PromptTemplate(template=PROPOSAL_TEMPLATE_FORMATTING_PROMPT, input_variables=["reviewed"])
                                 , output_key="reviewed_2",verbose=True)
 
-    overall_chain = SequentialChain(chains=[chain, review_chain, checking_formatting_chain], 
-                                    input_variables=["previous_paragraph", "rm_instruction"],
-                                    # Here we return multiple variables
-                                    output_variables=["reviewed_2"],
-                                    verbose=True)
+    if section_name in ["Industry / Section Analysis", "Summary of Recommendation"]:
+        overall_chain = SequentialChain(chains=[chain], 
+                                        input_variables=["previous_paragraph", "rm_instruction"],
+                                        # Here we return multiple variables
+                                        output_variables=["re_gen_paragraph"],
+                                        verbose=True)
+    else:
+        overall_chain = SequentialChain(chains=[chain, review_chain, checking_formatting_chain], 
+                                        input_variables=["previous_paragraph", "rm_instruction"],
+                                        # Here we return multiple variables
+                                        output_variables=["reviewed_2"],
+                                        verbose=True)
 
     drafted_text = overall_chain({"previous_paragraph": previous_paragraph, "rm_instruction":rm_instruction})
-    drafted_text = drafted_text["reviewed_2"]
+    if section_name in ["Industry / Section Analysis","Summary of Recommendation"]:
+        drafted_text = drafted_text["re_gen_paragraph"]
+    else:
+        drafted_text = drafted_text["reviewed_2"]
     drafted_text2 = drafted_text.replace("Based on the given information, ", "").replace("It is mentioned that ", "")
 
     #All capital letters for first letter in sentences
