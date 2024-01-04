@@ -189,7 +189,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the insights into borrower's financial performance, trends and future prospects. If there is not solid figures to extract, write shorter",
-        "Example": "ABC company exhibited an 18.5% year-over-year revenue growth, reaching $3.6 billion. The gross profit margin stands at 25% with a net income increase of 12.3% year-over-year. The company maintained a positive operational cash flow of $1 billion. "
+        "Example": "ABC company exhibited an XX% year-over-year revenue growth, reaching $3.6 billion. The gross profit margin stands at 25% with a net income increase of 12.3% year-over-year. The company maintained a positive operational cash flow of $1 billion. "
     },
     {
         "Section": "Other Banking Facilities",
@@ -197,7 +197,7 @@
         "Breakdown": "",
         "Value": "",
         "Question": "Please extract the list of the borrower's existing credit facilities from other banks or financial institutions, including details such as the name of the lending institution, type of facility, outstanding balance, interest rate, maturity date and any collateral or guarantees associated with each facility.",
-        "Example": "Currently, the company has an existing loan with ABC Bank, which was obtained in 2018 for the purpose of financing a machinery purchase. The loan amount is $500,000, and it has a fixed interest rate of 4% per annum. The repayment term is set at 5 years, with monthly installments. As part of the company's expansion plans in 2020, a loan was secured from XYZ Bank. The loan amount of $1,000,000 was utilized for the construction of a new production facility. The loan carries a variable interest rate of 5% based on the prevailing market rates and has a repayment term of 7 years."
+        "Example": "Currently, the company has an existing loan with ABC Bank, which was obtained in 2018 for the purpose of financing a machinery purchase. The loan amount is $XXX,XXX, and it has a fixed interest rate of X% per annum. The repayment term is set at X years, with monthly installments. As part of the company's expansion plans in 2020, a loan was secured from XYZ Bank. The loan amount of $1,000,000 was utilized for the construction of a new production facility. The loan carries a variable interest rate of 5% based on the prevailing market rates and has a repayment term of X years."
     },
     {
         "Section": "Other Banking Facilities",

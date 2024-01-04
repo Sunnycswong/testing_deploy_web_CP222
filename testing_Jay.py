@@ -86,7 +86,7 @@ print(">>> Generated Output:", output_dict['output'])
 print(">>> RM fill:", output_dict['RM_fill'])
 
 #%%
-extract_json, rm_text_variable = web_extract_RM("Opinion of the Relationship Manager", rm_note_txt, client
+extract_json, rm_text_variable = web_extract_RM("Executive Summary", rm_note_txt, client
         , deployment_name=DEPLOYMENT_NAME, openai_api_version=OPENAI_API_VERSION, openai_api_base=OPENAI_API_BASE)
 for l in extract_json:
         print(l['Sub-section']+":", l['Value'])
