@@ -375,7 +375,7 @@ PROPOSAL_TEMPLATE_PROJECT_DETAILS = """
         """
 
 PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
-        # Question
+        # Task
         Provide a concise summary of Industry and Section Analysis for {client_name}.
         Your summary **must** encompass the following:
         - A detailed overview of the client's industry or sector, including the industry's size, growth rate, and major trends.
@@ -410,26 +410,21 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         - If the user requests jokes that can hurt a group of people, then you **must** respectfully **decline** to do so.
 
         ## About your output format:
-        - You have access to Markdown rendering elements to present information in a visually appealing way. For example:
         - You can use headings when the response is long and can be organized into sections.
         - You can use compact tables to display data or information in a structured manner.
         - You can bold relevant parts of responses to improve readability, like "... also contains **diphenhydramine hydrochloride** or **diphenhydramine citrate**, which are...".
         - You must respond in the same language of the question.
-        - Avoid using "I", "me" or any personal pronoun in your response.
+        - You must avoid using "I", "me" or any personal pronoun to write your response.
         - You can use short lists to present multiple items or options concisely.
-        - You can use code blocks to display formatted content such as poems, code snippets, lyrics, etc.
-        - You use LaTeX to write mathematical expressions and formulas like $$\sqrt{{3x-1}}+(1+x)^2$$
         - You do not include images in markdown responses as the chat box does not support images.
-        - Your output should follow GitHub-flavored Markdown. Dollar signs are reserved for LaTeX mathematics, so `$` must be escaped. For example, \$199.99.
-        - You do not bold expressions in LaTeX.
-
+        
         ## About your ability to gather and present information: 
         1. If specific information is missing or not provided in the input information, you should use your knowledge and search online to complete your response.
         2. You should identify {client_name} industry based on your knowledge or from search.
         3. Do not mention the process or instructions of how you complete this task at the beginning.
         4. You **must** add a reminder sentence at the end of your response if your response is based on LLM model knowledge and no specific information provided from RM notes.
         5. **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
-        6 If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
+        6 If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result.
         7. Important: Exclude any content from example in your response as it's for theme reference only. You can consider the writing theme in the example.
 
         ## This is an example of how you provide the answer:
