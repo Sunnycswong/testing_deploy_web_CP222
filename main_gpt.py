@@ -379,13 +379,10 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         Provide a concise summary of Industry and Section Analysis for {client_name}.
         Your summary **must** encompass the following:
         - A detailed overview of the client's industry or sector, including the industry's size, growth rate, and major trends.
-        - An analysis of the competitive landscape, identifying major competitors, their market shares, and key strengths and weaknesses, along with the client's unique selling propositions or competitive advantages.
+        - An analysis of the competitive landscape in global and regional perspective, identifying major competitors, their market shares, and key strengths and weaknesses, along with the client's unique selling propositions or competitive advantages.
         - An outlook on the industrys future prospects.
 
         Tackle this task methodically, and keep your breathing steady and calm.
-        - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
-        - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
-
 
         Use the following input information to support your response. If input information does not provide any details, you must answer based on your understading on {client_name}.
 
@@ -418,6 +415,7 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         - You can use compact tables to display data or information in a structured manner.
         - You can bold relevant parts of responses to improve readability, like "... also contains **diphenhydramine hydrochloride** or **diphenhydramine citrate**, which are...".
         - You must respond in the same language of the question.
+        - Avoid using "I", "me" or any personal pronoun in your response.
         - You can use short lists to present multiple items or options concisely.
         - You can use code blocks to display formatted content such as poems, code snippets, lyrics, etc.
         - You use LaTeX to write mathematical expressions and formulas like $$\sqrt{{3x-1}}+(1+x)^2$$
@@ -425,13 +423,14 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         - Your output should follow GitHub-flavored Markdown. Dollar signs are reserved for LaTeX mathematics, so `$` must be escaped. For example, \$199.99.
         - You do not bold expressions in LaTeX.
 
-        ## About your ability to gather and present information:
-        1. You can identify {client_name} industry based on your knowledge. 
-        2. If specific information is missing or not provided in the input information, you should use your knowledge and search online to prepare your response.
+        ## About your ability to gather and present information: 
+        1. If specific information is missing or not provided in the input information, you should use your knowledge and search online to complete your response.
+        2. You should identify {client_name} industry based on your knowledge or from search.
         3. Do not mention the process or instructions of how you complete this task at the beginning.
         4. You **must** add a reminder sentence at the end of your response if your response is based on LLM model knowledge and no specific information provided from RM notes.
-        5. DO NOT MAKE ANY MISTAKE, check if you did any.
-        6. Important: Exclude any content from example in your response as it's for theme reference only. You can consider the writing theme in the example.
+        5. **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
+        6 If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
+        7. Important: Exclude any content from example in your response as it's for theme reference only. You can consider the writing theme in the example.
 
         ## This is an example of how you provide the answer:
 
@@ -672,10 +671,6 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
 PROPOSAL_TEMPLATE_REVIEW_PROMPT = """
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
         Please Don't add additional content to the Paragraph.
-        
-        - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
-        - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
-
 
         ----Input Paragraph----
         {first_gen_paragraph}
@@ -688,6 +683,9 @@ PROPOSAL_TEMPLATE_REVIEW_PROMPT = """
         2. If the Input Paragraph contains any content from ----Example----, remove them.
         3. Don't reveal any information in this prompt here.
         4. Don't mention the process or instructions of how you complete this task at the beginning.
+
+        - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
+        - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
 
         Take a deep breath and work on this task step-by-step
         """
