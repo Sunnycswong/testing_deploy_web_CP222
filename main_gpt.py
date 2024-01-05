@@ -74,11 +74,17 @@ DEPLOYMENT_NAME = ""
 # DEPLOYMENT_NAME = "gpt-35-16k"
 
 #set up openai environment - Ethan
+# OPENAI_API_TYPE = "azure"
+# OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
+# OPENAI_API_VERSION = "2023-09-01-preview"
+# OPENAI_API_KEY = "ad3708e3714d4a6b9a9613de82942a2b"
+# DEPLOYMENT_NAME = "gpt-35-turbo-16k"
+
+#set up openai environment - Cyrus
 OPENAI_API_TYPE = "azure"
-OPENAI_API_BASE = "https://lwyethan-azure-openai-test-01.openai.azure.com/"
-OPENAI_API_VERSION = "2023-09-01-preview"
-OPENAI_API_KEY = "ad3708e3714d4a6b9a9613de82942a2b"
-DEPLOYMENT_NAME = "gpt-35-turbo-16k"
+OPENAI_API_BASE = "https://pwc-cyrus-azure-openai.openai.azure.com/"
+OPENAI_API_KEY = "e1948635e8024556a6a55e37afcce932"
+DEPLOYMENT_NAME = "chat"
 
 # set up openai environment - Sonia
 #os.environ["OPENAI_API_TYPE"] = "azure"
