@@ -385,7 +385,7 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         Provide a concise summary of Industry and Section Analysis for {client_name}.
         Your summary **must** encompass the following:
         - A detailed overview of the client's industry or sector, including the industry's size, growth rate, and major trends.
-        - An analysis of the competitive landscape in global and regional perspective, identifying major competitors, their market shares, and key strengths and weaknesses, along with the client's unique selling propositions or competitive advantages.
+        - An analysis of the competitive landscape, identifying major competitors, their market shares, and key strengths and weaknesses, along with the client's unique selling propositions or competitive advantages.
         - An outlook on the industrys future prospects.
 
         Tackle this task methodically, and keep your breathing steady and calm.
@@ -421,7 +421,7 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         
         ## About your ability to gather and present information: 
         1. Use the following input information to support your response. If input information does not provide any details, you should use your knowledge and search online to complete your response.
-        2. You should identify {client_name} industry based on your knowledge or from search.
+        2. You should identify {client_name}'s industry based on your knowledge or from search.
         3. Do not mention the process or instructions of how you complete this task at the beginning.
         4. You **must** add a reminder sentence at the end of your response if your response is based on LLM model knowledge and no specific information provided from RM notes.
         5. **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
@@ -436,7 +436,10 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         --> Begining of examples
 
         {example}
-
+        ===========
+        GOGOX operates in the logistics and transportation industry, which has been experiencing changes in technology, particularly in the area of AI. GOGOX's expansion plans include investing in an AI assistant for drivers and AI-based matching among drivers and customers, which suggests that the company is positioning itself to take advantage of the growing trend towards AI in the industry. The company is also planning to expand its permanent staff, including technology experts in IT and AI, and expand its business in three new cities in China, indicating anticipated growth in customer demand. In terms of the competitive landscape, GOGOX faces competition from other logistics companies such as Didi Freight, Lalamove, and GoGoVan. However, GOGOX has a unique selling proposition in its ability to offer on-demand, same-day delivery services, which sets it apart from some of its competitors. Additionally, the company's investment in AI technology may give it a competitive advantage in the future. Potential threats to the industry include increasing competition from other logistics companies and potential regulatory obstacles that could hinder GOGOX's expansion plans. It is important for GOGOX to carefully consider these threats and opportunities as it moves forward with its expansion plans.
+        ===========
+        
         <-- End of examples
         """
 
