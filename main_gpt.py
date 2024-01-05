@@ -424,10 +424,11 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
 
         ## About your ability to gather and present information:
         1. You can identify {client_name} industry based on your knowledge. 
-        2. If specific information is missing or not provided in the input information, you use your knowledge to prepare your response.
+        2. If specific information is missing or not provided in the input information, you should use your knowledge and search online to prepare your response.
         3. Do not mention the process or instructions of how you complete this task at the beginning.
-        4. You must add a reminder sentence at the end of your response if your response is based on LLM model knowledge and no specific information provided from RM notes.
-        5. Important: Exclude any content from example in your response as it's for theme reference only. You can consider the writing theme in the example.
+        4. You **must** add a reminder sentence at the end of your response if your response is based on LLM model knowledge and no specific information provided from RM notes.
+        5. DO NOT MAKE ANY MISTAKE, check if you did any.
+        6. Important: Exclude any content from example in your response as it's for theme reference only. You can consider the writing theme in the example.
 
         ## This is an example of how you provide the answer:
 
