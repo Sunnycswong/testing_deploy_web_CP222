@@ -383,6 +383,9 @@ PROPOSAL_TEMPLATE_INDUSTRY_SECTION_ANALYSIS = """
         - An outlook on the industrys future prospects.
 
         Tackle this task methodically, and keep your breathing steady and calm.
+        - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
+        - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
+
 
         Use the following input information to support your response. If input information does not provide any details, you must answer based on your understading on {client_name}.
 
@@ -669,6 +672,10 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
 PROPOSAL_TEMPLATE_REVIEW_PROMPT = """
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
         Please Don't add additional content to the Paragraph.
+        
+        - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
+        - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
+
 
         ----Input Paragraph----
         {first_gen_paragraph}
@@ -689,6 +696,10 @@ PROPOSAL_TEMPLATE_REVIEW_PROMPT = """
 PROPOSAL_TEMPLATE_FORMATTING_PROMPT = """
         To complete this task, you need to review and edit the Input paragraph according to the instructions provided.
         Please Don't add additional content to the Paragraph.
+
+        - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
+        - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
+
 
         ----Input Paragraph----
         {reviewed}
