@@ -833,25 +833,7 @@ def clean_generated_text(text, client, section_name):
 
     #Drop some unwanted sentences
     sentence_list = re.split(r"(?<=[.?!] )", text)
-    unwanted_word_list = ["ABC ", 
-                          "XYZ ", 
-                          "GHI", 
-                          "DEF ", 
-                          "RM Notes do not provide", 
-                          "RM Note does not provide", 
-                          "does not provide specific details", 
-                          "it is difficult to assess", 
-                          "is not mentioned in the RM Notes", 
-                          "not provided in the RM Notes", 
-                          "not explicitly mentioned", 
-                          "further information is needed", 
-                          "no specific mention of", 
-                          "not possible to provide ", 
-                          "is not provided in the input information",
-                          "unable to extract ", 
-                          "request further information",
-                          "is no information available",
-                          "are not available"]    
+    unwanted_word_list = ["ABC ", "XYZ ", "GHI", "DEF ", "RM Notes do not provide", "RM Note does not provide", "does not provide specific details", "it is difficult to assess", "is not mentioned in the RM Notes", "not provided in the RM Notes", "not explicitly mentioned", "further information is needed", "no specific mention of", "not possible to provide ", "is not provided in the input information", "unable to extract ", "request further information"]
     sentence_list_dropped = [sentence for sentence in sentence_list if all(word not in sentence for word in unwanted_word_list)]
     text = ' '.join(sentence_list_dropped)
     #Drop those sentence only = numbering point 
