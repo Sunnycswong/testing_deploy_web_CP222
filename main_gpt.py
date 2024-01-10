@@ -837,8 +837,8 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
 
         Use the following format:
 
-        Explanation for recommendation: Pros and Cons of providing the loan
-        Summary of recommendation: **either Option 1 or Option 2 under ----Response Option----**
+        <b>Reasons for recommendation:</b> Pros and Cons of providing the loan
+        <b>Summary of recommendation:</b> **either Option 1 or Option 2 under ----Response Option----**
 
         Tackle this task methodically, and keep your breathing steady and calm
 
@@ -889,8 +889,8 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
         {example}
         ===============
 
-        Explanation for recommendation: GogoX has strong financials with consistent revenue growth, profitability margins, and cash flow generation. They have a solid capital structure and innovative marketing strategies, with investments in research and development. They operate in a dynamic industry and have carved out a niche market, which positions them for continued growth and market leadership. The proposed credit facility terms provide necessary financial flexibility while ensuring the lender's security, enabling the borrower to capitalize on opportunities and invest in further expansion. However, there are potential downsides such as industry changes, increased competition, and long-term debt impact. Overall, approving the credit facility could contribute to their long-term success.
-        Summary of recommendation: In view of the above, we recommend the proposed loan facility for management approval.
+        <b>Reasons for recommendation:</b> GogoX has strong financials with consistent revenue growth, profitability margins, and cash flow generation. They have a solid capital structure and innovative marketing strategies, with investments in research and development. They operate in a dynamic industry and have carved out a niche market, which positions them for continued growth and market leadership. The proposed credit facility terms provide necessary financial flexibility while ensuring the lender's security, enabling the borrower to capitalize on opportunities and invest in further expansion. However, there are potential downsides such as industry changes, increased competition, and long-term debt impact. Overall, approving the credit facility could contribute to their long-term success.
+        <b>Summary of recommendation:</b> In view of the above, we recommend the proposed loan facility for management approval.
 
         <-- End of examples
         """
