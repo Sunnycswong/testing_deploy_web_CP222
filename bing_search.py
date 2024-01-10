@@ -6,11 +6,7 @@ from langchain.agents import initialize_agent, AgentType
 from src.get_keys import GetAzureKeys
 from langchain.utilities import BingSearchAPIWrapper
 from langchain.tools import BaseTool
-
-from src.get_keys import GetAzureKeys
-from src.general_prompts import *
-# from dotenv import load_dotenv, find_dotenv
-# _ = load_dotenv(find_dotenv())  # read local .env file
+from src.general_prompts import BING_PROMPT_PREFIX
 
 keys = GetAzureKeys()
 
@@ -55,6 +51,17 @@ Who are the CEO and board of directors/key executives/Board Member of [client_na
 Summarise of your findings. Provide your references.
 """
 
+SECTION_8_QUESTION_1 = """
+Do GOGOX have any bank loans or other borrowings? Provide following points if yes:
+- the name of the lending institution,
+- type of loans
+- outstanding balance, interest rate, maturity date and any collateral or guarantees
+
+Use GOGOX's Official website to search from Annual Report or Finanical Report
+
+Summarise of your findings. Provide your references.
+"""
+
 class CustomBingSearch(BaseTool):
     """Tool for a Bing Search Wrapper"""
     
@@ -71,9 +78,6 @@ class CustomBingSearch(BaseTool):
         """Use the tool asynchronously."""
         raise NotImplementedError("This Tool does not support async")
 
-
-keys = GetAzureKeys()
-
 def get_bing_search_response(question):
     
     tools = [CustomBingSearch(k=5)]
@@ -86,7 +90,7 @@ def get_bing_search_response(question):
                                     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
                                     agent_kwargs={'prefix':BING_PROMPT_PREFIX},
                                     callback_manager=None,
-                                    handle_parsing_errors=True #By Jay
+                                    # handle_parsing_errors=True #By Jay
                                     )
 
     #As LLMs responses are never the same, we do a for loop in case the answer cannot be parsed according to our prompt instructions
@@ -137,48 +141,3 @@ def bing_search_for_credit_proposal(client, section_name):
     else:
         input_info_str = []
     return input_info_str, disclaimer_of_bing_search
-
-# SECTION_3_QUESTION_1 = f"""
-#     Who are the major shareholders of {client_name}? Provide with:
-#     - their names
-#     - ownership percentages
-#     - their background information.
-
-#     Summarise of your findings. Provide your references.
-
-#     """
-
-# SECTION_3_QUESTION_2 = f"""
-#     Is {client_name} is part of a larger group structure? If yes, provide:
-#     - key entities within the group and explain its relationship between the entities, including parent companies, subsidaries and affiliates.
-#     - significant transactions or relationships between the {client_name} and related parties.
-
-#     Summarise of your findings. Provide your references.
-
-#     """
-
-# SECTION_5_QUESTION_1 = f"""
-#     What is the industry or sector of the {client_name}? Provide:
-#     - size of the industry and sector
-#     - growth rate of the industry and sector
-#     - major current trends of the industry and sector
-#     - future trends of the industry and sector
-
-#     Summarise of your findings. Provide your references.
-
-#     """
-
-# SECTION_5_QUESTION_2 = f"""
-#     Who are the major competitors of {client_name}? What are their market shares and key strengths and weaknesses.
-
-#     """
-
-# SECTION_6_QUESTION_1 = f"""
-#     Who are the CEO and Direector/Board Member of {client_name}? Provide as many as possible with:
-#     - their names
-#     - their titles
-#     - their relevant experience, qualifications, and achievements
-
-#     Summarise of your findings. Provide your references.
-
-#     """
