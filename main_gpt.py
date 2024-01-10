@@ -1141,7 +1141,7 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     chain = LLMChain(
         llm=llm_proposal,
         prompt=PromptTemplate(template=proposal_proposal_template_text, input_variables=["input_info", "client_name", "example"]),
-        output_key="first_gen_paragraph"
+        output_key="first_gen_paragraph", verbose=True
     )
 
     review_chain = LLMChain(llm=llm_proposal
@@ -1268,7 +1268,7 @@ def regen(section_name, previous_paragraph, rm_instruction, client="", deploymen
     chain = LLMChain(
         llm=llm_proposal,
         prompt=PromptTemplate(template=PROPOSAL_TEMPLATE_REGEN, input_variables=["previous_paragraph", "rm_instruction"]),
-        output_key="re_gen_paragraph"
+        output_key="re_gen_paragraph", verbose=True
     )
 
     review_chain = LLMChain(llm=llm_proposal
