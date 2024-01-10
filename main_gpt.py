@@ -1152,7 +1152,7 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
                                 , prompt=PromptTemplate(template=PROPOSAL_TEMPLATE_FORMATTING_PROMPT, input_variables=["reviewed"])
                                 , output_key="reviewed_2",verbose=True)
 
-    if section_name in ["Industry / Section Analysis", "Summary of Recommendation"]:
+    if section_name in ["Industry / Section Analysis", "Summary of Recommendation", "Client Request"]:
         overall_chain = SequentialChain(chains=[chain], 
                                         input_variables=["input_info", "client_name", "example"],
                                         # Here we return multiple variables
@@ -1206,7 +1206,7 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
     print("="*50)
     if len(input_info_str) > 0:
         drafted_text = overall_chain({"input_info": final_dict["input_info"], "client_name": client, "example": final_dict["Example"]})
-        if section_name in ["Industry / Section Analysis","Summary of Recommendation"]:
+        if section_name in ["Industry / Section Analysis","Summary of Recommendation", "Client Request"]:
             drafted_text = drafted_text["first_gen_paragraph"]
         else:
             drafted_text = drafted_text["reviewed_2"]
