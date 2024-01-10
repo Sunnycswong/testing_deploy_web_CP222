@@ -848,8 +848,6 @@ def clean_generated_text(text, client, section_name):
                           "no specific mention of", 
                           "not possible to provide ", 
                           "is not provided in the input information",
-                          "is not provided",
-                          "are not provided", 
                           "unable to extract ", 
                           "request further information",
                           "is no information available",
