@@ -262,14 +262,14 @@ PROPOSAL_TEMPLATE_EXECUTIVE_SUMMARY = """
 """
 
 PROPOSAL_TEMPLATE_CLIENT_REQUEST = """
-        # Task
-        Task 1: Provide a concise summary of the Client Request for {client_name}.
+        # Tasks
+        ## Provide a concise summary of the Client Request for {client_name}.
         Your summary **must** encompass the following:
         - The desired amount of the credit and type of facility, for example, a term loan, revolving credit line, or a combination of various credit instruments.
         - The purpose of the credit facility with the breakdown of the funds' allocation and highlights of the specific areas or projects where the credit will be utilized.
         - The repayment plan for the credit facility.
 
-        Task 2: Provide the replayment plan for the {client_name}'s credit facility in a TABLE format using loan details.
+        ## Provide the replayment plan for the {client_name}'s credit facility in a TABLE format using loan details.
         Your table **must** encompass the following as columns:
         - Begining Balance, Interest, Principal, Payment, Endling Balance
 
@@ -300,21 +300,25 @@ PROPOSAL_TEMPLATE_CLIENT_REQUEST = """
         - You can use compact tables to display data or information in a structured manner.
         - You can bold relevant parts of responses to improve readability, like "... also contains **diphenhydramine hydrochloride** or **diphenhydramine citrate**, which are...".
         - You must respond in the same language of the question.
+        - You can use short lists to present multiple items or options concisely.
+        - You can use code blocks to display formatted content such as poems, code snippets, lyrics, etc.
+        - You use LaTeX to write mathematical expressions and formulas like $$\sqrt{{3x-1}}+(1+x)^2$$
         - You must avoid using "I", "me" or any personal pronoun to write your response.
         - You can use short lists to present multiple items or options concisely.
         - You do not include images in markdown responses as the chat box does not support images.
         - Your must seperate your task 1 response and task 2 response.
+        - Your must display all tables in HTML format.
 
         ## About your ability to gather and present information: 
-        ### Task 1:
+        ### summary of the client request
         1. Use the following input information to support your response.
         2. Do not mention the process or instructions of how you complete this task at the beginning.
         3. **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
         4. If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result.
         5. Important: Exclude any content from example in your response as it's for theme reference only. You can consider the writing theme in the example.
 
-        ### Task 2:
-        1. You **must** response in a table format, you should identify ALL loan details to create the table:
+        ### repayment plan table
+        1. You **must** response in a HTML code format, you should identify ALL loan details to create the table.
         2. If speicifc information in loan details is missing, your response **must** be 'RM's input'. Your should summarize what information is missing.
         3. **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
         4. If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result.
@@ -336,21 +340,114 @@ PROPOSAL_TEMPLATE_CLIENT_REQUEST = """
         - Loan Term:
         - Interest Rate:
         - Total Number of payments:
-        - Periodic Interest Rate: 
+        - Periodic Interest Rate:
 
-        | Payment | Payment Date | Beginning Balance |  Interest   | Principal  |   Payment  | Ending Balance |
-        |---------|--------------|-------------------|-------------|------------|------------|----------------|
-        |    1    |  Jan 1, 2024 |   $10,000,000     |  $50,000    | $950,000   | $1,000,000 |   $9,050,000   |
-        |    2    |  Feb 1, 2024 |   $9,050,000      |  $45,250    | $954,750   | $1,000,000 |   $8,095,250   |
-        |    3    |  Mar 1, 2024 |   $8,095,250      |  $40,476    | $959,524   | $1,000,000 |   $7,135,726   |
-        |    4    |  Apr 1, 2024 |   $7,135,726      |  $35,679    | $964,321   | $1,000,000 |   $6,171,405   |
-        |    5    |  May 1, 2024 |   $6,171,405      |  $30,857    | $969,143   | $1,000,000 |   $5,202,262   |
-        |    6    |  Jun 1, 2024 |   $5,202,262      |  $26,011    | $973,989   | $1,000,000 |   $4,228,273   |
-        |    7    |  Jul 1, 2024 |   $4,228,273      |  $21,141    | $978,859   | $1,000,000 |   $3,249,414   |
-        |    8    |  Aug 1, 2024 |   $3,249,414      |  $16,247    | $983,753   | $1,000,000 |   $2,265,661   |
-        |    9    |  Sep 1, 2024 |   $2,265,661      |  $11,328    | $988,672   | $1,000,000 |   $1,277,989   |
-        |   10    |  Oct 1, 2024 |   $1,277,989      |   $6,390    | $993,610   | $1,000,000 |     $284,379   |
-        
+        <table>
+            <thead>
+                <tr>
+                <th>Payment</th>
+                <th>Payment Date</th>
+                <th>Beginning Balance</th>
+                <th>Interest</th>
+                <th>Principal</th>
+                <th>Payment</th>
+                <th>Ending Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>1</td>
+                <td>Jan 1, 2024</td>
+                <td>$10,000,000</td>
+                <td>$50,000</td>
+                <td>$950,000</td>
+                <td>$1,000,000</td>
+                <td>$9,050,000</td>
+                </tr>
+                <tr>
+                <td>2</td>
+                <td>Feb 1, 2024</td>
+                <td>$9,050,000</td>
+                <td>$45,250</td>
+                <td>$954,750</td>
+                <td>$1,000,000</td>
+                <td>$8,095,250</td>
+                </tr>
+                <tr>
+                <td>3</td>
+                <td>Mar 1, 2024</td>
+                <td>$8,095,250</td>
+                <td>$40,476</td>
+                <td>$959,524</td>
+                <td>$1,000,000</td>
+                <td>$7,135,726</td>
+                </tr>
+                <tr>
+                <td>4</td>
+                <td>Apr 1, 2024</td>
+                <td>$7,135,726</td>
+                <td>$35,679</td>
+                <td>$964,321</td>
+                <td>$1,000,000</td>
+                <td>$6,171,405</td>
+                </tr>
+                <tr>
+                <td>5</td>
+                <td>May 1, 2024</td>
+                <td>$6,171,405</td>
+                <td>$30,857</td>
+                <td>$969,143</td>
+                <td>$1,000,000</td>
+                <td>$5,202,262</td>
+                </tr>
+                <tr>
+                <td>6</td>
+                <td>Jun 1, 2024</td>
+                <td>$5,202,262</td>
+                <td>$26,011</td>
+                <td>$973,989</td>
+                <td>$1,000,000</td>
+                <td>$4,228,273</td>
+                </tr>
+                <tr>
+                <td>7</td>
+                <td>Jul 1, 2024</td>
+                <td>$4,228,273</td>
+                <td>$21,141</td>
+                <td>$978,859</td>
+                <td>$1,000,000</td>
+                <td>$3,249,414</td>
+                </tr>
+                <tr>
+                <td>8</td>
+                <td>Aug 1, 2024</td>
+                <td>$3,249,414</td>
+                <td>$16,247</td>
+                <td>$983,753</td>
+                <td>$1,000,000</td>
+                <td>$2,265,661</td>
+                </tr>
+                <tr>
+                <td>9</td>
+                <td>Sep 1, 2024</td>
+                <td>$2,265,661</td>
+                <td>$11,328</td>
+                <td>$988,672</td>
+                <td>$1,000,000</td>
+                <td>$1,277,989</td>
+                </tr>
+                <tr>
+                <td>10</td>
+                <td>Oct 1, 2024</td>
+                <td>$1,277,989</td>
+                <td>$6,390</td>
+                <td>$993,610</td>
+                <td>$1,000,000</td>
+                <td>$284,379</td>
+                </tr>
+            </tbody>
+        </table>
+
         <-- End of example
 
 
