@@ -566,7 +566,7 @@ PROPOSAL_TEMPLATE_FORMATTING_PROMPT = """
 PROPOSAL_TEMPLATE_REGEN = """
         # Instruction
        
-        - Given the following extracted parts under ----Previous Paragraph---- and ----RM Instructions----, create a final summary.
+        - Given the following extracted parts under ----Previous Paragraph---- and ----RM Instructions----, create a final summary based on these parts **ONLY**.
         - Take note of the content inside the square bracket about missing information, if the information is still missing, request these missing information using this format: '[RM Please provide further information on XXX]' at the end of your answer. 
         
         ## About your output format:
