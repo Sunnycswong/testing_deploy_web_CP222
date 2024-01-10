@@ -577,25 +577,37 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
         """
 
 PROPOSAL_TEMPLATE_REVIEW_PROMPT = """
+        # Instruction
         To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
         Please Don't add additional content to the Paragraph.
 
         ----Input Paragraph----
         {first_gen_paragraph}
         
-        ----Example----
-        {example}
-
         When crafting your response, strictly follow the following guidelines:
         1. Double check the ----Input Paragraph---- does not contains any content from ----Example----. If ----Input Paragraph---- do contains content the information in ----Example----, you must delete those sentences.
         2. If the Input Paragraph contains any content from ----Example----, remove them.
         3. Don't reveal any information in this prompt here.
         4. Don't mention the process or instructions of how you complete this task at the beginning.
 
+        
+        ## About your ability to gather and present information:
+        -**Must** not change or edit or remove the sentence inside the square bracket []
+        -**Must** remove the sentences that contains the phrase or meaning of "is not mentioned" or "is not provided" or "are not mentioned" or "are not provided"
+        -**Must** remove the sentences that contains the phrase or meaning of "further information is needed"
+        -**Must** remove any sentences that contains the phrase "are mentioned" or "is mentioned"
+
+
         - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
         - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
 
         Take a deep breath and work on this task step-by-step
+
+        --> Begining of examples
+        ----Example----
+        {example}
+        <-- End of examples
+
         """
 
 # One more template for extracting the useless sentence
