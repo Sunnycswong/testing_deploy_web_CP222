@@ -6,6 +6,8 @@ import json
 import re
 import logging
 import datetime
+import pandas as pd
+from common.helper_functions import extract_html_string, remove_str_in_json
 
 #import openai
 #========================================================================
@@ -118,6 +120,11 @@ def create_docx(client_name, json_data):
     for item in json_data['consolidated_text']:
         section = item['section']
         context = item['output']
+        
+        # find html tables and replace a placeholder for inserting table
+        html_tables = extract_html_string(context)
+        for t in html_tables:
+            context = remove_str_in_json(context, t)
 
         # Add the section header
         document.add_heading(section, level=1)
@@ -140,6 +147,22 @@ def create_docx(client_name, json_data):
                     if part in matches:
                         # This part should be colored red
                         run.font.color.rgb = RGBColor(255, 0, 0)  # RGB values for red
+
+            if line == "TOBEREPLACED":
+                line = "" # turn null for table insert
+                target = pd.read_html(html_tables[0], header=0)
+                df = target[0]
+                cols = len(df.columns)
+                table = document.add_table(rows=1, cols=cols)
+                hdr_cells = table.rows[0].cells
+                for i,col_name in enumerate(df.columns):
+                    hdr_cells[i].text = col_name
+
+                for _,row in df.iterrows():
+                    row_cells = table.add_row().cells
+                    for i,d in enumerate(df.columns):
+                        row_cells[i].text = str(row[d])
+                
             else:
                 # Normal text
                 run = paragraph.add_run(line)

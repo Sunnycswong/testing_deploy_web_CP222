@@ -306,8 +306,11 @@ PROPOSAL_TEMPLATE_CLIENT_REQUEST = """
         - You must avoid using "I", "me" or any personal pronoun to write your response.
         - You can use short lists to present multiple items or options concisely.
         - You do not include images in markdown responses as the chat box does not support images.
-        - Your must seperate your task 1 response and task 2 response.
+        - Your must answer task by task.
         - Your must display all tables in HTML format.
+        - Your response *must* follow this format:
+            <b>Summary of the client request:</b> summary of the client request
+            <b>Repayment plan:</b> replayment plan table in HTML format
 
         ## About your ability to gather and present information: 
         ### summary of the client request
