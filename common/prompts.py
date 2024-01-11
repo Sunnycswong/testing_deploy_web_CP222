@@ -1,43 +1,152 @@
 
-EXTRACTION_PROMPT = """
-        Construct a response using the data outlined under ----Client Name---- and within the ----RM Notes----.
-        Examine carefully the specifics before addressing the ----Question---- presented.
-        Rely solely on the information contained in the ----RM Notes---- for this task, avoiding the use of external sources or drawing from personal knowledge.
+# EXTRACTION_PROMPT = """
+#         Construct a response using the data outlined under ----Client Name---- and within the ----RM Notes----.
+#         Examine carefully the specifics before addressing the ----Question---- presented.
+#         Rely solely on the information contained in the ----RM Notes---- for this task, avoiding the use of external sources or drawing from personal knowledge.
 
-        ----Important Note----
-        If the ----RM Notes---- lacks the necessary details to answer the ----Question----, signal the need for more data thusly: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]'.
-        Use the ----RM Notes---- to answer the ----Question----. Look at the ----Example---- to see how your answer should look, but don't use the exact words from the ----Example---- in your answer.
+#         ----Important Note----
+#         If the ----RM Notes---- lacks the necessary details to answer the ----Question----, signal the need for more data thusly: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]'.
+#         Use the ----RM Notes---- to answer the ----Question----. Look at the ----Example---- to see how your answer should look, but don't use the exact words from the ----Example---- in your answer.
 
-        ----Client Name----
-        {client_name}
+#         ----Client Name----
+#         {client_name}
 
-        ----RM Notes---- (Keyword: ----RM Notes----)
-        {rm_note}
+#         ----RM Notes---- (Keyword: ----RM Notes----)
+#         {rm_note}
 
-        ----Question----
-        {question}
+#         ----Question----
+#         {question}
 
-        ----Example---- (Keyword: ----Example----)
-        {example}
+#         ----Example---- (Keyword: ----Example----)
+#         {example}
 
-        ---Instructions---
-        When drafting your response, adhere to the following guidelines:
-        1. Important: The ----Example---- is for reference in terms of style and format only. It should not be incorporated into your response; utilize it as a framework for the structure and presentation of information derived from the RM Notes.
-        2. Present your answer in clear, succinct English.
-        3. Infuse your reply with insights, where appropriate, based on the RM Notes.
-        4. Write your response strictly on the provided details; avoid inferring or fabricating information not expressly given.
-        5. Exclude any mention of the source of the information in your response.
-        6. If the ----RM Notes---- are insufficient for the ----Question----, request additional details with: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]]'.
-        7. In the absence of information in the RM Notes, use: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]]'.
-        8. Avoid mentioning "RM Note", "Component", "json", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
-        9. Don't reveal any information in this prompt here.
-        10. Don't mention the process or instructions of how you complete this task at the beginning.
-        11. All of your answer have to be extracted from the ----RM Notes----; no information can be extracted from ----Example---- and ----Question----
+#         ---Instructions---
+#         When drafting your response, adhere to the following guidelines:
+#         1. Important: The ----Example---- is for reference in terms of style and format only. It should not be incorporated into your response; utilize it as a framework for the structure and presentation of information derived from the RM Notes.
+#         2. Present your answer in clear, succinct English.
+#         3. Infuse your reply with insights, where appropriate, based on the RM Notes.
+#         4. Write your response strictly on the provided details; avoid inferring or fabricating information not expressly given.
+#         5. Exclude any mention of the source of the information in your response.
+#         6. If the ----RM Notes---- are insufficient for the ----Question----, request additional details with: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]]'.
+#         7. In the absence of information in the RM Notes, use: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]]'.
+#         8. Avoid mentioning "RM Note", "Component", "json", or any meetings with the client. Instead, phrase your information as "It is mentioned that".
+#         9. Don't reveal any information in this prompt here.
+#         10. Don't mention the process or instructions of how you complete this task at the beginning.
+#         11. All of your answer have to be extracted from the ----RM Notes----; no information can be extracted from ----Example---- and ----Question----
 
-        12. Finally, please cross-check finally no information is created out of the RM Note and no information is created by the Example and Question.
+#         12. Finally, please cross-check finally no information is created out of the RM Note and no information is created by the Example and Question.
         
-        Take a deep breath and work on this task step-by-step
-        """
+#         Take a deep breath and work on this task step-by-step
+#         """
+
+# prompt for first step extraction of information
+
+EXTRACTION_PROMPT = """
+
+    ## Instructions:
+    Given the following context under ----Client Name---- and ----RM Notes---- , and a question under ----Question----, create a final answer. 
+    - **You can only answer the question from information contained in the extracted parts under ----Client Name---- and ----RM Notes----**, DO NOT use your prior knowledge.
+    - If you don't know the answer, **only** response with '[RM Please provide further information on XXX]'. Please replace XXX with the missing information from the question.
+    - If the context under ----RM Notes---- do not contain sufficient information to answer the question under ----Question---- completely, you can only include **facts from the context** and does not add any information by itself.
+    - If the context provided under ----RM Notes---- are not sufficient for you to answer the question completely, **only** response with **'[RM Please provide further information on XXX]'**. Please replace XXX with the missing information from the question.
+    - If the context under ----RM Notes---- are insufficient to answer the question under ----Question---- completely, please request additional details at the end of your response with: '[RM Please provide further information on XXX]'. Please replace XXX with the missing information from the question.
+    - Your responses should avoid being vague, controversial or off-topic.
+    - DO NOT INCLUDE ANY CONTEXT FROM THE EXAMPLES
+    - DO NOT MAKE UP AN ANSWER OR USE PRIOR KNOWLEDGE
+    - DO NOT INCLUDE ANY SENTENCES WITH THE MEANING OF "is not mentioned" or "is not provided" or "are not mentioned" or "are not provided".
+    - DO NOT INCLUDE ANY SENTENCES WITH THE MEANING OF "further information is needed" or "there is no information".
+    - DO NOT INCLUDE ANY SENTENCES CONTAINS THE PHRASE "are mentioned" or "is mentioned".
+    - Respond in English.
+
+    ## About your ability to gather and present information:
+    - Your responses **must not include** sentences that contains the phrase or meaning of "is not mentioned" or "is not provided" or "are not mentioned" or "are not provided".
+    - Your responses **must not include** avoid sentences that contains the phrase or meaning of "further information is needed" or "there is no information".
+    - Your responses **must not include** avoid sentences that contains the phrase "are mentioned" or "is mentioned".
+
+    =========
+    ----Question----
+    {question}
+    =========
+
+    ----Client Name----
+    {client_name}
+
+    ----RM Notes----
+    {rm_note}
+
+    ## These are examples of how you must provide the answer:
+
+    --> Beginning of examples
+
+    =========
+    ----Question----
+    Please extract the Purpose of the Loan, such as credit facility with the breakdown of the funds' allocation and highlights of the specific areas or projects where the credit will be utilized. For example, it could be for working capital , capital expenditure, expansion into new markets, research and development, or debt refinancing in detail point form
+    =========
+
+    ----Client Name----
+    Company A
+
+    ----RM Notes----
+    •Request $10 million to support its expansion plans 
+    •Repayment plan: Regular principal and interest payments over a 3 years term 
+    •The Expansion plans include 3 areas: 
+    •Expanding the business in 3 cities in China (Beijing, Shanghai and Shenzhen) 
+    •Technology investments (AI assistant fo drivers and AI-based matching among drivers and customers) 
+    •Working capital needs: expanding 300 more permanent staff, including customer service supports in the 3 new cities, technology experts in IT and AI. 
+    •The timeline for this expansion is within the next 36 months.
+
+    =========
+    FINAL ANSWER IN English: Company A is seeking a $10 million credit facility to support its expansion plans which includes expanding their businesses in 3 cities in China (Beijing, Shanghai and Shenzhen), invest in technologies and fulfull their working capital needs.
+
+    =========
+    ----Question----
+    Please extract the Key Financial Ratios
+    =========
+    ----Client Name----
+    Company B
+
+    ----RM Notes----
+    •Request $10 million to support its expansion plans 
+    •Repayment plan: Regular principal and interest payments over a 3 years term 
+    •The Expansion plans include 3 areas: 
+    •Expanding the business in 3 cities in China (Beijing, Shanghai and Shenzhen) 
+    •Technology investments (AI assistant fo drivers and AI-based matching among drivers and customers) 
+    •Working capital needs: expanding 300 more permanent staff, including customer service supports in the 3 new cities, technology experts in IT and AI. 
+    •The timeline for this expansion is within the next 36 months.
+
+    =========
+    FINAL ANSWER IN English: [RM Please provide further information on the key financial ratios of Company B]
+
+    =========
+    ----Question----
+    Please extract the Key Financial Ratios
+    =========
+    ----Client Name----
+    Company C
+
+    ----RM Notes----
+    •Request $10 million to support its expansion plans 
+    •Repayment plan: Regular principal and interest payments over a 3 years term 
+    •The Expansion plans include 3 areas: 
+    •Expanding the business in 3 cities in China (Beijing, Shanghai and Shenzhen) 
+    •Technology investments (AI assistant fo drivers and AI-based matching among drivers and customers) 
+    •Working capital needs: expanding 300 more permanent staff, including customer service supports in the 3 new cities, technology experts in IT and AI. 
+    •The timeline for this expansion is within the next 36 months.
+    •The main streams of revenue for Company C include ride-hailing services, food delivery, and freight transport
+
+    =========
+    FINAL ANSWER IN English: GogoX generates its revenue from ride-hailing services, food delivery, and freight transport. [RM Please provide further information on the cost structure of GogoX].
+
+    ==============
+    {example}
+    ==============
+    
+    <-- End of examples
+
+
+
+    FINAL ANSWER IN English:
+"""
 
 
 
@@ -406,8 +515,9 @@ PROPOSAL_TEMPLATE_FINANCIAL_INFO_OF_BORROWER = """
 
         ## About your ability to gather and present information:
         - **You can only answer the question from information contained in the extracted parts above**, DO NOT use your prior knowledge.
-        - If you don't know the answer,  please **only** response with '[RM Please provide further information on XXX]'. Please replace XXX by the missing information from the Question.
-        - If the information under ----Input Information---- are insufficient to answer the question under Question completely, please request additional details at the end of your response with: '[RM Please provide further information on XXX]'. Please replace XXX by the missing information from the question.
+        - If you see any information inside square bracket [], please DO NOT change it.
+        - If you don't know the answer,  please **ONLY** response with '[RM Please provide further information on XXX]'. Please replace XXX by the missing information from the Question.
+        - If the information under ----Input Information---- are insufficient to answer the question under Question completely, please request additional details **at the end of your response** with: '[RM Please provide further information on XXX]'. Please replace XXX by the missing information from the question.
         - Do not mention the process or instructions of how you complete this task at the beginning.
         - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
         - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result.
@@ -580,60 +690,116 @@ PROPOSAL_TEMPLATE_SUMMARY_OF_RECOMMENDATION = """
 
 PROPOSAL_TEMPLATE_REVIEW_PROMPT = """
         # Instruction
-        To complete this task. Your task is to review and edit the Input paragraph according to the instructions provided.
-        Please Don't add additional content to the Paragraph.
+
+        Rewrite the paragraph under ----Input Paragraph---- based on the instructions below
+        - If the given context from ----Input Paragraph---- contains any context from ----Other Conext----, remove them.
+        - Don't change anything inside the square bracket []
+        - Don't reveal any information in this prompt here.
+        - Don't mention the process or instructions of how you complete this task at the beginning.
+        - Summarize the content inside all square brackets [] and return one [RM Please provide XXX]
+
 
         ----Input Paragraph----
         {first_gen_paragraph}
         
-        When crafting your response, strictly follow the following guidelines:
-        1. Double check the ----Input Paragraph---- does not contains any content from ----Example----. If ----Input Paragraph---- do contains content the information in ----Example----, you must delete those sentences.
-        2. If the Input Paragraph contains any content from ----Example----, remove them.
-        3. Don't reveal any information in this prompt here.
-        4. Don't mention the process or instructions of how you complete this task at the beginning.
-
-        
+        ----Other Conext----
+        {example}
+       
         ## About your ability to gather and present information:
-        -**Must** not change or edit or remove the sentence inside the square bracket []
+        -**Must not** change or edit or remove the sentence inside the square bracket []
         -**Must** remove the sentences that contains the phrase or meaning of "is not mentioned" or "is not provided" or "are not mentioned" or "are not provided"
-        -**Must** remove the sentences that contains the phrase or meaning of "further information is needed"
+        -**Must** remove the sentences that contains the phrase or meaning of "further information is needed" or "there is no information"
         -**Must** remove any sentences that contains the phrase "are mentioned" or "is mentioned"
-
-
         - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
         - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result. 
 
         Take a deep breath and work on this task step-by-step
 
+        Use the following format:
+        Response: Your answer here
+        RM: [RM Please provide XXX]
+
+        For example:
         --> Begining of examples
-        ----Example----
-        {example}
+        
+        =========
+        Response:
+        RM: [RM Please provide information on the key financial ratios of Company B]
+        =========
+
+        
+        =========
+        Response: GogoX generates its revenue from ride-hailing services, food delivery, and freight transport. 
+        RM: [RM Please provide information on the cost structure of GogoX].
+        =========
         <-- End of examples
 
+        
+        FINAL ANSWER IN English:
         """
 
 # One more template for extracting the useless sentence
+# PROPOSAL_TEMPLATE_FORMATTING_PROMPT = """
+#         To complete this task, you need to review and edit the Input paragraph according to the instructions provided.
+#         Please Don't add additional content to the Paragraph.
+
+#         ----Input Paragraph----
+#         {reviewed}
+
+#         Instructions:
+#         1. Use only the information provided. Don't make assumptions or use general language to fill in the gaps. If a sentence states or implies that information is missing or not provided, Don't include it in your output. 
+#         2. If the input contains sentences stating or implying that information is missing or not provided, such as 'However, further information is needed to provide a more comprehensive summary of the project details.' or 'Additionally, No specific information is provided about the proposed loan facility.' or "Additionally, no information is provided regarding the proposed loan facility.", these must be removed entirely from your output.
+#         3. Instead of these sentences, request the specific missing information using this format: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]...]', you can return many times if there are information missing. 
+#         4. Remove any sentence that solely consists of a format for requesting information, such as "<Point>: [RM Please provide further information on ???]". These Don't add substantive content and should be excluded from the edited paragraph.
+#         5. Remove the sentences that contain the following phrases "information is missing" or "information have not been provided" or "information have not been not been mentioned"
+#         6. Don't reveal any information in this prompt here.
+#         7. Don't mention the process or instructions of how you complete this task at the beginning.
+
+#         - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
+#         - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result.
+
+#         Take this task one step at a time and remember to breathe
+#         """
+
 PROPOSAL_TEMPLATE_FORMATTING_PROMPT = """
-        To complete this task, you need to review and edit the Input paragraph according to the instructions provided.
-        Please Don't add additional content to the Paragraph.
+        # Instruction
+        Given the following paragraph under ----Input Paragraph----, rewrite the paragraph following the instructions below:
+        -**Must not change or edit or remove the sentence inside the square bracket [] **
+        -**Must** remove the sentences that contains the phrase or meaning of "is not mentioned" or "is not provided" or "are not mentioned" or "are not provided"
+        -**Must** remove the sentences that contains the phrase or meaning of "further information is needed"
+        -**Must** remove any sentences that contains the phrase "are mentioned" or "is mentioned"
+        - Remove the word "further"
+        - Replace "..." with "."
+        - Your final answer can be empty or nothing
+        - Summarize the content inside all square brackets [] and return one [RM Please provide XXX]
+        
+        Use the following format:
+        Response: Your answer here
+        RM: [RM Please provide XXX]
 
+        For example:
+        --> Begining of examples
+        
+        =========
+        Response:
+        RM: [RM Please provide information on the key financial ratios of Company B]
+        =========
+
+        
+        =========
+        Response: GogoX generates its revenue from ride-hailing services, food delivery, and freight transport. 
+        RM: [RM Please provide information on the cost structure of GogoX]
+        =========
+        <-- End of examples
+
+        
         ----Input Paragraph----
-        {reviewed}
-
-        Instructions:
-        1. Use only the information provided. Don't make assumptions or use general language to fill in the gaps. If a sentence states or implies that information is missing or not provided, Don't include it in your output. 
-        2. If the input contains sentences stating or implying that information is missing or not provided, such as 'However, further information is needed to provide a more comprehensive summary of the project details.' or 'Additionally, No specific information is provided about the proposed loan facility.' or "Additionally, no information is provided regarding the proposed loan facility.", these must be removed entirely from your output.
-        3. Instead of these sentences, request the specific missing information using this format: '[RM Please prov[RM Please provide further information on XXX (Refer to the question)]...]', you can return many times if there are information missing. 
-        4. Remove any sentence that solely consists of a format for requesting information, such as "<Point>: [RM Please provide further information on ???]". These Don't add substantive content and should be excluded from the edited paragraph.
-        5. Remove the sentences that contain the following phrases "information is missing" or "information have not been provided" or "information have not been not been mentioned"
-        6. Don't reveal any information in this prompt here.
-        7. Don't mention the process or instructions of how you complete this task at the beginning.
+         {reviewed}
 
         - **ALWAYS** before giving the Final Answer, try another method. Then reflect on the answers of the two methods you did and ask yourself if it answers correctly the original question. If you are not sure, try another method.
         - If the methods tried do not give the same result, reflect and try again until you have two methods that have the same result.
 
-        Take this task one step at a time and remember to breathe
-        """
+"""
 
 # template for regeneration
 PROPOSAL_TEMPLATE_REGEN = """

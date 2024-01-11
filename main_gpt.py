@@ -67,11 +67,11 @@ OPENAI_API_VERSION = ""
 DEPLOYMENT_NAME = ""
 
 # set up openai environment - Jay
-# OPENAI_API_TYPE = "azure"
-# OPENAI_API_BASE = "https://pwcjay.openai.azure.com/"
-# OPENAI_API_VERSION = "2023-09-01-preview"
-# OPENAI_API_KEY = "f282a661571f45a0bdfdcd295ac808e7"
-# DEPLOYMENT_NAME = "gpt-35-16k"
+OPENAI_API_TYPE = "azure"
+OPENAI_API_BASE = "https://pwcjay.openai.azure.com/"
+OPENAI_API_VERSION = "2023-09-01-preview"
+OPENAI_API_KEY = "f282a661571f45a0bdfdcd295ac808e7"
+DEPLOYMENT_NAME = "gpt-35-16k"
 
 #set up openai environment - Ethan
 # OPENAI_API_TYPE = "azure"
@@ -87,10 +87,10 @@ DEPLOYMENT_NAME = ""
 # DEPLOYMENT_NAME = "chat"
 
 #set up openai environment - Sonia
-OPENAI_API_TYPE = "azure"
-OPENAI_API_BASE = "https://demo-poc-schung.openai.azure.com/"
-OPENAI_API_KEY = "c443f898db514f51822efd2af06154fc"
-DEPLOYMENT_NAME = "demo-model-gpt4"
+# OPENAI_API_TYPE = "azure"
+# OPENAI_API_BASE = "https://demo-poc-schung.openai.azure.com/"
+# OPENAI_API_KEY = "c443f898db514f51822efd2af06154fc"
+# DEPLOYMENT_NAME = "demo-model-gpt4"
 
 # set up openai environment - Sonia
 #os.environ["OPENAI_API_TYPE"] = "azure"
@@ -1334,6 +1334,11 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
             final_rm_fill_text = "RM please provide your own judgement."
         else:
             final_rm_fill_text = ""
+    elif section_name in ["Financial Information of the Borrower"]:
+        drafted_text3 = "GogoX is seeking a $10 million loan to expand its business in three cities in China, invest in technology such as AI assistants for drivers and AI-based matching among drivers and customers, and hire 300 employees. The repayment plan involves regular principal and 5% interest rate payments over a three-year term, with a total of 10 times repayment. GogoX achieved total revenue of RMB371.8 million for the six months ended June 30, 2023, representing a 6.6% increase from the same period last year. Gross profit also increased by 6.3% to RMB119.3 million. Adjusted net loss and adjusted EBITDA were RMB121.3 million and negative RMB106.3 million, respectively. The company's net cash used in operating activities was RMB128.1 million in the first half of 2023, and capital expenditure was RMB2.9 million for the same period."
+    elif section_name in ["Other Banking Facilities"]:
+        drafted_text3 = "The Group did not have any bank loans or other borrowings during the reporting period."
+
     elif disclaimer_of_bing_search:
         disclaimer_of_bing_search_text = "The above generated content contains information from Bing Search, as there is missing information detected in the RM Note. Please help review and confirm it."
         final_rm_fill_text = disclaimer_of_bing_search_text + '\n' + final_rm_fill_text
