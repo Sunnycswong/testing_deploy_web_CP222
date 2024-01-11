@@ -148,6 +148,24 @@ def create_docx(client_name, json_data):
                         # This part should be colored red
                         run.font.color.rgb = RGBColor(255, 0, 0)  # RGB values for red
 
+            # handling for bold texts
+            bold_match = re.findall(r'<b>.*<\/b>', line)
+            if bold_match:
+                words = line.split(" ")
+                bold_str = re.findall(r"<b>(.*?)<\/b>", bold_match[0])
+                for word in words:
+                    # print(word)
+                    for b in bold_str:
+                        if bold_match[0] == word:
+                            print(b)
+                            run = paragraph.add_run(b).bold = True
+                            run = paragraph.add_run(" ")
+                        else:
+                            print(word)
+                            run = paragraph.add_run(word)
+                            run = paragraph.add_run(" ")
+                
+            # handling for inserting table
             if line == "TOBEREPLACED":
                 line = "" # turn null for table insert
                 target = pd.read_html(html_tables[0], header=0)
