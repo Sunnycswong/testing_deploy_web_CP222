@@ -81,10 +81,16 @@ DEPLOYMENT_NAME = ""
 # DEPLOYMENT_NAME = "gpt-35-turbo-16k"
 
 #set up openai environment - Cyrus
+# OPENAI_API_TYPE = "azure"
+# OPENAI_API_BASE = "https://pwc-cyrus-azure-openai.openai.azure.com/"
+# OPENAI_API_KEY = "e1948635e8024556a6a55e37afcce932"
+# DEPLOYMENT_NAME = "chat"
+
+#set up openai environment - Sonia
 OPENAI_API_TYPE = "azure"
-OPENAI_API_BASE = "https://pwc-cyrus-azure-openai.openai.azure.com/"
-OPENAI_API_KEY = "e1948635e8024556a6a55e37afcce932"
-DEPLOYMENT_NAME = "chat"
+OPENAI_API_BASE = "https://demo-poc-schung.openai.azure.com/"
+OPENAI_API_KEY = "c443f898db514f51822efd2af06154fc"
+DEPLOYMENT_NAME = "demo-model-gpt4"
 
 # set up openai environment - Sonia
 #os.environ["OPENAI_API_TYPE"] = "azure"
@@ -254,6 +260,8 @@ PROPOSAL_TEMPLATE_EXECUTIVE_SUMMARY = """
 
         ----Example for Reference----
         {example}
+        ====
+        GoGoX is seeking a credit of $10 million to support its expansion plans, which include expanding the business in Beijing, Shanghai, and Shenzhen, investing in AI assistant for drivers and AI-based matching among drivers and customers, and expanding the workforce by 300 permanent staff, including customer service supports in the three new cities, technology experts in IT and AI. The proposed credit involves a 3-year term loan banking facility amounts to HKD 10 million. The credit request is aimed at supporting the company's growth strategy over the next 36 months.
 
         ----Executive Summary----
         Create a succinct executive summary paragraph for a credit proposal, focusing on the borrower's name, the requested credit amount, the purpose of the credit, and the proposed credit structure. Include the relationship history and the strategic rationale for the credit request, alongside the details of the proposed credit structure.

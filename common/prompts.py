@@ -101,6 +101,8 @@ PROPOSAL_TEMPLATE_EXECUTIVE_SUMMARY = """
 
         ----Example for Reference----
         {example}
+        ==========
+        GoGoX is seeking a credit of $10 million to support its expansion plans, which include expanding the business in Beijing, Shanghai, and Shenzhen, investing in AI assistant for drivers and AI-based matching among drivers and customers, and expanding the workforce by 300 permanent staff, including customer service supports in the three new cities, technology experts in IT and AI. The proposed credit involves a 3-year term loan banking facility amounts to HKD 10 million. The credit request is aimed at supporting the company's growth strategy over the next 36 months.
 
         ----Executive Summary----
         Create a succinct executive summary paragraph for a credit proposal, focusing on the borrower's name, the requested credit amount, the purpose of the credit, and the proposed credit structure. Include the relationship history and the strategic rationale for the credit request, alongside the details of the proposed credit structure.
