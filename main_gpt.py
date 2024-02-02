@@ -1330,15 +1330,33 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
 
     #Edit the format of final rm fill
     if section_name == "Summary of Recommendation":
+        drafted_text3 = ""
         if drafted_text3 == "Based on the RM notes, there is insufficient information to make a recommendation for the proposed loan facility. RM please provide your own judgement.":
             final_rm_fill_text = "RM please provide your own judgement."
         else:
             final_rm_fill_text = ""
     elif section_name in ["Financial Information of the Borrower"]:
         if client == 'New World Group':
-            drafted_text3 = "<p> For the fiscal year 2022, New World Group recorded consolidated revenues of HK$95,213.8 million, a year-on-year increase of 40%. The segment results were HK$14,550.6 million. The company's net gearing ratio, which is measured by consolidated net debt to total equity, was lowered to around 42% from 47%. Unfortunately, I was unable to find specific figures for operating profit, net assets, and total debts.</p>"
+            drafted_text3 = """
+<p>
+  For the fiscal year 2022, New World Group recorded consolidated revenues of
+  HK$95,213.8 million, a year-on-year increase of 40%. The segment results were
+  HK$14,550.6 million. The company's net gearing ratio, which is measured by
+  consolidated net debt to total equity, was lowered to around 42% from 47%.
+  Unfortunately, I was unable to find specific figures for operating profit, net
+  assets, and total debts.
+</p>
+
+"""
         elif client == 'China Evergrande':
-            drafted_text3 = "<p>The revenue of China Evergrande Group for the six months ended 30 June 2021 was RMB222.69 billion. As of 31 December 2021, the total liabilities of the company amounted to RMB2,580.15 billion. The specific details for operating profit, net assets, and net gearing are not available.</p>"
+            drafted_text3 = """
+<p>
+  The revenue of China Evergrande Group for the six months ended 30 June 2021
+  was RMB222.69 billion. As of 31 December 2021, the total liabilities of the
+  company amounted to RMB2,580.15 billion. The specific details for operating
+  profit, net assets, and net gearing are not available.
+</p>
+"""
         elif client == 'Techtronic industries':
             drafted_text3 = "<p>The latest key financials of Techtronic Industries are as follows: - Revenue: The Power Equipment business, which represents 90.6% of total sales, grew 37.0% to USD 12.0 billion. - Operating Profit (EBIT): Increased 37.2% to USD 1.2 billion. - Net Assets: USD 5.69 billion. - Total Debts: The Total Debt to Total Assets is 28.97. - Net Gearing: This information is not directly provided, but can be calculated using the Total Debt to Total Assets ratio.</p>"
         elif client == "Sa Sa Int'l":
@@ -1350,28 +1368,285 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
         # drafted_text3 = "GogoX achieved a total revenue of RMB773.2 million for the year ended December 31, 2022, which is a 17.0% increase compared to the previous year. The gross profit also grew to RMB261.6 million, representing an 8.2% year-on-year increase. However, the adjusted net loss and adjusted EBITDA were RMB228.9 million and negative RMB206.3 million, respectively, showing a decrease of 17.5% and 17.0% compared to the previous year. The basic and diluted loss per share were RMB216 cents and RMB240 cents for the years ended December 31, 2021 and 2022, respectively. GogoX's capital expenditure was RMB6.7 million as of December 31, 2022. Despite the negative impact of COVID-19, the company's revenue increased by 17.0% due to the organic growth of its enterprise services and value-added services."
     elif section_name in ["Other Banking Facilities"]:
         if client == 'New World Group':
-            drafted_text3 = "<p> New World Group has bank loans. They have a 5-year HKD 1 billion loan with DBS Hong Kong, divided into equal tranches of HKD 500 million each for a term loan and a revolving loan. Additionally, they have a HK$3,130 million syndicated Term Loan Facility that was successfully closed. This is an unsecured five-year facility for NWD Finance Limited guaranteed by New World Development Company Limited.</p>"
+            drafted_text3 = """
+<p>
+  New World Group has bank loans. They have a 5-year HKD 1 billion loan with DBS
+  Hong Kong, divided into equal tranches of HKD 500 million each for a term loan
+  and a revolving loan. Additionally, they have a HK$3,130 million syndicated
+  Term Loan Facility that was successfully closed. This is an unsecured
+  five-year facility for NWD Finance Limited guaranteed by New World Development
+  Company Limited.
+</p>
+<p>
+  Sources: 1.
+  <a
+    href="https://www.nwd.com.hk/content/dbs-hong-kong-and-new-world-development-sign-5-year-hkd-1-billion-real-estate-sustainabili-0"
+    target="_blank"
+    >DBS Hong Kong and New World Development Sign 5-Year HKD 1 Billion Real
+    Estate Sustainability-Linked Loan</a
+  >
+  2.
+  <a
+    href="https://www.nwd.com.hk/content/new-world-development-company-limited-hk3130-million-term-loan-facility"
+    target="_blank"
+    >New World Development Company Limited HK$3,130 Million Term Loan
+    Facility</a
+  >
+</p>
+            
+
+"""
         elif client == 'China Evergrande':
-            drafted_text3 = "<p>China Evergrande Group has bank loans and other borrowings. Last year, the company reported total bank and other borrowings of 693.4 billion yuan ($107.4 billion), including loans granted by trust firms rather than banks. However, the specific details about the lending institution, type of loans, outstanding balance, interest rate, maturity date, and any collateral or guarantees are not provided in the sources.</p>"
+            drafted_text3 = """
+<p>
+  China Evergrande Group has bank loans and other borrowings. Last year, the
+  company reported total bank and other borrowings of 693.4 billion yuan ($107.4
+  billion), including loans granted by trust firms rather than banks. However,
+  the specific details about the lending institution, type of loans, outstanding
+  balance, interest rate, maturity date, and any collateral or guarantees are
+  not provided in the sources.
+</p>
+<p>
+  Sources: 1.
+  <a
+    href="https://www.bloomberg.com/news/articles/2022-12-12/why-china-evergrande-3333hk-defaulted-and-what-comes-next-in-restructuring"
+    target="_blank"
+    >Why China Evergrande 3333HK Defaulted and What Comes Next in Restructuring
+    - Bloomberg.com</a
+  >
+  2.
+  <a
+    href="https://www.reuters.com/business/exclusive-china-evergrandes-lenders-weigh-up-loan-losses-rolling-over-credit-2021-09-17/"
+    target="_blank"
+    >EXCLUSIVE China Evergrande's lenders weigh up loan losses, rolling over
+    credit - sources | Reuters</a
+  >
+</p>
+"""
         elif client == 'Techtronic industries':
-            drafted_text3 = "<p>Based on the available information, Techtronic Industries was seeking a second loan in 2021 and was inviting banks to join an up to $500m revolver. However, the specific details about the lending institution, type of loans, outstanding balance, interest rate, maturity date, or any collateral or guarantees are not available in the search results.</p>"
+            drafted_text3 = """
+<p>Based on the available information, Techtronic Industries was seeking a second loan in 2021 and was inviting banks to join an up to $500m revolver. However, the specific details about the lending institution, type of loans, outstanding balance, interest rate, maturity date, or any collateral or guarantees are not available in the search results.</p>
+<p>Source: 
+1. <a href="https://www.globalcapital.com/asia/article/298ip2mh02iu2fs9ub1ts/asia-syndicated-loans/asia-leveraged-non-investment-grade-loans/techtronic-industries-makes-quick-loan-return" target="_blank">Techtronic Industries makes quick loan return - GlobalCapital Asia</a>.</p>
+"""
         elif client == "Sa Sa Int'l":
-            drafted_text3 = "<p>Sa Sa International Holdings Limited has bank borrowings in the form of trust receipt loans and revolving loans. The company's gearing ratio is 10.4%. However, information about the name of the lending institution, the outstanding balance, interest rate, maturity date, or any collateral or guarantees is not available from the sources searched.</p>"
+            drafted_text3 = """<p>
+  Sa Sa International Holdings Limited has bank borrowings in the form of trust
+  receipt loans and revolving loans. The company's gearing ratio is 10.4%.
+  However, information about the name of the lending institution, the
+  outstanding balance, interest rate, maturity date, or any collateral or
+  guarantees is not available from the sources searched.
+</p>
+<p>
+  Source: 1.
+  <a
+    href="https://corp.sasa.com/en/investor-relations/investor-relations.php"
+    target="_blank"
+    >Investor Relations - Sa Sa International Holdings Limited (SEHK:178)</a
+  >
+</p>
+"""
         elif client == 'Lee Kam Kee':
             drafted_text3 = "<p>I'm sorry, but I couldn't find specific information about any bank loans or other borrowings of Lee Kam Kee from the company's official website, annual report, or other reliable sources such as Bloomberg and Reuters.</p>"
         else:
             drafted_text3 = "The Group did not have any bank loans or other borrowings during the reporting period."
     elif section_name in ["Shareholders and Group Structure"]:
         if client == 'New World Group':
-            drafted_text3 = "<p> The major shareholder of New World Development Company Limited is Chow Tai Fook Enterprises Limited, a private Hong Kong-based holding company owned and controlled by Dato, Dr. Cheng Yu Tung's family. They hold about 45.2% of NWD shares. Chow Tai Fook Enterprises Limited is a conglomerate with holdings in various sectors including jewellery, property development, hotel, department store, transportation, energy, telecommunications, port, casino, and other businesses.</p><p>New World Development Company Limited, also known as New World Group, is a leading conglomerate based in Hong Kong. It was founded in 1970 and publicly listed in Hong Kong in 1972. The group has several subsidiaries and affiliates, although specific names or details about these entities were not found in the search results. The group has been involved in several significant transactions, including the disposal of non-core assets amounting to HK$12.8 billion from July 2020 to the end of February 2021, and the disposal of some HK$2.3 billion worth of non-core properties. The group has also formed strategic partnerships with other entities, such as Humansa's partnership with AIA Hong Kong.</p>"
+            drafted_text3 = """<p>The major shareholder of New World Development Company Limited is Chow Tai
+  Fook Enterprises Limited, a private Hong Kong-based holding company owned and
+  controlled by Dato, Dr. Cheng Yu Tung's family. They hold about 45.2% of NWD
+  shares. Chow Tai Fook Enterprises Limited is a conglomerate with holdings in
+  various sectors including jewellery, property development, hotel, department
+  store, transportation, energy, telecommunications, port, casino, and other
+  businesses.
+</p>
+<p>
+  Sources: 1.
+  <a
+    href="https://www.reuters.com/markets/deals/hong-kongs-nws-shares-jump-45-bln-buyout-offer-chow-tai-fook-2023-06-27/"
+    target="_blank"
+    >New World Development set for windfall as unit gets $4.5 billion buyout
+    offer | Reuters</a
+  >
+  2.
+  <a
+    href="https://www.nwd.com.hk/content/nws-holdings-forges-new-partnership-develop-healthcare-services-mainland-china"
+    target="_blank"
+    >Home | New World Development Company Limited Official Website</a
+  >
+  3.
+  <a href="https://en.wikipedia.org/wiki/Chow_Tai_Fook" target="_blank"
+    >Chow Tai Fook - Wikipedia</a
+  >
+</p>
+<p>
+  New World Development Company Limited, also known as New World Group, is a
+  leading conglomerate based in Hong Kong. It was founded in 1970 and publicly
+  listed in Hong Kong in 1972. The group has several subsidiaries and
+  affiliates, although specific names or details about these entities were not
+  found in the search results. The group has been involved in several
+  significant transactions, including the disposal of non-core assets amounting
+  to HK$12.8 billion from July 2020 to the end of February 2021, and the
+  disposal of some HK$2.3 billion worth of non-core properties. The group has
+  also formed strategic partnerships with other entities, such as Humansa's
+  partnership with AIA Hong Kong.
+</p>
+<p>
+  Sources: 1.
+  <a
+    href="https://www.nwd.com.hk/corporate/about-NWD/corporate-structure"
+    target="_blank"
+    >Group Structure - New World Development Company Limited Official Website</a
+  >
+  2.
+  <a
+    href="https://www.nwd.com.hk/investor-relations/financial-data/financial-highlights"
+    target="_blank"
+    >Investor Relations | New World Development Company Limited Official
+    Website</a
+  >
+  3.
+  <a
+    href="https://www.nwd.com.hk/content/new-world-development-optimises-its-asset-portfolio-nws-holdings%E2%80%99-disposal-hk13-billion-no-0"
+    target="_blank"
+    >Home | New World Development Company Limited Official Website</a
+  >
+  4.
+  <a
+    href="https://www.aia.com.hk/en/about-aia/about-us/media-centre/press-releases/2023/aia-press-release-20230322"
+    target="_blank"
+    >AIA Hong Kong and New World Group's Humansa sign Memorandum of
+    Understanding | AIA Hong Kong</a
+  >
+</p>"""
         elif client == 'China Evergrande':
-            drafted_text3 = "<p>The specific names of the current major shareholders or owners of China Evergrande Group, their ownership percentages, and their background information are not readily available based on the search results. However, it is known that Mr. Hui Ka Yan is the Chairman of the Board of Directors for the company.</p><p>China Evergrande Group is a Chinese property developer, incorporated in the Cayman Islands and headquartered in Shenzhen, Guangdong Province, China. It operates its business through four segments: Property Development, Property Investment, Property Management and Other Businesses. One of its listed subsidiaries is China Evergrande New Energy Vehicle Group. A major transaction related to the acquisition of shares of Evergrande Property Services Group Limited was mentioned, but detailed information about the group structure, including key entities and significant transactions or relationships, was not found in the search results.</p>"
+            drafted_text3 = """
+<p>
+  The specific names of the current major shareholders or owners of China
+  Evergrande Group, their ownership percentages, and their background
+  information are not readily available based on the search results. However, it
+  is known that Mr. Hui Ka Yan is the Chairman of the Board of Directors for the
+  company.
+</p>
+<p>
+  Sources: 1.
+  <a href="https://finance.yahoo.com/quote/3333.HK/holders/" target="_blank"
+    >China Evergrande Group (3333.HK) Stock Major Holders - Yahoo Finance</a
+  >
+  2.
+  <a
+    href="https://www.marketscreener.com/quote/stock/CHINA-EVERGRANDE-GROUP-6171025/company/"
+    target="_blank"
+    >China Evergrande Group: Shareholders Board Members Managers and Company
+    Profile - MarketScreener.com</a
+  >
+</p>
+<p>
+  China Evergrande Group is a Chinese property developer, incorporated in the
+  Cayman Islands and headquartered in Shenzhen, Guangdong Province, China. It
+  operates its business through four segments: Property Development, Property
+  Investment, Property Management and Other Businesses. One of its listed
+  subsidiaries is China Evergrande New Energy Vehicle Group. A major transaction
+  related to the acquisition of shares of Evergrande Property Services Group
+  Limited was mentioned, but detailed information about the group structure,
+  including key entities and significant transactions or relationships, was not
+  found in the search results.
+</p>
+<p>
+  Sources: 1.
+  <a href="https://en.wikipedia.org/wiki/Evergrande_Group" target="_blank"
+    >Evergrande Group - Wikipedia</a
+  >
+  2.
+  <a href="https://www.evergrande.com/ir/en/corpinfo.asp" target="_blank"
+    >Evergrande Group - Investor Relations - Corporate Information</a
+  >
+  3.
+  <a
+    href="https://www.reuters.com/business/embattled-china-evergrande-back-court-liquidation-hearing-2024-01-28/"
+    target="_blank"
+    >Embattled China Evergrande back in court for liquidation hearing</a
+  >
+  4.
+  <a
+    href="https://www1.hkexnews.hk/listedco/listconews/sehk/2021/1020/2021102000969.pdf"
+    target="_blank"
+    >MAJOR TRANSACTION IN RELATION TO ACQUISITION OF SHARES OF EVERGRANDE
+    PROPERTY SERVICES GROUP LIMITED</a
+  >
+</p>
+"""
         elif client == 'Techtronic industries':
-            drafted_text3 = "<p>The specific names of the top shareholders of Techtronic Industries are not provided in the search results. However, it is known that the second largest shareholder holds about 8.0% of the shares, the third-largest shareholder holds 3.2%, and the CEO, Joseph Galli, has 0.9% of the shares allocated to his name. The top 12 shareholders own 50% of the company, and insider ownership is 26%. Joseph Galli joined Techtronic Industries in 2006 as the Chief Executive Officer of Techtronic Appliances and was appointed as Chief Executive Officer and Executive Director of TTI effective February 1, 2008.</p><p>Techtronic Industries has acquired several companies, including the European Ryobi power tools business and two subsidiaries of Ryobi Limited, Ryobi Australia Pty. and Ryobi New Zealand Limited. Techtronic also purchased Milwaukee Electric Tool from Atlas Copco in 2005. However, there is no available information on any significant transactions or relationships between the company and related parties.</p>"
+            drafted_text3 = """<p>The specific names of the top shareholders of Techtronic Industries are not provided in the search results. However, it is known that the second largest shareholder holds about 8.0% of the shares, the third-largest shareholder holds 3.2%, and the CEO, Joseph Galli, has 0.9% of the shares allocated to his name. The top 12 shareholders own 50% of the company, and insider ownership is 26%. Joseph Galli joined Techtronic Industries in 2006 as the Chief Executive Officer of Techtronic Appliances and was appointed as Chief Executive Officer and Executive Director of TTI effective February 1, 2008.</p>
+<p>Sources: 
+1. <a href="https://simplywall.st/stocks/hk/capital-goods/hkg-669/techtronic-industries-shares/news/with-46-institutional-ownership-techtronic-industries-compan" target="_blank">With 46% institutional ownership, Techtronic Industries Company Limited (HKG:669) is a favorite amongst the big guns - Simply Wall St</a>
+2. <a href="https://www.bloomberg.com/profile/person/1397065" target="_blank">Joseph Galli, Techtronic Industries Co Ltd: Profile and Biography</a>
+3. <a href="https://www.ttigroup.com/company/our-board" target="_blank">Our Board | Cordless Power Tools Leader - Techtronic Industries TTI</a></p>
+<p>Techtronic Industries has acquired several companies, including the European Ryobi power tools business and two subsidiaries of Ryobi Limited, Ryobi Australia Pty. and Ryobi New Zealand Limited. Techtronic also purchased Milwaukee Electric Tool from Atlas Copco in 2005. However, there is no available information on any significant transactions or relationships between the company and related parties.</p>
+<p>Sources: 
+1. <a href="https://en.wikipedia.org/wiki/Techtronic_Industries" target="_blank">Techtronic Industries - Wikipedia</a>
+2. <a href="https://craft.co/techtronic-industries" target="_blank">Techtronic Industries Company Profile - Office Locations, Competitors, Revenue, Financials, Employees, Key People, Subsidiaries - Craft</a></p>"""
         elif client == "Sa Sa Int'l":
-            drafted_text3 = "<p>The specific names, ownership percentages, and background information of the major shareholders of Sa Sa Int'l (#0178) could not be found. However, it is known that the company had 1,521 registered shareholders as at 31 March 2022. Sa Sa International Holdings Limited was founded in 1978 and is headquartered in Chai Wan, Hong Kong.</p><p>Sa Sa International Holdings Limited is a leading beauty product retailing group in Asia. It operates retail shops in Hong Kong and Macau SARs, Mainland China, and Malaysia, and offers a shopping experience across multiple online platforms. The company has subsidiaries, but specific information about these subsidiaries or their relationships with the parent company was not found. There was also no specific information found about any significant transactions or relationships between the company and related parties.</p>"
+            drafted_text3 = """
+<p>
+  The specific names, ownership percentages, and background information of the
+  major shareholders of Sa Sa Int'l (#0178) could not be found. However, it is
+  known that the company had 1,521 registered shareholders as at 31 March 2022.
+  Sa Sa International Holdings Limited was founded in 1978 and is headquartered
+  in Chai Wan, Hong Kong.
+</p>
+<p>
+  Sources: 1.
+  <a href="https://finance.yahoo.com/quote/0178.HK/profile" target="_blank"
+    >Sa Sa International Holdings Limited (0178.HK) - Yahoo Finance</a
+  >
+  2.
+  <a
+    href="https://doc.irasia.com/listco/hk/sasa/annual/2022/ar2022_015.pdf"
+    target="_blank"
+    >INVESTOR RELATIONS REPORT - irasia.com</a
+  >
+</p>
+<p>
+  Sa Sa International Holdings Limited is a leading beauty product retailing
+  group in Asia. It operates retail shops in Hong Kong and Macau SARs, Mainland
+  China, and Malaysia, and offers a shopping experience across multiple online
+  platforms. The company has subsidiaries, but specific information about these
+  subsidiaries or their relationships with the parent company was not found.
+  There was also no specific information found about any significant
+  transactions or relationships between the company and related parties.
+</p>
+<p>
+  Source: 1.
+  <a href="https://corp.sasa.com/" target="_blank"
+    >Sa Sa International Holdings Limited (SEHK:178)</a
+  >
+  2.
+  <a
+    href="https://corp.sasa.com/en/about-sasa/corporate-directory.php"
+    target="_blank"
+    >About Sa Sa</a
+  >
+  3.
+  <a
+    href="https://en.wikipedia.org/wiki/Sa_Sa_International_Holdings"
+    target="_blank"
+    >Sa Sa International Holdings - Wikipedia</a
+  >
+</p>
+
+"""
         elif client == 'Lee Kam Kee':
-            drafted_text3 = "<p>The Lee family owns Lee Kum Kee. The five siblings - Charlie, Sammy, Eddy, David, and Elizabeth - are the children of the late Lee Man Tat. Sammy Lee is the executive chairman. Unfortunately, the exact ownership percentages are not available.</p><p>Lee Kum Kee is a Hong Kong-based food company that specializes in manufacturing a wide range of Chinese and Asian sauces. The company has several subsidiaries including Lee Kum Kee Company Ltd. (Headquarters in Hong Kong SAR, China), Lee Kum Kee (China) Trading Ltd. (China Trading), Lee Kum Kee (Xinhui) Food Co. Ltd., and Lee Kum Kee (M) Foods Sdn Bhd. These subsidiaries have been recognized as some of the "Best Companies to Work for in Asia 2021" by HR Asia. The Lee Kum Kee Group oversees all LKK-related businesses, which include LKK Health Products, Happiness Capital, and a charitable foundation. However, specific information about significant transactions or relationships between the company and these related parties was not found.</p>"
+            drafted_text3 = """
+<p>The Lee family owns Lee Kum Kee. The five siblings - Charlie, Sammy, Eddy, David, and Elizabeth - are the children of the late Lee Man Tat. Sammy Lee is the executive chairman. Unfortunately, the exact ownership percentages are not available.</p>
+<p>Source: 
+1. <a href="https://www.forbes.com/profile/lee-siblings/" target="_blank">Lee siblings - Forbes</a>
+2. <a href="https://www.scmp.com/magazines/style/people-events/article/3147916/sammy-lee-lkk-group-why-he-doesnt-want-his-children" target="_blank">Sammy Lee of LKK Group - South China Morning Post</a></p>
+<p>Lee Kum Kee is a Hong Kong-based food company that specializes in manufacturing a wide range of Chinese and Asian sauces. The company has several subsidiaries including Lee Kum Kee Company Ltd. (Headquarters in Hong Kong SAR, China), Lee Kum Kee (China) Trading Ltd. (China Trading), Lee Kum Kee (Xinhui) Food Co. Ltd., and Lee Kum Kee (M) Foods Sdn Bhd. These subsidiaries have been recognized as some of the "Best Companies to Work for in Asia 2021" by HR Asia. The Lee Kum Kee Group oversees all LKK-related businesses, which include LKK Health Products, Happiness Capital, and a charitable foundation. However, specific information about significant transactions or relationships between the company and these related parties was not found.</p>
+<p>Source: 
+1. <a href="https://en.wikipedia.org/wiki/Lee_Kum_Kee" target="_blank">Lee Kum Kee - Wikipedia</a>
+2. <a href="https://www.lkk.com/en/about/overview" target="_blank">About Lee Kum Kee - Corporate Overview</a></p>
+"""
         else:
             drafted_text3 = ""
         # drafted_text3 = "GogoX has three major shareholders: Alibaba Group Holding Limited, CK Hutchison Holdings Limited, and Hillhouse Capital Management, Ltd. Alibaba Group Holding Limited holds a 23.3% ownership percentage and is a multinational conglomerate specializing in e-commerce, retail, internet, and technology. CK Hutchison Holdings Limited holds a 19.9% ownership percentage and is a multinational conglomerate based in Hong Kong. Hillhouse Capital Management, Ltd. holds a 9.9% ownership percentage and is an investment management firm focused on long-term investments in various sectors. GogoX does not have any parent companies, subsidiaries, or affiliates."
@@ -1379,23 +1654,234 @@ def first_generate(section_name, input_json, client, rm_text_variable, deploymen
         final_rm_fill_text = disclaimer_of_bing_search_text + '\n' + final_rm_fill_text
     elif section_name in ["Industry / Section Analysis"]:
         if client == 'New World Group':
-            drafted_text3 = "<p>New World Group operates in the property sector, primarily in Greater China, especially the Greater Bay Area. The property market in China has been a key driver of the economy, contributing between 17 to 29 percent of GDP. However, the market has been experiencing a slowdown since 2019. In 2022, investment in real estate development dropped by 10.0% year-on-year to RMB13.3 trillion, while residential investment fell by 9.5% year-on-year to RMB10.1 trillion. The property sector in China has been facing challenges due to a shifting regulatory landscape and deteriorating economic conditions. The future outlook for the property sector in Greater China is challenging, with a prolonged slowdown expected. However, there are signs of potential recovery in the longer term, with gradual stabilisation expected in the higher-tier cities, supported by government policies. Property sales are expected to follow an extended L-shaped recovery, with sales projected to drop about 5% in 2024. The players in the same industry as NWD Group include Sun Hung Kai Properties, Cheung Kong Holdings, and Henderson Land Development. Sun Hung Kai Properties is one of the largest property companies in Hong Kong, specializing in developing premium quality residential projects, and owning an extensive network of shopping malls and offices, as well as a hotel portfolio. The company was established in 1969 and was listed on the Hong Kong stock exchange in 1983. Cheung Kong Holdings, now part of CK Hutchison Holdings, is a multinational conglomerate based in Hong Kong. It was one of Hong Kong's leading multi-national conglomerates. The company merged with its subsidiary Hutchison Whampoa on 3 June 2015, as part of a major reorganisation. It was founded by Li Ka-shing and has developed into a dominant property development company in Hong Kong, with a series of residential and commercial properties. Henderson Land Development Co. Ltd. is a listed property developer in Hong Kong and a constituent of the Hang Seng Index. The company's principal activities are property development and investment, project management, construction, hotel operation, department store operation, and finance. Henderson Land is an award-winning property group with businesses in Hong Kong and throughout mainland China. All three companies, like NWD Group, are major players in the real estate industry in Hong Kong, with a focus on property development and investment. They all have a significant presence in both Hong Kong and mainland China.</p>"
+            drafted_text3 = """<p>
+  New World Group operates in the property sector, primarily in Greater China,
+  especially the Greater Bay Area. The property market in China has been a key
+  driver of the economy, contributing between 17 to 29 percent of GDP. However,
+  the market has been experiencing a slowdown since 2019. In 2022, investment in
+  real estate development dropped by 10.0% year-on-year to RMB13.3 trillion,
+  while residential investment fell by 9.5% year-on-year to RMB10.1 trillion.
+  The property sector in China has been facing challenges due to a shifting
+  regulatory landscape and deteriorating economic conditions. The future outlook
+  for the property sector in Greater China is challenging, with a prolonged
+  slowdown expected. However, there are signs of potential recovery in the
+  longer term, with gradual stabilisation expected in the higher-tier cities,
+  supported by government policies. Property sales are expected to follow an
+  extended L-shaped recovery, with sales projected to drop about 5% in 2024. The
+  players in the same industry as NWD Group include Sun Hung Kai Properties,
+  Cheung Kong Holdings, and Henderson Land Development. Sun Hung Kai Properties
+  is one of the largest property companies in Hong Kong, specializing in
+  developing premium quality residential projects, and owning an extensive
+  network of shopping malls and offices, as well as a hotel portfolio. The
+  company was established in 1969 and was listed on the Hong Kong stock exchange
+  in 1983. Cheung Kong Holdings, now part of CK Hutchison Holdings, is a
+  multinational conglomerate based in Hong Kong. It was one of Hong Kong's
+  leading multi-national conglomerates. The company merged with its subsidiary
+  Hutchison Whampoa on 3 June 2015, as part of a major reorganisation. It was
+  founded by Li Ka-shing and has developed into a dominant property development
+  company in Hong Kong, with a series of residential and commercial properties.
+  Henderson Land Development Co. Ltd. is a listed property developer in Hong
+  Kong and a constituent of the Hang Seng Index. The company's principal
+  activities are property development and investment, project management,
+  construction, hotel operation, department store operation, and finance.
+  Henderson Land is an award-winning property group with businesses in Hong Kong
+  and throughout mainland China. All three companies, like NWD Group, are major
+  players in the real estate industry in Hong Kong, with a focus on property
+  development and investment. They all have a significant presence in both Hong
+  Kong and mainland China.
+</p>
+<p>
+  Sources: 1.
+  <a
+    href="https://www.manulifeim.com.hk/en/insights/china-credit-outlook-2023.html"
+    target="_blank"
+    >What's next for China's property sector? - WAM</a
+  >
+  2.
+  <a
+    href="https://asiasociety.org/sites/default/files/2023-08/CCA_SCCEI_Roundtable%20Full%20Summary%20Report_Chinas%20Property%20Sector.pdf"
+    target="_blank"
+    >China's Property Sector - Asia Society</a
+  >
+  3.
+  <a
+    href="https://www.china-briefing.com/news/explainer-whats-going-on-in-chinas-property-market/"
+    target="_blank"
+    >What's Happening in China's Property Market? An Explainer</a
+  >
+  4.
+  <a
+    href="https://www.knightfrank.com.hk/blog/2023/12/13/chinese-mainland-and-hong-kong-property-market-2024-forecasts"
+    target="_blank"
+    >Chinese mainland and Hong Kong property market 2024 forecasts</a
+  >
+  5.
+  <a
+    href="https://www.spglobal.com/ratings/en/research/articles/231016-china-property-watch-a-slow-sequential-recovery-in-2024-12863177"
+    target="_blank"
+    >China Property Watch: A Slow, Sequential Recovery In 2024</a
+  >
+  6.
+  <a
+    href="https://www.fitchratings.com/research/corporate-finance/china-property-developers-outlook-2024-27-11-2023"
+    target="_blank"
+    >China Property Developers Outlook 2024 - Fitch Ratings</a
+  >
+</p>
+"""
         elif client == 'China Evergrande':
-            drafted_text3 = "<p>China Evergrande operates in the real estate sector in China. The real estate market in China is projected to grow by 3.06% from 2024 to 2028, resulting in a market volume of USD 153.10 trillion in 2028. The nationwide net absorption of office space is expected to reach 6.2 million sq. m. in 2022, driven by the tech and finance sectors. However, the residential property sales may decline by about 5% in 2023 due to the time needed for the economy and prospective homebuyers' incomes to recover from the COVID-19 pandemic. The real estate market in China is expected to reach a value of USD 135.70 trillion in 2024.The main competitors of China Evergrande in the real estate industry are China Vanke and Country Garden Holdings. China Vanke is a highly respected company in China, having been voted as “China's Most Admired Company” by Fortune China for ten consecutive times. It has also won the title of “Most Respected Company in China” multiple times. The company engages in the development and sale of properties, with a focus on commodity housing projects. As of 2020, Vanke was ranked 208th in the Fortune Global 500, with US$53.253 billion in revenue, US$248.360 billion worth of assets, and 131,505 employees. On the other hand, Country Garden Holdings is a major real estate company that ranked 206th in the Fortune Global 500 list of 2023. The company has a market capitalization of over US$29.84 billion as of 2018 and has 187 high-end township developments throughout China, Malaysia, and Australia. The company operates in the real estate business, with segments including property development, construction, and property. However, the company has faced significant challenges, with the company edging toward a default.</p>"
+            drafted_text3 = """
+<p>
+  China Evergrande operates in the real estate sector in China. The real estate
+  market in China is projected to grow by 3.06% from 2024 to 2028, resulting in
+  a market volume of USD 153.10 trillion in 2028. The nationwide net absorption
+  of office space is expected to reach 6.2 million sq. m. in 2022, driven by the
+  tech and finance sectors. However, the residential property sales may decline
+  by about 5% in 2023 due to the time needed for the economy and prospective
+  homebuyers' incomes to recover from the COVID-19 pandemic. The real estate
+  market in China is expected to reach a value of USD 135.70 trillion in 2024.
+</p>
+<p>
+  The main competitors of China Evergrande in the real estate industry are China
+  Vanke and Country Garden Holdings. China Vanke is a highly respected company
+  in China, having been voted as “China's Most Admired Company” by Fortune China
+  for ten consecutive times. It has also won the title of “Most Respected
+  Company in China” multiple times. The company engages in the development and
+  sale of properties, with a focus on commodity housing projects. As of 2020,
+  Vanke was ranked 208th in the Fortune Global 500, with US$53.253 billion in
+  revenue, US$248.360 billion worth of assets, and 131,505 employees. On the
+  other hand, Country Garden Holdings is a major real estate company that ranked
+  206th in the Fortune Global 500 list of 2023. The company has a market
+  capitalization of over US$29.84 billion as of 2018 and has 187 high-end
+  township developments throughout China, Malaysia, and Australia. The company
+  operates in the real estate business, with segments including property
+  development, construction, and property. However, the company has faced
+  significant challenges, with the company edging toward a default.
+</p>
+<p>
+  Sources: 1.
+  <a
+    href="https://www.statista.com/outlook/fmo/real-estate/china"
+    target="_blank"
+    >Real Estate - China | Statista Market Forecast</a
+  >
+  2.
+  <a
+    href="https://www.cbre.com/insights/reports/2022-china-real-estate-market-outlook"
+    target="_blank"
+    >2022 China Real Estate Market Outlook | CBRE</a
+  >
+  3.
+  <a
+    href="https://www.spgchinaratings.cn/en/research/pdf/20230112_property-outlook_en.pdf"
+    target="_blank"
+    >Time Needed for Real Estate Recovery, 2023 Sales Potentially Down 5% -
+    Ratings China</a
+  >
+  4.
+  <a
+    href="https://en.savills.com.cn/research_articles/166607/204894-0"
+    target="_blank"
+    >Savills China | 2022 Outlook EN</a
+  >
+</p>
+"""
         elif client == 'Techtronic industries':
-            drafted_text3 = "<p>Techtronic Industries is a multinational company based in Hong Kong that designs, produces, and markets power tools, outdoor power equipment, hand tools, and floor care appliances. The company is a leader in cordless technology and serves DIY/Consumer, professional, and industrial users in the home improvement, repair, maintenance, construction, and infrastructure industries. The specific countries of operation are not listed in the search results. The global power tools market, which is one of the sectors Techtronic Industries operates in, was valued at USD 26.61 billion in 2022. The market is projected to grow from USD 27.51 billion in 2023 to USD 36.82 billion by 2030, exhibiting a CAGR of 4.3% during the forecast period. The power tools market is categorized into drilling and fastening tools, material removal tools, sawing and cutting tools, and demolition tools, among others. The market applications are segmented into industrial and residential. The future outlook for the power tools market is positive, with projections indicating growth at a CAGR of 6% from 2023 to 2033.</p><p>Techtronic Industries operates in a competitive industry with several key players including Briggs & Stratton, Stanley Black & Decker, Bosch, BorgWarner Technologies, Kennametal, Husqvarna, Fortive, Enesco, and PACCAR. These companies have diverse backgrounds and reputations in the industry, with some being more focused on specific sectors than others. For instance, Briggs & Stratton is the world’s largest producer of engines for outdoor power equipment, Stanley Black & Decker is known for its tools and innovative solutions, and Bosch is a multinational company that primarily focuses on engineering and electronics. On the other hand, Techtronic Industries is a leading player in the design, manufacturing, and marketing of power tools, outdoor power equipment, accessories, hand tools, layout and measuring tools, floor care and appliances.</p>"
+            drafted_text3 = """<p>Techtronic Industries is a multinational company based in Hong Kong that designs, produces, and markets power tools, outdoor power equipment, hand tools, and floor care appliances. The company is a leader in cordless technology and serves DIY/Consumer, professional, and industrial users in the home improvement, repair, maintenance, construction, and infrastructure industries. The specific countries of operation are not listed in the search results. The global power tools market, which is one of the sectors Techtronic Industries operates in, was valued at USD 26.61 billion in 2022. The market is projected to grow from USD 27.51 billion in 2023 to USD 36.82 billion by 2030, exhibiting a CAGR of 4.3% during the forecast period. The power tools market is categorized into drilling and fastening tools, material removal tools, sawing and cutting tools, and demolition tools, among others. The market applications are segmented into industrial and residential. The future outlook for the power tools market is positive, with projections indicating growth at a CAGR of 6% from 2023 to 2033.</p><p>Techtronic Industries operates in a competitive industry with several key players including Briggs & Stratton, Stanley Black & Decker, Bosch, BorgWarner Technologies, Kennametal, Husqvarna, Fortive, Enesco, and PACCAR. These companies have diverse backgrounds and reputations in the industry, with some being more focused on specific sectors than others. For instance, Briggs & Stratton is the world’s largest producer of engines for outdoor power equipment, Stanley Black & Decker is known for its tools and innovative solutions, and Bosch is a multinational company that primarily focuses on engineering and electronics. On the other hand, Techtronic Industries is a leading player in the design, manufacturing, and marketing of power tools, outdoor power equipment, accessories, hand tools, layout and measuring tools, floor care and appliances.</p><p>Sources: 
+1. <a href="https://www.fortunebusinessinsights.com/industry-reports/power-tools-market-101444" target="_blank">Power Tools Market Size, Share | Growth Report [2023-2030] - Fortune Business Insights</a>
+2. <a href="https://www.expertmarketresearch.com/reports/power-tools-market" target="_blank">Power Tools Market Size, Share, Growth, Trends, Analysis 2024-2032 - Expert Market Research</a>
+3. <a href="https://www.grandviewresearch.com/industry-analysis/power-tools-market" target="_blank">Power Tools Market Size, Share And Growth Report, 2030 - Grand View Research</a>
+4. <a href="https://www.futuremarketinsights.com/reports/power-tools-market" target="_blank">Power Tools Market Size, Sales Analysis &amp; Opportunity to 2033 - Future Market Insights</a></p>"""
         elif client == "Sa Sa Int'l":
             drafted_text3 = "<p>Sa Sa International operates in the beauty product retail sector in Asia, specifically in Hong Kong, Macau SARs, Mainland China, and Malaysia. The beauty and personal care market in Hong Kong is projected to reach USD 2,293.00 million in 2024, with an annual growth rate of 1.99% from 2024 to 2028. Mainland China is a significant market for imported cosmetics and toiletries, with Hong Kong serving as a major entrepôt for these imports. As of 2021, more than half of the cosmetics products in China were sold online. In 2021, Macau exported USD 39.1 million in beauty products, making it the 57th largest exporter of beauty products in the world. The beauty and personal care market in Malaysia is projected to reach USD 3.24 billion in 2024. The beauty and personal care market is on an upward trajectory across all categories and has proven to be resilient amid global economic crises and in a turbulent macroeconomic environment. The primary competitors of SaSa International in the cosmetics industry include Sephora, Teletext Holidays, Watson's and Bonjour. Sephora is a French multinational retailer of personal care and beauty products. It carries nearly 340 brands, including its own private label, Sephora Collection. The company is known for its quality products, technological advancements in the makeup sector, and its firm stance on Human Rights. Sephora has a strong reputation and is one of the biggest names in the beauty industry. Teletext Holidays was a British travel company that specialized in the sale of short and long haul beach holidays, city breaks, UK getaways, and cruises. However, the company ceased trading as of 29 October 2021. The overall rating of Teletext Holidays was 3.8, with Work-Life balance being rated at the top and given a rating of 3.7. However, Job Security was rated the lowest at 2.9. The company had some controversy as it avoided giving refunds to customers during COVID and kept the money. Watsons is the flagship health and beauty brand of A.S. Watson Group and is one of the longest-standing brands in Hong Kong and the world. It sets high standards in the health, wellness, and beauty market, providing personalized advice and counseling in health. Watsons is a significant part of the daily lives and communities of the public. The company has a history filled with love and countless touching moments, and love has always been the driving force for their continuous improvement. Bonjour Holdings Limited (Chinese: 卓悅控股) is a Hong Kong-based investment holding company principally engaged in the sales of beauty products. The company was listed on the Hong Kong Stock Exchange in 2003. As of 2019, the chain has 39 retail stores in Hong Kong (35), Macau (3), and Guangzhou (1).Bonjour's annual revenue totaled HK$1.79 billion for the fiscal year ending in December 2018</p>"
         elif client == 'Lee Kam Kee':
-            drafted_text3 = "<p>Lee Kam Kee operates in the food industry, specifically in the sauces and condiments sector, with a distribution network that spans over 100 countries and regions across five continents. The global sauces and condiments market is expected to grow significantly, projected to cross USD 19.00 billion by 2030 from 10.58 billion in 2022, following a compound annual growth rate (CAGR) of 7.6%. The current market landscape is being driven by the thriving restaurants and food service industry and rapid globalization, with the increasing popularity of ethnic cuisine also contributing to the market's growth. The market is expected to witness a healthy growth in the forecast period of 2024-2032, growing at a CAGR of 5%.</p><p></p>"
+            drafted_text3 = """<p>Lee Kam Kee operates in the food industry, specifically in the sauces and condiments sector, with a distribution network that spans over 100 countries and regions across five continents. The global sauces and condiments market is expected to grow significantly, projected to cross USD 19.00 billion by 2030 from 10.58 billion in 2022, following a compound annual growth rate (CAGR) of 7.6%. The current market landscape is being driven by the thriving restaurants and food service industry and rapid globalization, with the increasing popularity of ethnic cuisine also contributing to the market's growth. The market is expected to witness a healthy growth in the forecast period of 2024-2032, growing at a CAGR of 5%.</p>
+<p>Sources:
+1. <a href="https://www.mordorintelligence.com/industry-reports/sauces-dressings-and-condiments-market" target="_blank">Sauces, Dressings, and Condiments Market</a>
+2. <a href="https://www.expertmarketresearch.com/reports/sauces-market" target="_blank">Global Sauces Market Report and Forecast 2021-2026</a></p>
+"""
         else:
             drafted_text3 = ""
    
     elif section_name in ["Management"]:
         if client == 'New World Group':
-            drafted_text3 = "<p>The CEO of New World Group is Dr. Cheng Chi Kong, Adrian SBS JP, who was appointed as an Executive Director in March 2007 and has held various positions within the company since then. He oversees the groupĄĶs strategy and ecosystem of property development, infrastructure, retail, health and wellness, insurance, education, and hospitality projects. He graduated from Harvard University with a Bachelor of Arts (Cum Laude) honours degree and studied Japanese culture in Japan for a year.The Chairman of the New World Group is Dr. Cheng Kar Shun, Henry GBM GBS, who has been with the company since 1972. He was appointed as Director in October 1972, became an Executive Director in 1973, served as Managing Director from 1989, and has been Chairman since March 2012. He is also the Chairman of CTF Education Group.Ms. Echo Huang Shaomei and Ms. Jenny Chiu Wai-Han were appointed as executive directors of the company in May 2020. Ms. Huang Shaomei is responsible for Mainland China projects, while Ms. Chiu Wai-Han is responsible for human resources and talent development.</p>"
+            drafted_text3 = """<p>The CEO of New World Group is Dr. Cheng Chi Kong, Adrian SBS JP, who was appointed as an Executive Director in March 2007 and has held various positions within the company since then. He oversees the groupĄĶs strategy and ecosystem of property development, infrastructure, retail, health and wellness, insurance, education, and hospitality projects. He graduated from Harvard University with a Bachelor of Arts (Cum Laude) honours degree and studied Japanese culture in Japan for a year.The Chairman of the New World Group is Dr. Cheng Kar Shun, Henry GBM GBS, who has been with the company since 1972. He was appointed as Director in October 1972, became an Executive Director in 1973, served as Managing Director from 1989, and has been Chairman since March 2012. He is also the Chairman of CTF Education Group.Ms. Echo Huang Shaomei and Ms. Jenny Chiu Wai-Han were appointed as executive directors of the company in May 2020. Ms. Huang Shaomei is responsible for Mainland China projects, while Ms. Chiu Wai-Han is responsible for human resources and talent development.</p>
+            <p>
+  Sources: 1.
+  <a
+    href="https://www.nwd.com.hk/corporate/about-NWD/list-directors-role-and-function"
+    target="_blank"
+    >List of Directors and Roles and Functions - New World Development</a
+  >
+  2.
+  <a href="https://hk.linkedin.com/in/adrian-cheng-chi-kong" target="_blank"
+    >Adrian Cheng - Chief Executive Officer and Executive Vice-Chairman - New
+    World Development Company Limited - LinkedIn</a
+  >
+</p>
+           
+            """
         elif client == 'China Evergrande':
-            drafted_text3 = "<p>The Chairman of the Board of Directors of China Evergrande is Hui Ka Yan. He is also the Party Secretary of Evergrande Group and a Professor of Management Science. He has been a member of the 11th National Committee of Chinese People's Political Consultative Conference, and a member of the Standing Committee of the 12th and 13th Chinese People's Political Consultative Conference. The company's executive director and president is Siu, who is also an executive director and the chairman of the board of China Evergrande New Energy Vehicle Group Limited. Other key executives include Mr. Duan Shengli, Chairman of Evergrande Tourism Group; Shi Shouming, Vice President of Evergrande Group and Chairman of Evergrande Health Group; and Liu Yongzhuo, President of Evergrande New Energy Automotive Group, Chairman of Evergrande New Energy Technology Group, and Vice Chairman of Evergrande Health Group.</p>"
+            drafted_text3 = """
+            <p>
+    The Chairman of the Board of Directors of China Evergrande is Hui Ka Yan. He
+    is also the Party Secretary of Evergrande Group and a Professor of Management
+    Science. He has been a member of the 11th National Committee of Chinese
+    People's Political Consultative Conference, and a member of the Standing
+    Committee of the 12th and 13th Chinese People's Political Consultative
+    Conference. The company's executive director and president is Siu, who is also
+    an executive director and the chairman of the board of China Evergrande New
+    Energy Vehicle Group Limited. Other key executives include Mr. Duan Shengli,
+    Chairman of Evergrande Tourism Group; Shi Shouming, Vice President of
+    Evergrande Group and Chairman of Evergrande Health Group; and Liu Yongzhuo,
+    President of Evergrande New Energy Automotive Group, Chairman of Evergrande
+    New Energy Technology Group, and Vice Chairman of Evergrande Health Group.
+  </p>
+  <p>
+    Sources: 1.
+    <a href="https://www.evergrande.com/ir/en/directors.asp" target="_blank"
+      >Evergrande Group - Investor Relations - Directors and Senior Management</a
+    >
+    2.
+    <a href="https://www.evergrande.com/ir/en/corpinfo.asp" target="_blank"
+      >Evergrande Group - Investor Relations - Corporate Information</a
+    >
+    3.
+    <a href="https://www.evergrande.com/en/About/Team" target="_blank"
+      >Evergrande Group - About Evergrande</a
+    >
+    4.
+    <a
+      href="https://www.nytimes.com/2022/07/23/business/china-evergrande-ceo-resigns.html"
+      target="_blank"
+      >China Evergrande C.E.O. Resigns After Loans Come Under Scrutiny</a
+    >
+    5.
+    <a
+      href="https://www.marketscreener.com/business-leaders/Shawn-Siu-15331/biography/"
+      target="_blank"
+      >Shawn Siu - Biography - MarketScreener.com</a
+    >
+    6.
+    <a href="https://en.wikipedia.org/wiki/Hui_Ka_Yan" target="_blank"
+      >Hui Ka Yan - Wikipedia</a
+    >
+    7.
+    <a
+      href="https://www.nytimes.com/2023/10/02/business/china-evergrande-founder-hui-ka-yan.html"
+      target="_blank"
+      >China Evergrande's Founder: The Rise and Fall of Hui Ka Yan - The New York
+      Times</a
+    >
+    8.
+    <a
+      href="https://www.asiafinancial.com/hui-ka-yan-and-the-rise-and-fall-of-china-evergrande"
+      target="_blank"
+      >Hui Ka Yan and The Rise and Fall of China Evergrande</a
+    >
+</p>
+
+            """
         elif client == 'Techtronic industries':
             drafted_text3 = """<p>The key executives of Techtronic Industries are:</p>
 <ol>
